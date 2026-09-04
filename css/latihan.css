@@ -1,0 +1,140 @@
+/* =============================================
+   LATIHAN — halaman mengerjakan soal
+   ============================================= */
+.practice-page {
+    background: var(--color-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.practice-main {
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.2rem 3rem;
+}
+
+.practice-head {
+    margin-bottom: 1.4rem;
+}
+
+.practice-kicker {
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.practice-head h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-top: 0.2rem;
+}
+
+.practice-status {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin: 1rem 0;
+}
+
+/* format form tampil bila tak hidden */
+.practice-form[hidden] { display: none; }
+
+/* kartu soal */
+.question-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: 1.3rem 1.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.question-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+
+.q-num {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* BADGE LEVEL */
+.q-level {
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+}
+
+.q-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* opsi jawaban */
+.q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.q-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.q-option:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+}
+
+.q-option input[type="radio"] {
+    margin-top: 0.25rem;
+    accent-color: var(--color-primary);
+}
+
+.opt-key {
+    font-weight: 700;
+}
+
+.opt-text {
+    color: var(--color-text);
+}
+
+/* submit */
+.practice-submit-row {
+    margin: 1.4rem 0;
+}
+
+.practice-submit {
+    max-width: 300px;
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* hasil */
+.practice-result {
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-md);
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+}
