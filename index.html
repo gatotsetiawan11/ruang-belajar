@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk - Latihan Siswa</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body class="auth-page">
+
+    <main class="auth-shell">
+
+        <section class="auth-card">
+
+            <div class="auth-brand">
+                <div class="auth-logo">✕</div>
+                <div>
+                    <h1>Latihan Siswa</h1>
+                    <p>Belajar dan berlatih sesuai kemampuanmu.</p>
+                </div>
+            </div>
+
+
+            <!-- ============================================= -->
+            <!-- STEP 1 - PILIH IDENTITAS                     -->
+            <!-- ============================================= -->
+            <section id="nisnSection" class="auth-section">
+
+                <div class="auth-heading">
+                    <span class="auth-badge">Masuk</span>
+                    <h2>Masukkan Identitas</h2>
+                    <p>Gunakan NISN, nomor WhatsApp, atau email.</p>
+                </div>
+
+                <form id="nisnForm" autocomplete="off" novalidate>
+
+                    <div class="form-group">
+                        <label for="identityType">Jenis Akun</label>
+                        <select id="identityType" class="auth-input" autocomplete="off">
+                            <option value="nisn">NISN</option>
+                            <option value="phone">Nomor WhatsApp</option>
+                            <option value="email">Email</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nisnInput" id="identityLabel">NISN</label>
+                        <input
+                            id="nisnInput"
+                            class="auth-input"
+                            type="text"
+                            inputmode="text"
+                            maxlength="100"
+                            placeholder="10 digit NISN"
+                            autocomplete="off"
+                            required
+                        >
+                        <p class="field-help" id="fieldHelp">NISN terdiri dari tepat 10 angka.</p>
+                    </div>
+
+                    <div id="nisnMessage" class="auth-message" hidden></div>
+
+                    <button id="nisnButton" class="auth-primary-button" type="submit">
+                        Lanjut
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- ============================================= -->
+            <!-- STEP 2 - PIN                                 -->
+            <!-- ============================================= -->
+            <section id="pinSection" class="auth-section" hidden>
+
+                <div class="auth-heading">
+                    <span class="auth-badge">Masuk</span>
+                    <h2>Masukkan PIN</h2>
+                    <p>Masukkan PIN 6 digit untuk melanjutkan.</p>
+                </div>
+
+                <div class="identity-box">
+                    <div class="identity-item">
+                        <span class="identity-label">Identitas</span>
+                        <strong id="selectedIdentity" class="identity-value">-</strong>
+                    </div>
+                </div>
+
+                <form id="pinForm" autocomplete="off" novalidate>
+
+                    <div class="form-group">
+                        <label for="pinInput">PIN</label>
+                        <input
+                            id="pinInput"
+                            class="auth-input"
+                            type="password"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            maxlength="6"
+                            placeholder="6 digit PIN"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+
+                    <div id="pinMessage" class="auth-message" hidden></div>
+
+                    <button id="pinButton" class="auth-primary-button" type="submit">
+                        Masuk
+                    </button>
+
+                </form>
+
+                <div class="auth-secondary-action">
+                    <a id="changeNisnButton" href="#">Gunakan identitas lain</a>
+                </div>
+
+            </section>
+
+
+            <!-- ============================================= -->
+            <!-- PIN RESET / AKTIVASI                          -->
+            <!-- ============================================= -->
+            <section id="pinResetSection" class="auth-section" hidden>
+
+                <div class="pending-icon">✓</div>
+
+                <div class="auth-heading pending-heading">
+                    <span class="auth-badge">Aktivasi</span>
+                    <h2>Setel PIN Baru</h2>
+                    <p>
+                        Akun Anda perlu menyetel PIN baru sebelum dapat digunakan.
+                        Anda akan diarahkan ke halaman aktivasi.
+                    </p>
+                </div>
+
+                <div class="pending-info">
+                    <span>Identitas</span>
+                    <strong id="pinResetIdentity">-</strong>
+                </div>
+
+                <button id="goActivationButton" class="auth-primary-button" type="button">
+                    Lanjut ke Aktivasi
+                </button>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
+
+</body>
+</html>
