@@ -1,140 +1,79 @@
-/* =============================================
-   LATIHAN — halaman mengerjakan soal
-   ============================================= */
-.practice-page {
-    background: var(--color-bg);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+/* ============================================================
+   RUANG BELAJAR — LATIHAN.CSS (LENGKAP)
+   Halaman: latihan.html
+   ============================================================ */
+
+/* ---------- Reset dasar ---------- */
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:system-ui,'Segoe UI',Roboto,Arial,sans-serif;
+  background:#f8fafc;
+  color:#0f172a;
 }
 
-.practice-main {
-    max-width: 760px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem 1.2rem 3rem;
-}
+/* ---------- Kerangka halaman ---------- */
+.exercise-page{max-width:760px;margin:0 auto;padding:1rem 1rem 3rem;}
+.exercise-topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 0;border-bottom:1px solid #e2e8f0;margin-bottom:1rem;}
+.exercise-topbar h1{font-size:1.25rem;margin:0;font-weight:800;}
+.back-link{color:#4f46e5;font-weight:600;text-decoration:none;font-size:.9rem;}
+.back-link:hover{text-decoration:underline;}
 
-.practice-head {
-    margin-bottom: 1.4rem;
-}
+/* ---------- Status & judul ---------- */
+#practiceStatus{color:#64748b;margin:.2rem 0 1rem;font-size:.9rem;}
+.exercise-title{font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
 
-.practice-kicker {
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    font-weight: 700;
-}
+/* ---------- Kartu soal ---------- */
+.question-card{
+  background:#fff;border:1px solid #e2e8f0;border-radius:.6rem;
+  padding:1rem 1.1rem;margin-bottom:1rem;}
+.question-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+.q-num{font-weight:800;color:#334155;font-size:.9rem;}
+.q-level{color:#fff;font-size:.72rem;font-weight:700;padding:.2rem .6rem;border-radius:999px;}
+.q-text{font-size:1rem;line-height:1.5;margin:0 0 .9rem;}
 
-.practice-head h1 {
-    font-size: 1.6rem;
-    font-weight: 800;
-    margin-top: 0.2rem;
-}
+/* ---------- Pilihan jawaban ---------- */
+.q-options{display:flex;flex-direction:column;gap:.5rem;}
+.q-option{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.6rem .8rem;border:1px solid #e2e8f0;border-radius:.5rem;
+  cursor:pointer;transition:background .15s,border .15s;}
+.q-option:hover{background:#f1f5f9;}
+.q-option input{accent-color:#4f46e5;flex:0 0 auto;}
+.opt-key{font-weight:800;color:#4f46e5;width:1.2rem;}
+.opt-text{flex:1;}
 
-.practice-status {
-    color: var(--color-text-muted);
-    font-size: 0.95rem;
-    margin: 1rem 0;
-}
+/* ---------- Tombol kirim ---------- */
+.form-actions{margin-top:1rem;text-align:right;}
+.auth-primary-button{
+  background:#4f46e5;color:#fff;border:none;border-radius:.5rem;
+  padding:.65rem 1.6rem;font-size:1rem;font-weight:700;cursor:pointer;}
+.auth-primary-button:hover{background:#4338ca;}
+.auth-primary-button:disabled{background:#a5b4fc;cursor:not-allowed;}
 
-/* format form tampil bila tak hidden */
-.practice-form[hidden] { display: none; }
+/* ---------- LAPORAN HASIL (diletakkan paling bawah) ---------- */
+.practice-result{display:block;padding:1.4rem;border-radius:.6rem;}
+.report-title{font-weight:800;font-size:1.15rem;margin-bottom:1rem;}
+.report-grid{display:flex;gap:1rem;margin-bottom:1rem;}
+.report-stat{
+  flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:.5rem;
+  padding:.8rem;text-align:center;}
+.report-stat span{display:block;font-size:.75rem;color:#64748b;}
+.report-stat b{font-size:1.4rem;}
+.report-msg{margin:.5rem 0 1rem;line-height:1.5;}
 
-/* kartu soal */
-.question-card {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-card);
-    padding: 1.3rem 1.4rem;
-    margin-bottom: 1.2rem;
-}
+.report-actions{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:.6rem;}
+.report-action{display:inline-block;text-decoration:none;text-align:center;}
+.link-dash{color:#4f46e5;font-weight:600;}
+.link-dash:hover{text-decoration:underline;}
 
-.question-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.6rem;
-}
+/* status warna laporan */
+.report-pass{background:#ecfdf5;border:1px solid #a7f3d0;}
+.report-fail{background:#fef2f2;border:1px solid #fecaca;}
 
-.q-num {
-    font-weight: 800;
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-}
-
-/* BADGE LEVEL */
-.q-level {
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.25rem 0.7rem;
-    border-radius: 999px;
-    letter-spacing: 0.02em;
-}
-
-.q-text {
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-/* opsi jawaban */
-.q-options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.q-option {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    padding: 0.65rem 0.9rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-}
-
-.q-option:hover {
-    border-color: var(--color-primary);
-    background: var(--color-primary-soft);
-}
-
-.q-option input[type="radio"] {
-    margin-top: 0.25rem;
-    accent-color: var(--color-primary);
-}
-
-.opt-key {
-    font-weight: 700;
-}
-
-.opt-text {
-    color: var(--color-text);
-}
-
-/* submit */
-.practice-submit-row {
-    margin: 1.4rem 0;
-}
-
-.practice-submit {
-    max-width: 300px;
-    width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* hasil */
-.practice-result {
-    padding: 1rem 1.2rem;
-    border-radius: var(--radius-md);
-    background: #ecfdf5;
-    border: 1px solid #a7f3d0;
-    color: #065f46;
-}
+/* gaya tombol "Ulangi" di dalam laporan */
+.report-action.auth-primary-button{
+  background:#4f46e5;color:#fff;padding:.55rem 1.2rem;border-radius:.4rem;font-weight:700;}
+.report-action.auth-primary-button:hover{background:#4338ca;}
