@@ -1,0 +1,92 @@
+/* =============================================
+   LATIHAN SISWA — TEMA GLOBAL
+   ============================================= */
+
+/* ---- Variabel tema ---- */
+:root {
+    --color-primary: #4f46e5;      /* indigo */
+    --color-primary-dark: #4338ca;
+    --color-primary-soft: #eef2ff;
+    --color-accent: #10b981;        /* hijau aksen sukses */
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
+
+    --color-text: #1e293b;
+    --color-text-muted: #64748b;
+    --color-bg: #f1f5f9;
+    --color-surface: #ffffff;
+    --color-border: #e2e8f0;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+
+    --shadow-card: 0 4px 16px rgba(51, 65, 85, 0.08);
+    --shadow-float: 0 10px 30px rgba(51, 65, 85, 0.15);
+
+    --font: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ---- Reset dasar ---- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+input,
+select {
+    font-family: inherit;
+}
+
+/* ---- Utilitas kecil ---- */
+.is-hidden {
+    display: none !important;
+}
+
+/* pesan / badge umum */
+.auth-badge,
+.dash-welcome-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+}
