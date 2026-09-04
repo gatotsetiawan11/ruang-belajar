@@ -1,80 +1,105 @@
 // ======================================================
-// DASHBOARD
-// Halaman setelah login berhasil.
-// - memvalidasi sesi lokal
-// - menampilkan identitas dari sesi (yang disimpan saat login)
-// - tombol keluar
-//
-// CATATAN sesi saat ini adalah token acak lokal (development).
+// DASHBOARD (v2 - sesi nyata via get_my_profile)
 // ======================================================
-
 document.addEventListener("DOMContentLoaded", initDashboard);
 
-// storage keys (harus sama dengan login.js)
 const LOGIN_MODE_KEY    = "login_mode";
 const SESSION_TOKEN_KEY = "student_session_token";
 
-// placeholder utk info profil (opsional: saat ini hanya token & identifier yg tersimpan)
-// Bila diperlukan ambil detail siswa via RPC berdasarkan token - utk saat ini
-// dashboard memakai info yg dikirim saat login (student_code tdk disimpan penuh).
-// Di sini kita tampilkan yg tersedia; untuk detail lengkap perlu endpoint profile.
+// dom refs
+const userInitialEl   = document.getElementById("userInitial");
+const navbarNameEl    = document.getElementById("navbarUserName");
+const heroNameEl      = document.getElementById("heroUserName");
 
-const sessionTokenEl = document.getElementById("sessionNote");
-const userInitialEl  = document.getElementById("userInitial");
-const navbarNameEl   = document.getElementById("navbarUserName");
-const logoutBtn      = document.getElementById("logoutButton");
-
-// Field yang tampil
-const heroNameEl    = document.getElementById("heroUserName");
-const profileNameEl = document.getElementById("profileName");
-const profileNisnEl = document.getElementById("profileNisn");
-const profileCodeEl = document.getElementById("profileCode");
-const profileClassEl= document.getElementById("profileClass");
+const profileNameEl   = document.getElementById("profileName");
+const profileNisnEl   = document.getElementById("profileNisn");
+const profileCodeEl   = document.getElementById("profileCode");
+const profileClassEl  = document.getElementById("profileClass");
+const sessionNoteEl   = document.getElementById("sessionNote");
+const logoutBtn       = document.getElementById("logoutButton");
 
 
-function initDashboard() {
-    const mode = sessionStorage.getItem(LOGIN_MODE_KEY);
-
-    // Belum login (mode bukan 'student') -> lempar ke index
-    if (mode !== "student") {
-        window.location.href = "index.html";
-        return;
-    }
-
-    // ambil token (validasi minimal: ada)
+async function initDashboard() {
+    const mode  = sessionStorage.getItem(LOGIN_MODE_KEY);
     const token = sessionStorage.getItem(SESSION_TOKEN_KEY);
-    if (!token) {
+
+    // belum login -> index
+    if (mode !== "student" || !token) {
         window.location.href = "index.html";
         return;
     }
 
-    // --- isi UI ---
-    // Info nama/nisn: FLOW LOGIN BELUM MENYIMPAN detail lengkap. Karena itu
-    // kita tampilkan petunjuk & data sesi yg tersedia.
-    // Untuk produksi, idealnya RPC profile dipanggil utk ambil nama dari token.
-    // (dibahas di catatan lanjutan.)
-
-    // contoh default
-    const fallbackName = "Siswa";
-    heroNameEl.textContent = fallbackName;
-    navbarNameEl.textContent = fallbackName;
-    profileNameEl.textContent = "(ambil dari progres / future RPC)";
-    userInitialEl.textContent = "S";
-
-    // catatan sesi utk keperluan dev
-    if (sessionTokenEl) {
-        const shortToken = token.length > 16 ? token.slice(0, 16) + "…" : token;
-        sessionTokenEl.textContent = "Mode pengembangan — token sesi (lokal): " + shortToken;
+    // set default segera (anti-flicker) dari cache lokal
+    const cachedName = sessionStorage.getItem("student_name");
+    if (cachedName) {
+        navbarNameEl.textContent = cachedName;
+        userInitialEl.textContent = (cachedName[0] || "S").toUpperCase();
     }
 
-    // event logout
-    logoutBtn.addEventListener("click", handleLogout);
+    // 1. validasi sesi & ambil profil dari server
+    await loadProfile(token);
+
+    logoutBtn.addEventListener("click", () => handleLogout(token));
 }
 
 
-function handleLogout() {
-    if (confirm("Yakin ingin keluar?")) {
+async function loadProfile(token) {
+    try {
+        const { data, error } = await window.db.rpc("get_my_profile", { p_token: token });
+
+        if (error) throw error;
+        if (!data || data.length === 0) throw new Error("Respons kosong.");
+        const p = data[0];
+
+        if (!p.success) {
+            // token tak valid / kadaluarsa -> kembalikan ke login & bersihkan
+            showFatal(p.message || "Sesi berakhir.");
+            return;
+        }
+
+        // isi UI dari profil server (sumber kebenaran)
+        const name = p.full_name || "Siswa";
+
+        navbarNameEl.textContent  = name;
+        heroNameEl.textContent    = name;
+        userInitialEl.textContent = (name[0] || "S").toUpperCase();
+
+        profileNameEl.textContent  = p.full_name || "-";
+        profileNisnEl.textContent  = p.nisn || "-";
+        profileCodeEl.textContent  = p.student_code || "-";
+        profileClassEl.textContent = p.class_name || "-";
+
+        sessionStorage.setItem("student_name", p.full_name || "");
+        sessionStorage.setItem("student_nisn", p.nisn || "");
+
+    } catch (e) {
+        console.error("Profile load error:", e);
+        showFatal("Tidak dapat memuat profil.");
+    }
+}
+
+
+// sesi bermasalah -> bersihkan & ke login
+function showFatal(msg) {
+    if (sessionNoteEl) sessionNoteEl.textContent = msg;
+    // tampilkan tombol keluar utk kembali
+    // (atau langsung logout otomatis). Utk keamanan sederhana:
+    // kita beri waktu lalu lempar ke login
+    setTimeout(() => {
         sessionStorage.clear();
         window.location.href = "index.html";
+    }, 2000);
+}
+
+
+async function handleLogout(token) {
+    try {
+        // panggil RPC logout utk hapus sesi di server
+        if (token) await window.db.rpc("logout_student", { p_token: token });
+    } catch (e) {
+        console.warn("Logout server warning:", e);
     }
+
+    sessionStorage.clear();
+    window.location.href = "index.html";
 }
