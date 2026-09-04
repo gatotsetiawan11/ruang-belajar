@@ -10,25 +10,23 @@
   <div class="app-shell">
     <header class="topbar">
       <div>
-        <h1 class="brand">Ruang Belajar</h1>
+        <h1 class="brand">📚 Ruang Belajar</h1>
         <p class="greet" id="greet">Halo!</p>
       </div>
       <div class="userbox">
         <span class="badge-kelas" id="kelasBadge">-</span>
-        <button id="logoutBtn" class="auth-secondary-button">Keluar</button>
+        <button id="logoutBtn" class="btn-outline">Keluar</button>
       </div>
     </header>
 
     <main class="content">
-      <!-- ringkasan progres keseluruhan -->
       <section class="progress-summary card">
         <div><b id="statLulus">0</b><span>Latihan Lulus</span></div>
-        <div><b id="statSelesai">0</b><span>Bab Aktif</span></div>
-        <div><b id="statSemua">0</b><span>Total Latihan</span></div>
+        <div><b id="statActive">0</b><span>Bab Aktif</span></div>
+        <div><b id="statTotal">0</b><span>Total Latihan</span></div>
       </section>
 
-      <!-- daftar bab -->
-      <h2 class="section-title">Mata Pelajaran / Bab</h2>
+      <h2 class="section-title">Pilih Bab untuk Mulai Belajar</h2>
       <div id="chapterList" class="chapter-list"></div>
     </main>
   </div>
