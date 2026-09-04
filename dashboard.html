@@ -1,103 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Latihan Siswa</title>
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ruang Belajar · Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
-
-<body class="dashboard-page">
-
-    <!-- ======== TOP NAVBAR ======== -->
-    <header class="dash-navbar">
-        <div class="dash-brand">
-            <span class="dash-logo">✕</span>
-            <span class="dash-brand-name">Latihan Siswa</span>
-        </div>
-
-        <nav class="dash-nav-links">
-            <a href="dashboard.html" class="dash-nav-link is-active">Beranda</a>
-            <a href="#" class="dash-nav-link">Materi</a>
-            <a href="#" class="dash-nav-link">Latihan</a>
-        </nav>
-
-        <div class="dash-user">
-            <span class="dash-avatar" id="userInitial">-</span>
-            <span class="dash-user-names" id="navbarUserName">...</span>
-            <button id="logoutButton" class="dash-logout" type="button" title="Keluar">Keluar</button>
-        </div>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1 class="brand">Ruang Belajar</h1>
+        <p class="greet" id="greet">Halo!</p>
+      </div>
+      <div class="userbox">
+        <span class="badge-kelas" id="kelasBadge">-</span>
+        <button id="logoutBtn" class="auth-secondary-button">Keluar</button>
+      </div>
     </header>
 
-    <!-- ======== HERO / WELCOME ======== -->
-    <section class="dash-hero">
-        <div class="dash-hero-inner">
-            <span class="dash-welcome-badge">Selamat datang kembali 👋</span>
-            <h1 class="dash-hero-title">Halo, <span id="heroUserName">Siswa</span>!</h1>
-            <p class="dash-hero-subtitle">
-                Siap belajar hari ini? Pilih kartu di bawah untuk mulai berlatih.
-            </p>
-        </div>
-    </section>
+    <main class="content">
+      <!-- ringkasan progres keseluruhan -->
+      <section class="progress-summary card">
+        <div><b id="statLulus">0</b><span>Latihan Lulus</span></div>
+        <div><b id="statSelesai">0</b><span>Bab Aktif</span></div>
+        <div><b id="statSemua">0</b><span>Total Latihan</span></div>
+      </section>
 
-    <!-- ======== PROFILE CARD (data yang terganti tiap re-login, utk dev bisa di-refresh) ======== -->
-    <section class="dash-section">
-        <h2 class="dash-section-title">Profil Kamu</h2>
+      <!-- daftar bab -->
+      <h2 class="section-title">Mata Pelajaran / Bab</h2>
+      <div id="chapterList" class="chapter-list"></div>
+    </main>
+  </div>
 
-        <div class="dash-profile-card">
-            <!-- KONFIRMASI: isi nilai lewat JS. Utk saat ini nilai dari flow login,
-                 sebagian menampilkan placeholder sampai data profil di-ambil RPC terpisah. -->
-            <div class="dash-profile-field">
-                <span class="label">Nama</span>
-                <span class="value" id="profileName">-</span>
-            </div>
-            <div class="dash-profile-field">
-                <span class="label">NISN</span>
-                <span class="value" id="profileNisn">-</span>
-            </div>
-            <div class="dash-profile-field">
-                <span class="label">Kode Siswa</span>
-                <span class="value" id="profileCode">-</span>
-            </div>
-            <div class="dash-profile-field">
-                <span class="label">Kelas</span>
-                <span class="value" id="profileClass">-</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ======== MODUL KARTU ======== -->
-    <section class="dash-section">
-        <h2 class="dash-section-title">Pilih Aktivitas</h2>
-        <div class="dash-grid">
-
-            <a href="#" class="dash-card">
-                <div class="dash-card-top">📚</div>
-                <h3>Materi Ajar</h3>
-                <p>Pelajari materi pelajaran per bab.</p>
-            </a>
-
-            <a href="#" class="dash-card">
-                <div class="dash-card-top">✏️</div>
-                <h3>Latihan Soal</h3>
-                <p>Kerjakan soal latihan dan lihat nilaimu.</p>
-            </a>
-
-            <a href="#" class="dash-card">
-                <div class="dash-card-top">📊</div>
-                <h3>Riwayat</h3>
-                <p>Lihat progres dan nilai latihan sebelumnya.</p>
-            </a>
-
-        </div>
-    </section>
-
-    <p class="dash-note" id="sessionNote"></p>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/config.js"></script>
-    <script src="js/dashboard.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
