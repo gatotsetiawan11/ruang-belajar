@@ -1,51 +1,168 @@
-<!doctype html>
+
+```html
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ruang Belajar · Dashboard</title>
-  <link rel="stylesheet" href="css/dashboard.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Mapel - Belajar</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* Header / sapaan */
+    header {
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.35rem;
+    }
+
+    header p {
+      font-size: 1.05rem;
+      opacity: 0.9;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 0.9rem;
+      background: rgba(255,255,255,0.2);
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    /* Grid kartu mapel */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 1.25rem;
+      padding: 1.6rem 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      transition: transform .18s ease, box-shadow .18s ease;
+      border-top: 6px solid transparent;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 34px rgba(0,0,0,0.18);
+    }
+
+    .card:active { transform: translateY(-2px); }
+
+    .card .emoji {
+      font-size: 3rem;
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.9rem;
+    }
+
+    .card .name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: #111827;
+    }
+
+    .card .cls {
+      font-size: 0.82rem;
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    /* Warna aksen tiap mapel */
+    .c-pancasila    { border-top-color: #dc2626; }   /* merah */
+    .c-matematika   { border-top-color: #2563eb; }   /* biru */
+    .c-bindo        { border-top-color: #059669; }   /* hijau */
+    .c-ipas         { border-top-color: #d97706; }   /* oranye */
+    .c-bing         { border-top-color: #7c3aed; }   /* ungu */
+  </style>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div>
-        <h1 class="brand">📚 Ruang Belajar</h1>
-        <p class="greet" id="greet">Halo!</p>
-      </div>
-      <div class="userbox">
-        <span class="badge-kelas" id="kelasBadge">-</span>
-        <button id="logoutBtn" class="btn-outline">Keluar</button>
-      </div>
+
+  <div class="container">
+    <header>
+      <h1>📚 Pilih Mata Pelajaran</h1>
+      <p>Halo! Pilih mapel yang ingin kamu pelajari hari ini.</p>
+      <span class="badge">Kelas 1 &amp; 2</span>
     </header>
 
-    <main class="content">
-      <section class="progress-summary card">
-        <div><b id="statLulus">0</b><span>Latihan Lulus</span></div>
-        <div><b id="statActive">0</b><span>Bab Aktif</span></div>
-        <div><b id="statTotal">0</b><span>Total Latihan</span></div>
-      </section>
+    <div class="grid">
 
-      <h2 class="section-title">
-            Pilih Kelas
-      </h2>
-
-      <div id="classList" class="class-list"></div>
-
-      <div id="mapelSection" hidden>
-
-          <h2 class="section-title">
-          Mata Pelajaran Kelas 3
-          </h2>
-
-          <div id="mapelList" class="mapel-list"></div>
-
+      <!-- Pancasila -->
+      <div class="card c-pancasila" onclick="pilihMapel('Pancasila')">
+        <span class="emoji">🦅</span>
+        <div class="name">Pancasila</div>
+        <div class="cls">Pendidikan Pancasila</div>
       </div>
-    </main>
+
+      <!-- Matematika -->
+      <div class="card c-matematika" onclick="pilihMapel('Matematika')">
+        <span class="emoji">➕</span>
+        <div class="name">Matematika</div>
+        <div class="cls">Kelas 1 &amp; 2</div>
+      </div>
+
+      <!-- Bahasa Indonesia -->
+      <div class="card c-bindo" onclick="pilihMapel('Bahasa Indonesia')">
+        <span class="emoji">📖</span>
+        <div class="name">Bahasa Indonesia</div>
+        <div class="cls">Kelas 1 &amp; 2</div>
+      </div>
+
+      <!-- IPAS -->
+      <div class="card c-ipas" onclick="pilihMapel('IPAS')">
+        <span class="emoji">🔬</span>
+        <div class="name">IPAS</div>
+        <div class="cls">Ilmu Pengetahuan Alam &amp; Sosial</div>
+      </div>
+
+      <!-- Bahasa Inggris -->
+      <div class="card c-bing" onclick="pilihMapel('Bahasa Inggris')">
+        <span class="emoji">🌍</span>
+        <div class="name">Bahasa Inggris</div>
+        <div class="cls">Kelas 1 &amp; 2</div>
+      </div>
+
+    </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/config.js"></script>
-  <script src="js/dashboard.js"></script>
+  <script>
+    // Pindah ke halaman daftar Bab sesuai mapel yang dipilih
+    function pilihMapel(mapel) {
+      // Sesuaikan nama file & parameter dengan halaman Bab Anda (mis. bab.html)
+      window.location.href = 'bab.html?subject=' + encodeURIComponent(mapel);
+    }
+  </script>
+
 </body>
 </html>
+```
