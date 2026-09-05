@@ -3,1148 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan Soal</title>
+    <title>Latihan IPAS Bab 1</title>
     <style>
-        /* ===== RESET & VARIABEL ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        :root {
-            --primary: #667eea;
-            --primary-dark: #5a67d8;
-            --accent: #764ba2;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #1a202c;
-        }
-
-        /* ===== OVERLAY AGAR TERBACA ===== */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(3px);
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px 15px 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ===== HEADER ===== */
-        .header-kartu {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
-        .header-kartu h1 {
-            font-size: 1.8rem;
-            color: #2d3748;
-            margin-bottom: 5px;
-        }
-        .header-kartu .sub-judul {
-            color: #718096;
-            font-size: 0.95rem;
-        }
-        .badge-mapel {
-            display: inline-block;
-            background: var(--primary);
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-        .badge-bab {
-            display: inline-block;
-            background: #e2e8f0;
-            color: #4a5568;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-top: 5px;
-            font-size: 0.85rem;
-            margin-left: 8px;
-        }
-
-        /* ===== KARTU LEVEL ===== */
-        .level-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .level-card h3 {
-            color: #2d3748;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .level-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .btn-level {
-            padding: 10px 18px;
-            border: 2px solid #cbd5e0;
-            border-radius: 25px;
-            background: #f7fafc;
-            color: #4a5568;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn-level:hover {
-            background: #edf2f7;
-            border-color: var(--primary);
-        }
-        .btn-level.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .informasi-jumlah {
-            background: #f7fafc;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            color: #4a5568;
-            border-left: 4px solid var(--primary);
-            text-align: left;
-        }
-        .informasi-jumlah b { color: var(--accent); }
-
-        /* ===== TOMBOL MULAI ===== */
-        .btn-mulai {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-mulai:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-        .btn-mulai:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* ===== AREA KUIS ===== */
-        .quiz-area { display: none; }
-        .quiz-area.show { display: block; }
-
-        /* Top bar progress */
-        .top-bar {
-            background: #fff;
-            border-radius: 16px;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .info-badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #ebf4ff;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-        .info-badge.persen {
-            background: #fef9c3;
-            color: #a16207;
-        }
-        .progress-wrapper {
-            flex: 1;
-            min-width: 60px;
-            height: 10px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 0 10px;
-        }
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--success));
-            border-radius: 10px;
-            transition: width 0.5s ease;
-            width: 10%;
-        }
-
-        /* Kartu soal */
-        .soal-card {
-            background: #fff;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .badge-soal {
-            display: inline-block;
-            background: var(--accent);
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-        }
-        .soal-teks {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .soal-teks p {
-            font-weight: 400;
-            font-size: 0.95rem;
-            color: #718096;
-            margin-top: 5px;
-        }
-
-        /* Opsi jawaban */
-        .opsi-list { display: flex; flex-direction: column; gap: 10px; }
-        .opsi-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 18px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            background: #fafbfc;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 1rem;
-            color: #2d3748;
-            text-align: left;
-            width: 100%;
-        }
-        .opsi-btn:hover {
-            border-color: var(--primary);
-            background: #ebf4ff;
-        }
-        .opsi-btn .huruf {
-            background: var(--primary);
-            color: #fff;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        .opsi-btn.selected {
-            border-color: var(--primary);
-            background: #ebf4ff;
-        }
-        .opsi-btn.correct {
-            border-color: var(--success);
-            background: #f0fdf4;
-        }
-        .opsi-btn.correct .huruf {
-            background: var(--success);
-        }
-        .opsi-btn.wrong {
-            border-color: var(--danger);
-            background: #fef2f2;
-        }
-        .opsi-btn.wrong .huruf {
-            background: var(--danger);
-        }
-        .opsi-btn:disabled {
-            cursor: not-allowed;
-        }
-
-        .feedback {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-align: center;
-            display: none;
-        }
-        .feedback.benar {
-            background: #f0fdf4;
-            color: #166534;
-            border: 1px solid var(--success);
-            display: block;
-        }
-        .feedback.salah {
-            background: #fef2f2;
-            color: #991b1b;
-            border: 1px solid var(--danger);
-            display: block;
-        }
-
-        /* Tombol aksi (lanjut / selesai) */
-        .btn-aksi {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 15px;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-aksi:hover { background: var(--primary-dark); }
-
-        /* ===== AREA HASIL ===== */
-        .hasil-area { display: none; }
-        .hasil-area.show { display: block; }
-
-        .result-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            margin-bottom: 20px;
-        }
-        .result-score {
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-            margin: 10px 0;
-        }
-        .result-text {
-            font-size: 1.2rem;
-            color: #4a5568;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        .result-detail {
-            background: #f7fafc;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: left;
-            font-size: 0.95rem;
-            color: #4a5568;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        .level-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 800;
-            margin-top: 5px;
-            font-size: 0.9rem;
-        }
-        .level-badge.sangat-baik { background: #f59e0b; color: #fff; }
-        .level-badge.bagus { background: var(--success); color: #fff; }
-        .level-badge.cukup { background: var(--primary); color: #fff; }
-        .level-badge.perlu-belajar { background: #f97316; color: #fff; }
-        .level-badge.ulangi { background: var(--danger); color: #fff; }
-
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .btn-action {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.2s;
-        }
-        .btn-ulang { background: var(--primary); color: #fff; }
-        .btn-ulang:hover { background: var(--primary-dark); }
-        .btn-back {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-        .btn-back:hover { background: #d1d9e3; }
-        .btn-home {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: #fff;
-        }
-        .btn-home:hover { opacity: 0.9; }
-
-        /* Review soal */
-        .review-list { display: none; }
-        .review-list.show { display: block; }
-        .review-title {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #fff;
-            margin: 20px 0 15px;
-        }
-        .review-item {
-            background: #fff;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 5px solid;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        .review-item .pertanyaan {
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-        .review-item .pilihan-review {
-            font-size: 0.9rem;
-            padding: 4px 0;
-            margin-left: 15px;
-        }
-        .review-item .jawaban-benar { color: #166534; }
-        .review-item .jawaban-salah { color: #991b1b; }
-        .review-item .tanda { margin-right: 8px; font-weight: bold; }
-
-        /* Header kecil untuk tombol kembali di atas */
-        .tombol-kembali {
-            text-align: left;
-            margin-bottom: 15px;
-        }
-        .btn-back-top {
-            background: rgba(255, 255, 255, 0.3);
-            border: none;
-            backdrop-filter: blur(5px);
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        .btn-back-top:hover { background: rgba(255, 255, 255, 0.5); }
-
-        .kosong {
-            background: #fff;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            color: #718096;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        .kosong h2 {
-            color: var(--danger);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        .kosong .btn-action { margin-top: 15px; }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .soal-teks { font-size: 1rem; }
-            .opsi-btn { padding: 12px; }
-            .result-score { font-size: 3rem; }
-            .top-bar { flex-wrap: wrap; }
-            .progress-wrapper { order: 3; width: 100%; flex: none; margin: 5px 0; }
-        }
+        body { font-family: Arial; max-width: 700px; margin: 20px auto; padding: 0 15px; background: #f4f7fc; }
+        .kartu { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        h1 { color: #333; text-align: center; }
+        .level-btn { padding: 10px 20px; margin: 5px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .level-btn.aktif { background: #4CAF50; color: white; }
+        .soal { font-size: 1.1em; font-weight: bold; margin-bottom: 15px; }
+        .opsi { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; text-align: left; background: white; font-size: 1em; }
+        .opsi:hover { border-color: #4CAF50; }
+        .opsi.benar { border-color: #4CAF50; background: #e8f5e9; }
+        .opsi.salah { border-color: #f44336; background: #ffebee; }
+        .opsi:disabled { cursor: not-allowed; }
+        button { padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        .btn-lanjut { background: #2196F3; color: white; margin-top: 15px; width: 100%; }
+        .hasil { text-align: center; font-size: 1.3em; margin: 20px 0; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <h1>📝 Latihan IPAS Bab 1: Keajaiban Tubuhku</h1>
 
-        <!-- ===== TOMBOL KEMBALI KE DASHBOARD ===== -->
-        <div class="tombol-kembali">
-            <button class="btn-back-top" onclick="window.location.href='dashboard.html'">
-                🚀 Kembali ke Dashboard
-            </button>
-        </div>
-
-        <!-- ===== HEADER INFO ===== -->
-        <div class="header-kartu">
-            <h1>📝 Latihan Soal</h1>
-            <div>
-                <span class="badge-mapel" id="badgeMapel">-</span>
-                <span class="badge-bab" id="badgeBab">-</span>
-            </div>
-            <p class="sub-judul" style="margin-top:8px;">Pilih tingkat kesulitan lalu mulai berlatih!</p>
-        </div>
-
-        <!-- ===== AREA PEMILIHAN LEVEL (TAMPIL AWAL) ===== -->
-        <div class="level-card" id="areaPilihLevel">
-            <h3>📊 Tingkat Level Soal (Kognitif)</h3>
-            <div class="level-buttons" id="levelButtons">
-                <!-- Tombol level di-generate dari JS -->
-            </div>
-            <div class="informasi-jumlah" id="infoTersedia">
-                Silakan pilih level untuk melihat jumlah soal tersedia.
-            </div>
-            <button class="btn-mulai" id="btnMulai" disabled>
-                🎯 Mulai Latihan (10 Soal)
-            </button>
-        </div>
-
-        <!-- ===== AREA KUIS (TAMPIL SAAT LATIHAN) ===== -->
-        <div class="quiz-area" id="areaQuiz">
-            <!-- Progress bar -->
-            <div class="top-bar">
-                <span class="info-badge">⭐ <span id="skorSekarang">0</span></span>
-                <div class="progress-wrapper">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-                <span class="info-badge persen" id="persenProgress">0%</span>
-            </div>
-
-            <!-- Kartu soal -->
-            <div class="soal-card" id="kartuSoal">
-                <span class="badge-soal" id="nomorSoal">Soal 1/10</span>
-                <div class="soal-teks" id="teksSoal">-</div>
-                <div class="opsi-list" id="opsiList">
-                    <!-- Opsi jawaban di-generate JS -->
-                </div>
-                <div class="feedback" id="feedbackArea"></div>
-            </div>
-
-            <button class="btn-aksi" id="btnAksi">➡️ Soal Berikutnya</button>
-        </div>
-
-        <!-- ===== AREA HASIL ===== -->
-        <div class="hasil-area" id="areaHasil">
-
-            <div class="result-card">
-                <h2>🏆 Hasil Latihan</h2>
-                <div class="result-score" id="skorAkhir">0/10</div>
-                <div id="levelBadgeWrap"></div>
-                <div class="result-text" id="pesanAkhir">-</div>
-                <div class="result-detail" id="detailHasil">
-                    <!-- Diisi JS -->
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn-action btn-ulang" onclick="ulangiLatihan()">🔄 Ulangi</button>
-                    <button class="btn-action btn-back" onclick="resetKePilihLevel()">📋 Pilih Level</button>
-                    <a href="dashboard.html" class="btn-action btn-home">🏠 Dashboard</a>
-                </div>
-            </div>
-
-            <!-- Review jawaban benar/salah -->
-            <h3 class="review-title">📋 Pembahasan</h3>
-            <div class="review-list show" id="reviewList">
-                <!-- Diisi JS -->
-            </div>
-
-        </div>
-
-        <!-- ===== PESAN BILA SOAL TIDAK ADA ===== -->
-        <div id="areaKosong" style="display:none;">
-            <div class="kosong">
-                <h2>⚠️ Belum Ada Soal</h2>
-                <p>Bank soal untuk mapel/bab ini belum tersedia.</p>
-                <p style="margin-top:8px;font-size:0.9rem;">Silakan kembali ke dashboard dan pilih yang lain.</p>
-                <br>
-                <a href="dashboard.html" class="btn-action btn-home">🏠 Ke Dashboard</a>
-            </div>
-        </div>
-
+    <!-- Level Selection -->
+    <div class="kartu" id="pilihLevel">
+        <h3>Pilih Level Soal:</h3>
+        <div id="tombolLevel"></div>
+        <p id="infoLevel" style="color:#666;"></p>
+        <button id="btnMulai" style="background:#4CAF50;color:white;width:100%;padding:15px;font-size:1.1em;">🚀 Mulai Latihan</button>
     </div>
 
-    <!-- ===== MUAT SEMUA FILE BANK SOAL ===== -->
-    <!-- IPAS (8 Bab) -->
+    <!-- Quiz Area -->
+    <div class="kartu hidden" id="areaKuis">
+        <div class="soal" id="teksSoal"></div>
+        <div id="opsiContainer"></div>
+        <div id="feedback" style="margin-top:15px;font-weight:bold;padding:10px;border-radius:8px;"></div>
+        <button class="btn-lanjut hidden" id="btnLanjut">➡️ Soal Berikutnya</button>
+    </div>
+
+    <!-- Result Area -->
+    <div class="kartu hidden" id="areaHasil">
+        <h2>🏆 Hasil</h2>
+        <div class="hasil" id="skorHasil"></div>
+        <button onclick="resetSemua()" style="background:#ff9800;color:white;">🔄 Ulangi</button>
+        <a href="dashboard.html"><button style="background:#607D8B;color:white;">🏠 Dashboard</button></a>
+    </div>
+
+    <!-- LOAD FILE SOAL -->
     <script src="soal-IPAS-Bab1.js"></script>
-    <script src="soal-IPAS-Bab2.js"></script>
-    <script src="soal-IPAS-Bab3.js"></script>
-    <script src="soal-IPAS-Bab4.js"></script>
-    <script src="soal-IPAS-Bab5.js"></script>
-    <script src="soal-IPAS-Bab6.js"></script>
-    <script src="soal-IPAS-Bab7.js"></script>
-    <script src="soal-IPAS-Bab8.js"></script>
-
-    <!-- Pancasila (4 Bab) -->
-    <script src="soal-Pancasila-Bab1.js"></script>
-    <script src="soal-Pancasila-Bab2.js"></script>
-    <script src="soal-Pancasila-Bab3.js"></script>
-    <script src="soal-Pancasila-Bab4.js"></script>
-
-    <!-- Matematika (5 Bab) -->
-    <script src="soal-Matematika-Bab1.js"></script>
-    <script src="soal-Matematika-Bab2.js"></script>
-    <script src="soal-Matematika-Bab3.js"></script>
-    <script src="soal-Matematika-Bab4.js"></script>
-    <script src="soal-Matematika-Bab5.js"></script>
-
-    <!-- Bahasa Indonesia (8 Bab) -->
-    <script src="soal-Bindo-Bab1.js"></script>
-    <script src="soal-Bindo-Bab2.js"></script>
-    <script src="soal-Bindo-Bab3.js"></script>
-    <script src="soal-Bindo-Bab4.js"></script>
-    <script src="soal-Bindo-Bab5.js"></script>
-    <script src="soal-Bindo-Bab6.js"></script>
-    <script src="soal-Bindo-Bab7.js"></script>
-    <script src="soal-Bindo-Bab8.js"></script>
-
-    <!-- Bahasa Inggris (6 Bab/Chapter) -->
-    <script src="soal-Bing-Bab1.js"></script>
-    <script src="soal-Bing-Bab2.js"></script>
-    <script src="soal-Bing-Bab3.js"></script>
-    <script src="soal-Bing-Bab4.js"></script>
-    <script src="soal-Bing-Bab5.js"></script>
-    <script src="soal-Bing-Bab6.js"></script>
 
     <script>
-        // ==========================================================
-        // 1. BACA PARAMETER URL  ?mapel=...&bab=...
-        // ==========================================================
-        const params = new URLSearchParams(window.location.search);
-        const petaMapel = {
-            'IPAS': 'IPAS',
-            'Pancasila': 'Pancasila',
-            'Matematika': 'Matematika',
-            'Bahasa Indonesia': 'Bahasa Indonesia',
-            'Bindo': 'Bahasa Indonesia',
-            'Bahasa Inggris': 'Bahasa Inggris',
-            'Bing': 'Bahasa Inggris'
-        };
-        const mapelParam = (params.get('mapel') || '').trim();
-        const mapel = petaMapel[mapelParam] || null;
-        const babNo = parseInt(params.get('bab')) || 0;
-
-        // ==========================================================
-        // 2. PILIH NAMA VARIABEL BANK SOAL BERDASARKAN MAPEL & BAB
-        // ==========================================================
-        // Konvensi: mapel: IPAS, Pancasila, Matematika, Bindo, Bing
-        //           file: soal-{Mapel}-Bab{bab}.js → variabel: bankSoal{Mapel}Bab{bab}
-
-        function kodeFile(mapelLower, bab) {
-            // membuat string misal: IPASBab1, BindoBab3, PancasilaBab2, dst.
-            return 'bankSoal' + mapelLower + 'Bab' + bab;
-        }
-
-        // Nama mapel untuk dipakai dalam variabel global (tanpa spasi)
-        const mapelLower = {
-            'IPAS': 'IPAS',
-            'Pancasila': 'Pancasila',
-            'Matematika': 'Matematika',
-            'Bahasa Indonesia': 'Bindo',
-            'Bahasa Inggris': 'Bing'
-        }[mapel] || '';
-
-        // Objek global tempat semua bank soal disimpan (dari window)
-        const semuaBank = window; // karena semua deklarasi var global
-
-        // Cek apakah file bank soal untuk mapel/bab ini ada
-        const namaVariabel = mapelLower ? kodeFile(mapelLower, babNo) : null;
-        const bankSoalDipilih = namaVariabel ? semuaBank[namaVariabel] : null;
-
-        // Konstanta
-        const JUMLAH_SOAL_LATIHAN = 10;
-
-        // ==========================================================
-        // 3. TAMPILKAN JUDUL / BADGE
-        // ==========================================================
-        const dataInfoBab = {
-            'IPAS': {
-                1: 'Keajaiban Tubuhku', 2: 'Dahulu, Kini, dan Nanti',
-                3: 'Peduli dan Berbagi', 4: 'Siklus Hidup yang Menakjubkan',
-                5: 'Bijak Berbelanja Kebutuhan', 6: 'Energi, sang Pemberi Kekuatan',
-                7: 'Jejak Penjelajah', 8: 'Rahasia Tiga Wujud Zat'
-            },
-            'Pancasila': {
-                1: 'Aku Anak Indonesia', 2: 'Aku Patuh Aturan',
-                3: 'Berbeda Itu Indah', 4: 'Ayo Mengenal Pancasila'
-            },
-            'Matematika': {
-                1: 'Bilangan Cacah sampai 1.000', 2: 'Kalimat Matematika',
-                3: 'Pengukuran Panjang dan Berat', 4: 'Unsur-Unsur Bangun Datar',
-                5: 'Penyajian Data dalam Tabel'
-            },
-            'Bahasa Indonesia': {
-                1: 'Petualangan Ken dan Alif', 2: 'Semangat Si Pantang Menyerah',
-                3: 'Bintang Inspirasiku', 4: 'Tulis Ceritamu',
-                5: 'Sahabat Sungai Mahakam', 6: 'Istana yang Membawa Bencana',
-                7: 'Dengarkan Dongeng Seru', 8: 'Dongengku, Karyaku'
-            },
-            'Bahasa Inggris': {
-                1: 'My Self', 2: 'My Family', 3: "My Family's Activities at Home",
-                4: 'My School', 5: 'My Classroom', 6: 'My Teacher'
-            }
-        };
-
-        // Tampilkan info mapel & bab di header
-        const namaBab = (dataInfoBab[mapel] && dataInfoBab[mapel][babNo]) ? dataInfoBab[mapel][babNo] : `Bab ${babNo}`;
-        document.getElementById('badgeMapel').textContent = mapel || '-';
-        document.getElementById('badgeBab').textContent = babNo ? `Bab ${babNo}: ${namaBab}` : '-';
-
-        // Jika tidak ada mapel atau bab, atau bank soal tidak ditemukan
-        if (!mapel || !babNo || !bankSoalDipilih) {
-            // Sembunyikan pilihan level & quiz, tampilkan pesan kosong
-            document.getElementById('areaPilihLevel').style.display = 'none';
-            document.getElementById('areaKosong').style.display = 'block';
-            
-            // Berhenti — tidak lanjut ke bawah
-            throw new Error('Bank soal tidak ditemukan untuk level ini');
-        }
-
-        // ==========================================================
-        // 4. SEDIAKAN DATA LEVEL C1-C5
-        // ==========================================================
-        const LEVEL_LIST = [
-            { kode: 'C1', nama: 'Mengingat', emoji: '🔍' },
-            { kode: 'C2', nama: 'Memahami', emoji: '📚' },
-            { kode: 'C3', nama: 'Mengaplikasi', emoji: '⚙️' },
-            { kode: 'C4', nama: 'Menganalisis', emoji: '🔎' },
-            { kode: 'C5', nama: 'Mengevaluasi', emoji: '💡' }
+        // ============================================
+        // VARIABEL GLOBAL
+        // ============================================
+        const bankData = bankSoalIPASBab1;  // ambil variabel dari file soal
+        const levelKonfig = [
+            { kode: 'C1', nama: 'Mengingat' },
+            { kode: 'C2', nama: 'Memahami' },
+            { kode: 'C3', nama: 'Mengaplikasi' },
+            { kode: 'C4', nama: 'Menganalisis' },
+            { kode: 'C5', nama: 'Mengevaluasi' }
         ];
 
-        const bankLevel = bankSoalDipilih; // ini berisi { C1: [...], C2: [...], ... }
-
-        // ==========================================================
-        // 5. STATE LATIHAN
-        // ==========================================================
-        let levelAktif = null;
-        let daftarSoalLatihan = [];   // 10 soal acak
+        let levelAktif = 'C1';
+        let daftarSoal = [];
         let indexSoal = 0;
         let skor = 0;
-        let jawabanTercatat = [];     // untuk review
+        let statusJawab = false; // agar tidak bisa jawab 2x
 
-        // ==========================================================
-        // 6. GENERATE TOMBOL LEVEL
-        // ==========================================================
-        function renderTombolLevel() {
-            const container = document.getElementById('levelButtons');
+        // ============================================
+        // TAMPILKAN TOMBOL LEVEL
+        // ============================================
+        function renderLevelButtons() {
+            const container = document.getElementById('tombolLevel');
             container.innerHTML = '';
-
-            LEVEL_LIST.forEach((lv, i) => {
-                // Ambil jumlah soal untuk level ini (kalau ada)
-                const arrSoal = (bankLevel && bankLevel[lv.kode]) || [];
-                const jml = arrSoal.length;
-
-                // Membuat tombol disabled jika jumlahnya 0
-                const tombol = document.createElement('button');
-                tombol.className = 'btn-level' + (i === 0 ? ' active' : '');
-                tombol.setAttribute('data-level', lv.kode);
-                tombol.innerHTML = `${lv.emoji} ${lv.kode} (${jml})`;
+            
+            levelKonfig.forEach(lv => {
+                const jml = (bankData[lv.kode] || []).length;
+                const btn = document.createElement('button');
+                btn.className = 'level-btn' + (lv.kode === 'C1' ? ' aktif' : '');
+                btn.textContent = `${lv.kode} (${jml} soal)`;
+                btn.style.marginBottom = '5px';
                 
                 if (jml === 0) {
-                    tombol.disabled = true;
-                    tombol.style.opacity = '0.4';
-                    tombol.title = 'Belum ada soal untuk level ini';
+                    btn.disabled = true;
+                    btn.style.opacity = '0.4';
                 } else {
-                    tombol.onclick = function () {
-                        pilihLevel(lv.kode, jml);
+                    btn.onclick = () => {
+                        levelAktif = lv.kode;
+                        // update class aktif
+                        document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('aktif'));
+                        btn.classList.add('aktif');
+                        document.getElementById('infoLevel').textContent = 
+                            `Level ${lv.kode} (${lv.nama}) - ${jml} soal tersedia. Anda akan mengerjakan 10 soal.`;
                     };
                 }
-                container.appendChild(tombol);
+                container.appendChild(btn);
             });
 
-            // Pilih default C1 (jika ada soal)
-            const defaultLevel = LEVEL_LIST[0].kode;
-            const defaultJml = (bankLevel[defaultLevel] || []).length;
-            if (defaultJml > 0) {
-                pilihLevel(defaultLevel, defaultJml);
-            } else {
-                // cari level lain yang punya soal
-                for (let lv of LEVEL_LIST) {
-                    const jml = (bankLevel[lv.kode] || []).length;
-                    if (jml > 0) {
-                        pilihLevel(lv.kode, jml);
-                        break;
-                    }
-                }
+            // Set info awal
+            const lvPertama = levelKonfig.find(lv => bankData[lv.kode] && bankData[lv.kode].length > 0);
+            if (lvPertama) {
+                document.getElementById('infoLevel').textContent = 
+                    `Level ${lvPertama.kode} (${lvPertama.nama}) - ${bankData[lvPertama.kode].length} soal tersedia. Anda akan mengerjakan 10 soal.`;
             }
         }
 
-        function pilihLevel(level, jumlah) {
-            levelAktif = level;
+        // ============================================
+        // MULAI LATIHAN
+        // ============================================
+        document.getElementById('btnMulai').addEventListener('click', function() {
+            const semuaSoal = bankData[levelAktif] || [];
+            if (semuaSoal.length === 0) {
+                alert('Tidak ada soal untuk level ini!');
+                return;
+            }
 
-            // update tampilan tombol aktif
-            document.querySelectorAll('.btn-level').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.level === level) {
-                    btn.classList.add('active');
-                }
-            });
+            // Acak soal
+            const acak = [...semuaSoal].sort(() => Math.random() - 0.5);
+            daftarSoal = acak.slice(0, 10); // ambil 10 soal
 
-            // update info jumlah
-            const namaLevel = LEVEL_LIST.find(l => l.kode === level);
-            document.getElementById('infoTersedia').innerHTML = 
-                `📚 Level <b>${level} (${namaLevel.nama})</b> — tersedia <b>${jumlah} soal</b>. 
-                <br>Akan dipilih <b>${JUMLAH_SOAL_LATIHAN} soal</b> secara acak.`;
-
-            // aktifkan tombol mulai
-            document.getElementById('btnMulai').disabled = false;
-        }
-
-        // ==========================================================
-        // 7. FUNGSI MULAI LATIHAN
-        // ==========================================================
-        function mulaiLatihan() {
-            if (!levelAktif) return;
-
-            // Ambil soal dari level aktif
-            const semuaSoalLevel = bankLevel[levelAktif] || [];
-            if (semuaSoalLevel.length === 0) return;
-
-            // Acak dan ambil JUMLAH_SOAL_LATIHAN (atau semua jika kurang)
-            const acak = shuffle([...semuaSoalLevel]);
-            daftarSoalLatihan = acak.slice(0, Math.min(JUMLAH_SOAL_LATIHAN, acak.length));
             indexSoal = 0;
             skor = 0;
-            jawabanTercatat = [];
+            statusJawab = false;
 
-            // Tampilkan area kuis, sembunyikan pilih level
-            document.getElementById('areaPilihLevel').style.display = 'none';
-            document.getElementById('areaHasil').classList.remove('show');
-            const quizEl = document.getElementById('areaQuiz');
-            quizEl.classList.add('show');
-            quizEl.style.display = 'block';
+            // Pindah tampilan
+            document.getElementById('pilihLevel').classList.add('hidden');
+            document.getElementById('areaHasil').classList.add('hidden');
+            document.getElementById('areaKuis').classList.remove('hidden');
+            document.getElementById('btnLanjut').classList.add('hidden');
 
-            // aktifkan tombol lanjut (awal → 'Jawab dulu')
-            const btnAksi = document.getElementById('btnAksi');
-            btnAksi.style.display = 'block';
-            btnAksi.textContent = '➡️ Soal Berikutnya';
-            btnAksi.disabled = true;   // harus jawab dulu
-
-            // Tampilkan soal pertama
             tampilkanSoal();
-            updateProgress();
-        }
+        });
 
-        // ==========================================================
-        // 8. TAMPILKAN SOAL
-        // ==========================================================
+        // ============================================
+        // TAMPILKAN SOAL
+        // ============================================
         function tampilkanSoal() {
-            const soal = daftarSoalLatihan[indexSoal];
-            const total = daftarSoalLatihan.length;
+            const soal = daftarSoal[indexSoal];
+            const total = daftarSoal.length;
 
-            // Nomor soal
-            document.getElementById('nomorSoal').textContent = `Soal ${indexSoal + 1}/${total}`;
+            document.getElementById('teksSoal').textContent = 
+                `Soal ${indexSoal + 1}/${total}: ${soal.soal}`;
 
-            // Teks soal
-            document.getElementById('teksSoal').innerHTML = formatTeksSoal(soal);
-
-            // Buat opsi jawaban
-            const opsiContainer = document.getElementById('opsiList');
-            opsiContainer.innerHTML = '';
-            const huruf = ['A', 'B', 'C', 'D', 'E'];
+            // Tampilkan opsi
+            const container = document.getElementById('opsiContainer');
+            container.innerHTML = '';
+            const huruf = ['A', 'B', 'C', 'D'];
 
             soal.pilihan.forEach((pil, idx) => {
                 const btn = document.createElement('button');
-                btn.className = 'opsi-btn';
-                btn.innerHTML = `<span class="huruf">${huruf[idx]}</span> ${pil}`;
-                btn.onclick = () => pilihJawaban(idx, btn);
-                opsiContainer.appendChild(btn);
+                btn.className = 'opsi';
+                btn.textContent = `${huruf[idx]}. ${pil}`;
+                btn.onclick = () => jawab(idx, btn);
+                container.appendChild(btn);
             });
 
             // Reset feedback
-            const fb = document.getElementById('feedbackArea');
-            fb.className = 'feedback';
-            fb.textContent = '';
-
-            // Reset tombol aksi
-            const btnAksi = document.getElementById('btnAksi');
-            btnAksi.disabled = true;
-            btnAksi.textContent = (indexSoal === total - 1) ? '✅ Lihat Hasil' : '➡️ Soal Berikutnya';
-
-            updateProgress();
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').style.backgroundColor = '';
+            statusJawab = false;
         }
 
-        // Format teks soal yang mungkin punya beberapa bagian
-        function formatTeksSoal(soal) {
-            let hasil = soal.soal;
-            // Jika ada beberapa pertanyaan bagian a,b,c → ditampilkan sebagai paragraf
-            if (soal.pertanyaan && typeof soal.pertanyaan !== 'string') {
-                // format khusus jika soal punya banyak bagian (opsional)
-            }
-            return hasil;
-        }
+        // ============================================
+        // JAWAB SOAL
+        // ============================================
+        function jawab(idxPilihan, tombol) {
+            if (statusJawab) return; // sudah menjawab
+            statusJawab = true;
 
-        // ==========================================================
-        // 9. FUNGSI PILIH JAWABAN
-        // ==========================================================
-        function pilihJawaban(idx, btnElemen) {
-            const soal = daftarSoalLatihan[indexSoal];
-            const semuaBtn = document.querySelectorAll('.opsi-btn');
-            const total = daftarSoalLatihan.length;
+            const soal = daftarSoal[indexSoal];
+            const semuaTombol = document.querySelectorAll('.opsi');
 
-            // Cegah klik ganda
-            if (btnElemen.disabled) return;
-            semuaBtn.forEach(b => b.disabled = true);
+            // Nonaktifkan semua
+            semuaTombol.forEach(b => b.disabled = true);
 
-            // Tandai yang benar/salah
-            const benar = (idx === soal.kunci);
-            if (benar) skor++;
-
-            semuaBtn.forEach((b, i) => {
-                if (i === soal.kunci) b.classList.add('correct');
-                if (i === idx && idx !== soal.kunci) b.classList.add('wrong');
-            });
-
-            // Feedback
-            const fb = document.getElementById('feedbackArea');
-            if (benar) {
-                fb.className = 'feedback benar';
-                fb.innerHTML = '✅ <b>Benar!</b>';
+            // Tandai benar/salah
+            if (idxPilihan === soal.kunci) {
+                skor++;
+                tombol.classList.add('benar');
+                document.getElementById('feedback').textContent = '✅ Benar!';
+                document.getElementById('feedback').style.backgroundColor = '#e8f5e9';
+                document.getElementById('feedback').style.color = '#2e7d32';
             } else {
-                fb.className = 'feedback salah';
-                fb.innerHTML = `❌ <b>Salah.</b> Jawaban benar: <b>${soal.pilihan[soal.kunci]}</b>`;
+                tombol.classList.add('salah');
+                // Tandai jawaban yang benar
+                semuaTombol.forEach((b, i) => {
+                    if (i === soal.kunci) b.classList.add('benar');
+                });
+                document.getElementById('feedback').textContent = `❌ Salah. Jawaban benar: ${soal.pilihan[soal.kunci]}`;
+                document.getElementById('feedback').style.backgroundColor = '#ffebee';
+                document.getElementById('feedback').style.color = '#c62828';
             }
 
-            // Simpan untuk review
-            jawabanTercatat.push({
-                soal: soal,
-                pilihanUser: idx,
-                benar: benar
-            });
-
-            // Update skor live
-            document.getElementById('skorSekarang').textContent = skor;
-            updateProgress();
-
-            // Aktifkan tombol lanjut
-            const btnAksi = document.getElementById('btnAksi');
-            btnAksi.disabled = false;
-            btnAksi.textContent = (indexSoal === total - 1) ? '✅ Lihat Hasil' : '➡️ Soal Berikutnya';
+            // Tampilkan tombol lanjut
+            const btnLanjut = document.getElementById('btnLanjut');
+            btnLanjut.classList.remove('hidden');
+            
+            if (indexSoal === daftarSoal.length - 1) {
+                btnLanjut.textContent = '✅ Lihat Hasil';
+            } else {
+                btnLanjut.textContent = '➡️ Soal Berikutnya';
+            }
         }
 
-        // ==========================================================
-        // 10. TOMBOL LANJUT / SELESAI
-        // ==========================================================
-        document.getElementById('btnAksi').onclick = function () {
-            const total = daftarSoalLatihan.length;
-            if (indexSoal < total - 1) {
-                // lanjut soal berikutnya
+        // ============================================
+        // TOMBOL LANJUT
+        // ============================================
+        document.getElementById('btnLanjut').addEventListener('click', function() {
+            if (indexSoal < daftarSoal.length - 1) {
                 indexSoal++;
+                document.getElementById('btnLanjut').classList.add('hidden');
                 tampilkanSoal();
             } else {
-                // selesai → tampilkan hasil
-                tampilkanHasil();
+                // Tampilkan hasil
+                document.getElementById('areaKuis').classList.add('hidden');
+                document.getElementById('areaHasil').classList.remove('hidden');
+                const total = daftarSoal.length;
+                const pct = (skor / total) * 100;
+                let pesan = '';
+                if (pct >= 90) pesan = '🌟 Sempurna!';
+                else if (pct >= 75) pesan = '👍 Bagus!';
+                else if (pct >= 60) pesan = '😊 Cukup baik.';
+                else if (pct >= 40) pesan = '💪 Terus berlatih!';
+                else pesan = '📖 Baca lagi materinya.';
+                
+                document.getElementById('skorHasil').innerHTML = 
+                    `<div style="font-size:3em;">${skor}/${total}</div>
+                     <div style="font-size:1.2em;margin-top:10px;">${pesan}</div>
+                     <div>Nilai: ${Math.round(pct)} • Level: ${levelAktif}</div>`;
             }
-        };
-
-        // ==========================================================
-        // 11. TAMPILKAN HASIL
-        // ==========================================================
-        function tampilkanHasil() {
-            // Sembunyikan quiz, tampilkan hasil
-            document.getElementById('areaQuiz').classList.remove('show');
-            document.getElementById('areaQuiz').style.display = 'none';
-            const hasilEl = document.getElementById('areaHasil');
-            hasilEl.classList.add('show');
-            hasilEl.style.display = 'block';
-
-            const total = daftarSoalLatihan.length;
-            const pct = (skor / total) * 100;
-
-            document.getElementById('skorAkhir').textContent = `${skor}/${total}`;
-
-            // Badge & pesan
-            let badgeClass, pesan;
-            if (pct >= 90) {
-                badgeClass = 'sangat-baik';
-                pesan = '🌟 Sempurna! Kamu luar biasa!';
-            } else if (pct >= 75) {
-                badgeClass = 'bagus';
-                pesan = '👍 Bagus sekali! Sedikit lagi sempurna!';
-            } else if (pct >= 60) {
-                badgeClass = 'cukup';
-                pesan = '😊 Cukup baik. Terus berlatih ya!';
-            } else if (pct >= 40) {
-                badgeClass = 'perlu-belajar';
-                pesan = '💪 Jangan menyerah. Coba lagi ya!';
-            } else {
-                badgeClass = 'ulangi';
-                pesan = '📖 Yuk baca lagi materinya lalu ulangi.';
-            }
-
-            const levelKog = levelAktif;
-            document.getElementById('pesanAkhir').textContent = pesan;
-
-            const levelWrap = document.getElementById('levelBadgeWrap');
-            levelWrap.innerHTML = `<span class="level-badge ${badgeClass}">
-                Level ${levelKog} • Nilai ${pct.toFixed(0)}</span>`;
-
-            // Detail hasil
-            const benar = skor;
-            const salah = total - skor;
-            document.getElementById('detailHasil').innerHTML = `
-                ✅ Benar: <b>${benar}</b> soal<br>
-                ❌ Salah: <b>${salah}</b> soal<br>
-                ⏱️ Waktu: <b>${formatWaktu(0)}</b> (diabaikan)`;
-            
-            // Generate review
-            generateReview();
-        }
-
-        // ==========================================================
-        // 12. REVIEW SOAL
-        // ==========================================================
-        function generateReview() {
-            const listEl = document.getElementById('reviewList');
-            const huruf = ['A', 'B', 'C', 'D', 'E'];
-            let html = '';
-
-            jawabanTercatat.forEach((item, i) => {
-                const soal = item.soal;
-                const userJawab = item.pilihanUser;
-                const benar = item.benar;
-                const warnaBorder = benar ? '#22c55e' : '#ef4444';
-
-                html += `
-                <div class="review-item" style="border-left-color: ${warnaBorder};">
-                    <div class="pertanyaan">
-                        ${benar ? '✅' : '❌'} Soal ${i + 1}. ${soal.soal}
-                    </div>
-                `;
-
-                // Tampilkan pilihan
-                soal.pilihan.forEach((pil, idx) => {
-                    let penanda = '';
-                    if (idx === soal.kunci) penanda = '✔ (kunci)';
-                    else if (idx === userJawab && !benar) penanda = '✘ (jawabanmu)';
-
-                    let kelas = '';
-                    if (idx === soal.kunci) kelas = 'jawaban-benar';
-                    else if (idx === userJawab && !benar) kelas = 'jawaban-salah';
-
-                    html += `
-                    <div class="pilihan-review ${kelas}">
-                        <span class="tanda">${penanda ? penanda + ' • ' : ''}</span>${huruf[idx]}. ${pil}
-                    </div>
-                    `;
-                });
-
-                html += `</div>`;
-            });
-
-            listEl.innerHTML = html;
-            listEl.classList.add('show');
-        }
-
-        // ==========================================================
-        // 13. UTILITAS
-        // ==========================================================
-        function shuffle(arr) {
-            const a = [...arr];
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
-            return a;
-        }
-
-        function updateProgress() {
-            const total = daftarSoalLatihan.length;
-            const pct = total > 0 ? ((indexSoal + 1) / total) * 100 : 0;
-            document.getElementById('progressBar').style.width = pct + '%';
-            document.getElementById('persenProgress').textContent = pct.toFixed(0) + '%';
-            document.getElementById('skorSekarang').textContent = skor;
-        }
-
-        function formatWaktu(detik) {
-            const m = Math.floor(detik / 60);
-            const s = detik % 60;
-            return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-        }
-
-        // ==========================================================
-        // 14. FUNGSI RESET
-        // ==========================================================
-        function resetKePilihLevel() {
-            // sembunyikan hasil & quiz, tampilkan pilih level
-            const hasilEl = document.getElementById('areaHasil');
-            hasilEl.classList.remove('show');
-            hasilEl.style.display = 'none';
-
-            const quizEl = document.getElementById('areaQuiz');
-            quizEl.classList.remove('show');
-            quizEl.style.display = 'none';
-
-            document.getElementById('areaPilihLevel').style.display = 'block';
-
-            // reset state
-            levelAktif = null;
-            daftarSoalLatihan = [];
-            indexSoal = 0;
-            skor = 0;
-            jawabanTercatat = [];
-
-            document.getElementById('btnMulai').disabled = true;
-            document.getElementById('skorSekarang').textContent = '0';
-
-            // render ulang tombol level (pastikan default)
-            renderTombolLevel();
-        }
-
-        function ulangiLatihan() {
-            // Mulai lagi dengan level yang sama (langsung mulai)
-            mulaiLatihan();
-        }
-
-        // ==========================================================
-        // 15. INISIALISASI AWAL
-        // ==========================================================
-        document.addEventListener('DOMContentLoaded', function () {
-            // Set judul halaman
-            document.title = `Latihan ${mapel} - ${namaBab}`;
-
-            // Render tombol level
-            renderTombolLevel();
         });
 
+        // ============================================
+        // RESET
+        // ============================================
+        function resetSemua() {
+            document.getElementById('areaHasil').classList.add('hidden');
+            document.getElementById('areaKuis').classList.add('hidden');
+            document.getElementById('pilihLevel').classList.remove('hidden');
+            renderLevelButtons();
+        }
+
+        // ============================================
+        // INISIALISASI
+        // ============================================
+        // Cek apakah data ada
+        if (!bankData) {
+            document.body.innerHTML = '<h2 style="color:red;text-align:center;margin-top:50px;">ERROR: Variabel bankSoalIPASBab1 tidak ditemukan!<br>Pastikan file soal-IPAS-Bab1.js dimuat dengan benar.</h2>';
+        } else {
+            renderLevelButtons();
+        }
     </script>
 
 </body>
