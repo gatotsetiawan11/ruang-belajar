@@ -1,213 +1,35 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Masuk - Ruang Belajar</title>
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/auth.css">
+    <title>Ruang Belajar</title>
+    <style>
+        body {
+            background: radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
+            min-height:100vh; margin:0; display:flex;
+            align-items:center; justify-content:center; color:#94a3b8;
+            font-family:'Segoe UI',Tahoma,sans-serif;
+        }
+        .box { text-align:center; }
+        .box .dot {
+            width:28px; height:28px; margin:0 auto 15px; border-radius:50%;
+            border:3px solid #6366f1; border-top-color:transparent;
+            animation:spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform:rotate(360deg); } }
+    </style>
 </head>
-
-
-<body class="auth-page">
-
-
-<main class="auth-shell">
-
-
-<section class="auth-card">
-
-
-<div class="auth-brand">
-
-    <div class="auth-logo">
-        RB
+<body>
+    <div class="box">
+        <div class="dot"></div>
+        Mengarahkan ke halaman masuk...
     </div>
 
-    <div>
-        <h1>Ruang Belajar</h1>
-        <p>
-            Belajar dan berlatih sesuai kemampuanmu.
-        </p>
-    </div>
-
-</div>
-
-
-
-<section class="auth-section">
-
-
-<div class="auth-heading">
-
-<span class="auth-badge">
-    Masuk
-</span>
-
-<h2>
-    Selamat Datang
-</h2>
-
-<p>
-Gunakan identitas akun kamu untuk masuk.
-</p>
-
-
-</div>
-
-
-
-<form id="loginForm" autocomplete="off">
-
-
-<div class="form-group">
-
-<label>
-Jenis Identitas
-</label>
-
-
-<select 
-id="identityType"
-class="auth-input">
-
-
-<option value="nisn">
-NISN
-</option>
-
-
-<option value="email">
-Email
-</option>
-
-
-<option value="whatsapp">
-WhatsApp
-</option>
-
-
-</select>
-
-</div>
-
-
-
-
-<div class="form-group">
-
-<label id="identityLabel">
-NISN
-</label>
-
-
-<input
-
-id="identityInput"
-
-class="auth-input"
-
-type="text"
-
-placeholder="Masukkan NISN"
-
-required
-
->
-
-
-</div>
-
-
-
-
-<div class="form-group">
-
-
-<label>
-PIN
-</label>
-
-
-<input
-
-id="pinInput"
-
-class="auth-input"
-
-type="password"
-
-inputmode="numeric"
-
-maxlength="6"
-
-placeholder="Masukkan PIN"
-
-required
-
->
-
-
-</div>
-
-
-
-
-<div id="loginMessage"
-class="auth-message"
-hidden>
-</div>
-
-
-
-<button
-
-class="auth-primary-button"
-
-type="submit"
-
->
-
-Masuk
-
-</button>
-
-
-</form>
-
-
-
-<div class="auth-secondary-action">
-
-<a href="register.html">
-
-Belum punya akun? Daftar
-
-</a>
-
-</div>
-
-
-</section>
-
-
-</section>
-
-
-</main>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="js/config.js"></script>
-
-<script src="js/login.js"></script>
-
-
+    <script>
+        // Redirect otomatis ke halaman auth/login
+        // (detik 0, langsung pindah)
+        window.location.replace('auth.html');
+    </script>
 </body>
-
 </html>
