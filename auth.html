@@ -84,14 +84,14 @@
     // ====================================================
 
  //   const supabase = (typeof SUPABASE_ANON !== 'undefined' && SUPABASE_ANON.includes('PASTE'))
-        ? null
-        : createClient(SUPABASE_URL, SUPABASE_ANON);
+  //      ? null
+    //    : createClient(SUPABASE_URL, SUPABASE_ANON);
 
     // Tampilkan peringatan jika belum dikonfigurasi
-    if (!supabase) {
-        document.getElementById('pesan').innerHTML =
-            '⚠️ <b>Konfigurasi belum diisi.</b> Isi SUPABASE_ANON dengan anon key dari Supabase.';
-    }
+//    if (!supabase) {
+  //      document.getElementById('pesan').innerHTML =
+    //        '⚠️ <b>Konfigurasi belum diisi.</b> Isi SUPABASE_ANON dengan anon key dari Supabase.';
+  //  }
 
     const modeLabel = { NISN:'Nomor NISN', WhatsApp:'Nomor WhatsApp', Email:'Alamat Email' };
     const inisial = { NISN:'NISN', WhatsApp:'WA', Email:'Email' };
