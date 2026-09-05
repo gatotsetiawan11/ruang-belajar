@@ -142,7 +142,7 @@
                     // login sukses
                     elMsg.innerHTML='<span class="ok">✅ Berhasil masuk! Mengarahkan...</span>';
                     localStorage.setItem('user', JSON.stringify(data.user));
-                    setTimeout(()=> location.href='latihan.html', 1200);
+                    setTimeout(()=> location.href='dashboard.html', 1200);
                 } else {
                     elMsg.innerHTML='<span class="err">❌ PIN salah</span>';
                 }
