@@ -1,175 +1,117 @@
-<Artifact identifier="dashboard-html-integration" type="text/html" language="html" title="dashboard.html - Struktur Lengkap"> ```html <!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Dashboard Siswa</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1f2937; min-height: 100vh; }
-/* ===== HEADER ===== */
-.header {
-background: linear-gradient(135deg, #6366f1, #8b5cf6);
-color: white;
-padding: 1.2rem 2rem;
-display: flex;
-justify-content: space-between;
-align-items: center;
-box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+<Artifact identifier="dashboard-kelas3-mapel-bab-level" type="text/html" language="html" title="Dashboard Kelas 3 → Mapel → Bab → Level C1–C5"> ```html <!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Dashboard Belajar - Kelas 3</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+color: #1f2937;
 }
-.header-left h1 { font-size: 1.3rem; font-weight: 700; }
-.header-left p { font-size: 0.85rem; opacity: 0.9; }
-.btn-logout {
-background: rgba(255,255,255,0.15);
-border: 1px solid rgba(255,255,255,0.4);
-color: white;
-padding: 0.5rem 1.2rem;
-border-radius: 8px;
-cursor: pointer;
-font-weight: 600;
-font-size: 0.9rem;
-transition: background 0.2s;
-}
-.btn-logout:hover { background: rgba(255,255,255,0.3); }
 
 .container {
-max-width: 1000px;
-margin: 2rem auto;
-padding: 0 1.5rem;
+max-width: 960px;
+margin: 0 auto;
+padding: 2rem 1rem;
 }
 
-/* ===== SECTION TITLE ===== */
-.section-title {
+/* Header */
+header {
 text-align: center;
-margin-bottom: 1.8rem;
+color: #fff;
+margin-bottom: 2.5rem;
 }
-.section-title h2 {
-font-size: 1.7rem;
-font-weight: 800;
-color: #312e81;
-margin-bottom: 0.3rem;
-}
-.section-title p {
-color: #6b7280;
-font-size: 1rem;
-}
+header h1 { font-size: 1.9rem; font-weight: 800; margin-bottom: .3rem; }
+header p { font-size: 1.05rem; opacity: 0.9; }
 
-/* ===== KELAS & MAPEL (GRID) ===== */
+/* Grid umum /
 .grid {
 display: grid;
-grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 gap: 1.2rem;
-margin-bottom: 2rem;
 }
+.grid.list { grid-template-columns: 1fr; } / untuk bab dan level */
 
+/* Kartu dasar */
 .card {
-background: white;
-border-radius: 1rem;
-padding: 1.6rem 1rem;
+background: #fff;
+border-radius: 1.1rem;
+padding: 1.6rem 1.2rem;
 text-align: center;
 cursor: pointer;
-box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-border-top: 5px solid #c7d2fe;
-transition: transform 0.2s, box-shadow 0.2s;
+box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+transition: transform .18s ease, box-shadow .18s ease;
+border-top: 6px solid #ccc;
 }
-.card:hover {
-transform: translateY(-5px);
-box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-.card .icon {
-font-size: 2.5rem;
-display: block;
-margin-bottom: 0.6rem;
-}
-.card h3 { font-size: 1.1rem; font-weight: 700; color: #1f2937; }
-.card p { font-size: 0.8rem; color: #6b7280; margin-top: 0.2rem; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 14px 28px rgba(0,0,0,.17); }
+.card:active { transform: translateY(-2px); }
+.card .emoji { font-size: 3rem; display: block; margin-bottom: .8rem; line-height: 1; }
+.card .name { font-size: 1.25rem; font-weight: 700; color: #111827; }
+.card .desc { font-size: .8rem; color: #6b7280; margin-top: .15rem; }
 
-/* Aksen warna per mapel */
-.mp-pancasila { border-top-color: #dc2626; }
-.mp-indo { border-top-color: #059669; }
-.mp-mtk { border-top-color: #2563eb; }
-.mp-ipas { border-top-color: #d97706; }
-.mp-inggris { border-top-color: #7c3aed; }
-
-/* ===== DAFTAR BAB & LEVEL (LIST) ===== */
-.list {
-max-width: 720px;
-margin: 0 auto;
-}
-.list-item {
-background: white;
-border-radius: 0.8rem;
-padding: 0.9rem 1.2rem;
-margin-bottom: 0.7rem;
+/* Kartu baris (bab & level) */
+.baris {
 display: flex;
 align-items: center;
-gap: 0.8rem;
+background: #fff;
+border-radius: 1rem;
+padding: 1rem 1.2rem;
 cursor: pointer;
-box-shadow: 0 3px 8px rgba(0,0,0,0.06);
-border-left: 6px solid #c7d2fe;
-transition: background 0.15s, transform 0.15s;
+box-shadow: 0 5px 14px rgba(0,0,0,0.08);
+transition: background .15s, transform .15s;
+gap: 1rem;
+border-left: 6px solid transparent;
 }
-.list-item:hover {
-background: #eef2ff;
-transform: translateX(5px);
+.baris:hover { background: #f0f4ff; transform: translateX(5px); }
+
+/* -------- Warna aksen -------- /
+/ Kelas /
+.ac-kelas { border-top-color: #10b981; }
+/ Mapel */
+.ac-pancasila { border-top-color: #dc2626; }
+.ac-matematika { border-top-color: #2563eb; }
+.ac-bindo { border-top-color: #059669; }
+.ac-ipas { border-top-color: #d97706; }
+.ac-bing { border-top-color: #7c3aed; }
+
+/* Bab (oranye IPAS) */
+.bab-num {
+background: #d97706; color: #fff; font-weight: 700;
+padding: .35rem .7rem; border-radius: 9px; font-size: .8rem; flex-shrink: 0;
 }
-.list-item .label {
-background: #6b7280;
-color: white;
-font-weight: 700;
-font-size: 0.75rem;
-padding: 0.3rem 0.7rem;
-border-radius: 6px;
-flex-shrink: 0;
-min-width: 70px;
-text-align: center;
+.bab-border { border-left-color: #d97706; }
+
+/* Level C1..C5 */
+.badge-level {
+font-weight: 800; font-size: 1rem;
+min-width: 2.6rem; text-align: center; flex-shrink: 0;
 }
-.list-item .nama { font-weight: 600; }
-.list-item .keterangan {
-margin-left: auto;
-font-size: 0.8rem;
-color: #6b7280;
+.lv-c1 { background:#ef4444; } .lv-c2 { background:#f59e0b; }
+.lv-c3 { background:#3b82f6; } .lv-c4 { background:#8b5cf6; }
+.lv-c5 { background:#10b981; }
+
+.level-badge {
+color: #fff; border-radius: 10px; padding: .45rem .8rem; font-size: .85rem;
+display:flex; align-items:center; gap:.6rem; min-width: 220px;
 }
+.level-badge .code { font-weight:800; font-size: 1rem; }
 
-/* Warna label di daftar bab mengikuti mapel */
-.bab-pancasila { border-left-color: #dc2626; }
-.bab-pancasila .label { background: #dc2626; }
-.bab-indo { border-left-color: #059669; }
-.bab-indo .label { background: #059669; }
-.bab-mtk { border-left-color: #2563eb; }
-.bab-mtk .label { background: #2563eb; }
-.bab-ipas { border-left-color: #d97706; }
-.bab-ipas .label { background: #d97706; }
-.bab-inggris { border-left-color: #7c3aed; }
-.bab-inggris .label { background: #7c3aed; }
+/* Navigasi */
+.screen { display: none; }
+.screen.active { display: block; animation: fade .25s ease; }
 
-/* Warna level */
-.lv-c1 { border-left-color: #ef4444; }
-.lv-c1 .label { background: #ef4444; }
-.lv-c2 { border-left-color: #f59e0b; }
-.lv-c2 .label { background: #f59e0b; }
-.lv-c3 { border-left-color: #3b82f6; }
-.lv-c3 .label { background: #3b82f6; }
-.lv-c4 { border-left-color: #8b5cf6; }
-.lv-c4 .label { background: #8b5cf6; }
-.lv-c5 { border-left-color: #10b981; }
-.lv-c5 .label { background: #10b981; }
-
-.hidden { display: none; }
-
-/* Tombol kembali */
+.topbar {
+display:flex; align-items:center; gap:1rem; margin-bottom: 1.5rem; color:#fff;
+}
 .btn-back {
-display: inline-block;
-background: #6366f1;
-color: white;
-border: none;
-padding: 0.5rem 1.2rem;
-border-radius: 8px;
-cursor: pointer;
-font-weight: 600;
-margin-bottom: 1.5rem;
-font-size: 0.9rem;
+background: rgba(255,255,255,0.16); color:#fff; border:1px solid rgba(255,255,255,0.4);
+padding:.5rem 1rem; border-radius:10px; cursor:pointer; font-weight:600;
 }
-.btn-back:hover { background: #4f46e5; }
+.btn-back:hover { background: rgba(255,255,255,0.3); }
 
-/* Responsif */
-@media (max-width: 480px) {
-.header { flex-direction: column; gap: 0.5rem; text-align: center; }
-.list-item { flex-wrap: wrap; }
-.list-item .keterangan { margin-left: 0; }
-}
-</style>
+.screen-header { margin-bottom: 1.5rem; }
+.screen-header h2 { color:#fff; font-size:1.6rem; font-weight:800; }
+.screen-header p { color: rgba(255,255,255,0.9); margin-top:.2rem; }
 
-</head> <body> <!-- ===== HEADER ===== --> <header class="header"> <div class="header-left"> <h1 id="greet">Halo, Siswa!</h1> <p id="kelasBadge">Loading...</p> </div> <button class="btn-logout" id="logoutBtn">Logout</button> </header> <div class="container"> <!-- ===== SECTION 1: PILIH KELAS ===== --> <section id="kelasSection"> <div class="section-title"> <h2>Pilih Kelas</h2> <p>Silakan pilih kelas Anda.</p> </div> <div class="grid" id="classList"></div> </section> <!-- ===== SECTION 2: PILIH MAPEL ===== --> <section id="mapelSection" class="hidden"> <button class="btn-back" id="backFromMapel">&#8592; Ganti Kelas</button> <div class="section-title"> <h2>Pilih Mata Pelajaran</h2> <p>Kelas 3</p> </div> <div class="grid" id="mapelList"></div> </section> <!-- ===== SECTION 3: PILIH BAB ===== --> <section id="babSection" class="hidden"> <button class="btn-back" id="backFromBab">&#8592; Pilih Mapel</button> <div class="section-title"> <h2 id="judulBab">-</h2> <p>Pilih bab / chapter untuk belajar.</p> </div> <div class="list" id="babList"></div> </section> <!-- ===== SECTION 4: PILIH LEVEL ===== --> <section id="levelSection" class="hidden"> <button class="btn-back" id="backFromLevel">&#8592; Pilih Bab</button> <div class="section-title"> <h2 id="judulLevel">-</h2> <p>Pilih level berpikir (C1 – C5).</p> </div> <div class="list" id="levelList"></div> </section> </div> <!-- Script dipisah ke file dashboard.js --> <script src="dashboard.js"></script> </body> </html> ``` </Artifact>
+.desc-level { font-size:.8rem; color: #6b7280; margin-left:auto; white-space:nowrap; }
+
+@keyframes fade { from {opacity:0; transform: translateY(8px);} to {opacity:1; transform:none;} }
+
+</style> </head> <body> <div class="container"> <!-- ========== LAYAR 1: PILIH KELAS ========== --> <div id="screen-kelas" class="screen active"> <header> <h1>🏫 Pilih Kelas</h1> <p>Pilih kelas untuk mulai belajar.</p> </header> <div class="grid"> <div class="card ac-kelas" onclick="bukaMapel()"> <span class="emoji">🎒</span> <div class="name">Kelas 3</div> </div> <!-- Kelas lain: tambahkan di sini nanti --> </div> </div> <!-- ========== LAYAR 2: PILIH MAPEL ========== --> <div id="screen-mapel" class="screen"> <div class="topbar"> <button class="btn-back" onclick="keScreen('screen-kelas')">&#8592; Ganti Kelas</button> </div> <div class="screen-header"> <h2>Kelas 3</h2><p>Pilih mata pelajaran.</p> </div> <div class="grid"> <div class="card ac-pancasila" onclick="khususMapel('Pancasila')"><span class="emoji">🦅</span><div class="name">Pancasila</div></div> <div class="card ac-matematika" onclick="khususMapel('Matematika')"><span class="emoji">➕</span><div class="name">Matematika</div></div> <div class="card ac-bindo" onclick="khususMapel('Bahasa Indonesia')"><span class="emoji">📖</span><div class="name">Bahasa Indonesia</div></div> <div class="card ac-ipas" onclick="bukaBabIPAS()"><span class="emoji">🔬</span><div class="name">IPAS</div></div> <div class="card ac-bing" onclick="khususMapel('Bahasa Inggris')"><span class="emoji">🌍</span><div class="name">Bahasa Inggris</div></div> </div> </div> <!-- ========== LAYAR 3: DAFTAR BAB IPAS ========== --> <div id="screen-bab" class="screen"> <div class="topbar"> <button class="btn-back" onclick="keScreen('screen-mapel')">&#8592; Kembali ke Mapel</button> </div> <div class="screen-header"> <h2>🔬 IPAS</h2><p>Pilih bab.</p> </div> <div class="grid list"> <div class="baris bab-border" onclick="bukaLevel(1)"><span class="bab-num">Bab 1</span> <span class="name">Keajaiban Tubuhku</span></div> <div class="baris bab-border" onclick="bukaLevel(2)"><span class="bab-num">Bab 2</span> <span class="name">Dahulu, Kini, dan Nanti</span></div> <div class="baris bab-border" onclick="bukaLevel(3)"><span class="bab-num">Bab 3</span> <span class="name">Peduli dan Berbagi</span></div> <div class="baris bab-border" onclick="bukaLevel(4)"><span class="bab-num">Bab 4</span> <span class="name">Siklus Hidup yang Menakjubkan</span></div> <div class="baris bab-border" onclick="bukaLevel(5)"><span class="bab-num">Bab 5</span> <span class="name">Bijak Berbelanja Kebutuhan</span></div> <div class="baris bab-border" onclick="bukaLevel(6)"><span class="bab-num">Bab 6</span> <span class="name">Energi, sang Pemberi Kekuatan</span></div> <div class="baris bab-border" onclick="bukaLevel(7)"><span class="bab-num">Bab 7</span> <span class="name">Jejak Penjelajah</span></div> <div class="baris bab-border" onclick="bukaLevel(8)"><span class="bab-num">Bab 8</span> <span class="name">Rahasia Tiga Wujud Zat</span></div> </div> </div> <!-- ========== LAYAR 4: PILIH LEVEL C1-C5 ========== --> <div id="screen-level" class="screen"> <div class="topbar"> <button class="btn-back" onclick="keScreen('screen-bab')">&#8592; Kembali ke Bab</button> </div> <div class="screen-header"> <h2 id="judul-bab-level">IPAS</h2> <p>Pilih tingkat kesulitan (level berpikir).</p> </div> <div class="grid list"> <div class="baris" onclick="pilihLevel('C1')"> <span class="badge-level lv-c1 level-badge"><span class="code">C1</span> Mengingat</span> <span class="desc-level">mengingat kembali materi</span> </div> <div class="baris" onclick="pilihLevel('C2')"> <span class="badge-level lv-c2 level-badge"><span class="code">C2</span> Memahami</span> <span class="desc-level">memahami konsep</span> </div> <div class="baris" onclick="pilihLevel('C3')"> <span class="badge-level lv-c3 level-badge"><span class="code">C3</span> Menerapkan</span> <span class="desc-level">menerapkan konsep</span> </div> <div class="baris" onclick="pilihLevel('C4')"> <span class="badge-level lv-c4 level-badge"><span class="code">C4</span> Menganalisis</span> <span class="desc-level">menguraikan hubungan</span> </div> <div class="baris" onclick="pilihLevel('C5')"> <span class="badge-level lv-c5 level-badge"><span class="code">C5</span> Mengevaluasi</span> <span class="desc-level">menilai/mengevaluasi</span> </div> </div> </div> </div> <script> const mapelIPAS = 'IPAS'; let babDipilih = null; function keScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); } // Dari kelas → mapel function bukaMapel() { keScreen('screen-mapel'); } // Mapel yang belum punya daftar bab function khususMapel(mapel) { alert('Daftar bab untuk "' + mapel + '" belum tersedia.'); } // IPAS → daftar bab function bukaBabIPAS() { keScreen('screen-bab'); } // Pilih bab → layar level const daftarBab = { 1:'Keajaiban Tubuhku', 2:'Dahulu, Kini, dan Nanti', 3:'Peduli dan Berbagi', 4:'Siklus Hidup yang Menakjubkan', 5:'Bijak Berbelanja Kebutuhan', 6:'Energi, sang Pemberi Kekuatan', 7:'Jejak Penjelajah', 8:'Rahasia Tiga Wujud Zat' }; function bukaLevel(babNo) { babDipilih = babNo; document.getElementById('judul-bab-level').textContent = 'IPAS • Bab ' + babNo + ' — ' + daftarBab[babNo]; keScreen('screen-level'); } // Pilih level → menuju latihan (placeholder) function pilihLevel(level) { // Ganti dengan halaman latihan/soal yang sesuai. window.location.href = 'latihan.html?kelas=3&mapel=' + encodeURIComponent(mapelIPAS) + '&bab=' + babDipilih + '&level=' + level; } </script> </body> </html> ``` </Artifact>
