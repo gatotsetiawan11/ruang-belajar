@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-
+                console.log("PIN BENAR");
 
 
 
@@ -290,6 +290,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 token
             );
 
+            console.log("TOKEN DISIMPAN:", token);
+                console.log(
+                "LOCAL STORAGE:",
+                localStorage.getItem("student_token")
+            );
 
             localStorage.setItem(
                 "student_id",
