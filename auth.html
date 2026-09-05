@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk / Daftar</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
+        body {
+            background: radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
+            min-height:100vh; display:flex; align-items:center; justify-content:center;
+            padding:20px; color:#e2e8f0;
+        }
+        .box {
+            background: rgba(30,41,59,0.85); border:1px solid rgba(148,163,184,0.25);
+            border-radius:18px; padding:35px 30px; width:100%; max-width:420px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+        h1 { text-align:center; font-size:24px; margin-bottom:5px; }
+        .sub { text-align:center; color:#94a3b8; font-size:14px; margin-bottom:25px; }
+        .mode { text-align:center; margin-bottom:20px; color:#a5b4fc; font-weight:bold; }
+        label { display:block; font-size:13px; color:#cbd5e1; margin:14px 0 5px; }
+        select, input {
+            width:100%; padding:12px; border-radius:10px; font-size:15px;
+            border:1px solid #3b4a63; background: rgba(15,23,42,0.6);
+            color:#fff; outline:none;
+        }
+        select:focus, input:focus { border-color:#818cf8; }
+        input:disabled { opacity:0.4; cursor:not-allowed; }
+        button {
+            width:100%; margin-top:20px; padding:14px; border:none; border-radius:12px;
+            font-size:17px; font-weight:bold; cursor:pointer;
+        }
+        .btn-aksi {
+            background: linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff;
+        }
+        .btn-aksi:hover { opacity:0.9; }
+        .msg { margin-top:15px; text-align:center; font-size:14px; min-height:20px; }
+        .msg.err { color:#f87171; }
+        .msg.ok  { color:#4ade80; }
+        .btn-pindah {
+            background:transparent; color:#a5b4fc; border:1px solid #4f46e5;
+            margin-top:10px; font-size:14px; border-radius:10px; padding:10px;
+        }
+        .btn-pindah:hover { background:#2d2a5e; }
+        .btn-pindah.off { display:none; }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h1>✏️ Aplikasi Kuis</h1>
+    <div class="sub">Kelas 3 • IPAS</div>
+
+    <div class="mode" id="modeText">🔎 Periksa Keanggotaan</div>
+
+    <label>Jenis Identitas</label>
+    <select id="jenis">
+        <option value="">-</option>
+        <option value="NISN">NISN</option>
+        <option value="WhatsApp">Nomor WhatsApp</option>
+        <option value="Email">Email</option>
+    </select>
+
+    <label id="labelNo">Nomor Identitas</label>
+    <input id="noId" placeholder="Ketik nomor identitas..." disabled>
+
+    <label>PIN</label>
+    <input id="pin" type="password" placeholder="Masukkan PIN" disabled>
+
+    <button class="btn-aksi" id="btnAksi" onclick="proses()" disabled>Periksa</button>
+
+    <div class="msg" id="pesan"></div>
+
+    <button class="btn-pindah off" id="btnDaftar" onclick="mulaiDaftar()">
+        ➕ Belum terdaftar? Daftar sekarang
+    </button>
+</div>
+
+<script>
+    // ====== GANTI DENGAN KONFIGURASI SUPABASE ANDA ======
+    const SUPABASE_URL = 'https://rvstyakujwbthjkadiwk.supabase.co';
+    const SUPABASE_ANON = 'PASTE_ANON_KEY_ANDA';
+    // ====================================================
+
+    const supabase = (typeof SUPABASE_ANON !== 'undefined' && SUPABASE_ANON.includes('PASTE'))
+        ? null
+        : createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    // Tampilkan peringatan jika belum dikonfigurasi
+    if (!supabase) {
+        document.getElementById('pesan').innerHTML =
+            '⚠️ <b>Konfigurasi belum diisi.</b> Isi SUPABASE_ANON dengan anon key dari Supabase.';
+    }
+
+    const modeLabel = { NISN:'Nomor NISN', WhatsApp:'Nomor WhatsApp', Email:'Alamat Email' };
+    const inisial = { NISN:'NISN', WhatsApp:'WA', Email:'Email' };
+
+    let mode = 'cek';   // 'cek' | 'daftar'
+
+    const elJenis = document.getElementById('jenis');
+    const elNo    = document.getElementById('noId');
+    const elPin   = document.getElementById('pin');
+    const elBtn   = document.getElementById('btnAksi');
+    const elMsg   = document.getElementById('pesan');
+    const elMode  = document.getElementById('modeText');
+
+    // Aktifkan kolom saat jenis dipilih
+    elJenis.addEventListener('change', () => {
+        const j = elJenis.value;
+        const ada = j !== '';
+        elNo.disabled = !ada;
+        elPin.disabled = !ada;
+        document.getElementById('labelNo').textContent = j ? modeLabel[j] : 'Nomor Identitas';
+        if (ada) {
+            elNo.placeholder = 'Ketik ' + modeLabel[j].toLowerCase() + '...';
+            resetAksi();
+        }
+        elBtn.disabled = !ada || mode==='daftar';
+        if (!ada) { elNo.value=''; elPin.value=''; }
+        elMsg.textContent='';
+    });
+
+    // ====== CEK / LOGIN ======
+    async function proses() {
+        if (mode === 'daftar') { await daftar(); return; }
+
+        const j = elJenis.value, no = elNo.value.trim(), pin = elPin.value;
+        if (!no) { elMsg.innerHTML='<span class="err">Isi nomor identitas</span>'; return; }
+        if (!pin) { elMsg.innerHTML='<span class="err">Masukkan PIN</span>'; return; }
+
+        const hash = await sha256(pin);
+
+        if (supabase) {
+            const { data, error } = await supabase.rpc('get_user_by_identity', {
+                p_jenis: j, p_no: no
+            });
+            if (error) { elMsg.innerHTML='<span class="err">Error: '+error.message+'</span>'; return; }
+
+            if (data.found) {
+                if (data.user.pin_hash === hash) {
+                    // login sukses
+                    elMsg.innerHTML='<span class="ok">✅ Berhasil masuk! Mengarahkan...</span>';
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    setTimeout(()=> location.href='latihan.html', 1200);
+                } else {
+                    elMsg.innerHTML='<span class="err">❌ PIN salah</span>';
+                }
+            } else {
+                // belum terdaftar -> tampilkan tombol daftar
+                elMsg.innerHTML='<span class="err">No belum terdaftar</span>';
+                document.getElementById('btnDaftar').classList.remove('off');
+                simpanDrafTunggu();
+            }
+        } else {
+            elMsg.innerHTML='<span class="err">Konfigurasi supabase belum diisi.</span>';
+        }
+    }
+
+    // ====== MODE DAFTAR ======
+    function mulaiDaftar() {
+        mode = 'daftar';
+        elMode.textContent = '📝 Daftar Akun Baru';
+        elBtn.textContent  = '✅ Daftar';
+        document.getElementById('btnDaftar').classList.add('off');
+        elBtn.disabled = false;
+        elMsg.textContent='';
+    }
+
+    async function daftar() {
+        const j = elJenis.value, no = elNo.value.trim(), pin = elPin.value;
+        if (!j) { elMsg.innerHTML='<span class="err">Pilih jenis identitas</span>'; return; }
+        if (!no) { elMsg.innerHTML='<span class="err">Isi nomor identitas</span>'; return; }
+        if (!pin) { elMsg.innerHTML='<span class="err">Buat PIN</span>'; return; }
+
+        const hash = await sha256(pin);
+
+        if (supabase) {
+            const { data, error } = await supabase.rpc('create_user', {
+                p_jenis: j,
+                p_no: no,
+                p_pin_hash: hash
+            });
+            if (error) { elMsg.innerHTML='<span class="err">Error: '+error.message+'</span>'; return; }
+
+            if (data.success) {
+                elMsg.innerHTML='<span class="ok">🎉 Berhasil terdaftar! Silakan masuk.</span>';
+                // kembali ke mode cek
+                mode='cek';
+                elMode.textContent='🔎 Periksa Keanggotaan';
+                elBtn.textContent='Periksa / Masuk';
+                document.getElementById('btnDaftar').classList.remove('off');
+                elBtn.disabled = !elJenis.value;
+                elNo.value=''; elPin.value='';
+            } else {
+                elMsg.innerHTML='<span class="err">'+(data.message||'Gagal daftar')+'</span>';
+            }
+        }
+    }
+
+    // ====== UTILITAS ======
+    function resetAksi() {
+        elBtn.disabled = false;
+        document.getElementById('btnDaftar').classList.add('off');
+    }
+
+    async function sha256(str) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+</script>
+</body>
+</html>
