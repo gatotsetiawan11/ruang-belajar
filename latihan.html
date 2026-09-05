@@ -7,195 +7,154 @@
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
         
-        /* ===== BACKGROUND GELAP ANGKASA ===== */
+        /* ===== BACKGROUND GELAP ===== */
         body {
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            min-height:100vh;
-            color:#e2e8f0;
+            background: radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
+            min-height:100vh; color:#e2e8f0;
         }
-        
         .header {
             background: linear-gradient(135deg, rgba(102,126,234,0.35), rgba(118,75,162,0.35));
-            color: white; padding: 22px 20px; text-align:center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border-bottom: 1px solid rgba(148,163,184,0.2);
+            color:white; padding:18px 20px; text-align:center;
+            border-bottom:1px solid rgba(148,163,184,0.2);
         }
-        .header h1 { font-size:24px; margin-bottom:5px; }
-        .header p { font-size:14px; opacity:0.9; }
+        .header h1 { font-size:22px; }
+        /* Info user login */
+        .user-info {
+            color:#c7d2fe; font-size:13px; margin-top:8px;
+            background: rgba(15,23,42,0.4); display:inline-block;
+            padding:6px 14px; border-radius:20px;
+            border:1px solid rgba(99,102,241,0.4);
+        }
+        .user-info .btn-logout {
+            margin-left:10px; background:#ef4444; color:#fff; border:none;
+            border-radius:15px; padding:3px 12px; cursor:pointer; font-size:12px;
+            text-decoration:none;
+        }
+        .user-info .btn-logout:hover { background:#dc2626; }
         
-        .container { max-width:800px; margin:30px auto; padding:0 15px; }
+        .container { max-width:800px; margin:25px auto; padding:0 15px; }
         
-        /* ===== CARD WARNA LEMBUT & COOL (gelap lembut) ===== */
         .card {
-            background: rgba(30, 41, 59, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(148, 163, 184, 0.22);
-            border-radius:18px; padding:25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-            margin-bottom:20px;
+            background: rgba(30,41,59,0.75); backdrop-filter:blur(12px);
+            border:1px solid rgba(148,163,184,0.22); border-radius:18px;
+            padding:25px; box-shadow:0 10px 30px rgba(0,0,0,0.45); margin-bottom:20px;
         }
-        
         .level-select { text-align:center; margin-bottom:20px; }
         .level-select h2 { color:#e0e7ff; margin-bottom:15px; font-size:22px; }
         
-        /* ===== TOMBOL LEVEL ===== */
         .level-btn {
-            display:inline-block; padding:12px 25px; margin:5px;
-            background: rgba(51, 65, 85, 0.5);
-            color:#c7d2fe; border:2px solid rgba(129,140,248,0.5);
-            border-radius:25px; font-weight:bold; cursor:pointer;
-            transition: all 0.3s ease; font-size:15px;
+            display:inline-block; padding:12px 22px; margin:5px;
+            background: rgba(51,65,85,0.5); color:#c7d2fe;
+            border:2px solid rgba(129,140,248,0.5); border-radius:25px;
+            font-weight:bold; cursor:pointer; transition:all 0.3s ease; font-size:15px;
         }
-        .level-btn:hover { background:#6366f1; color:white; border-color:#6366f1; }
+        .level-btn:hover { background:#6366f1; color:#fff; border-color:#6366f1; }
         .level-btn.active {
-            background: linear-gradient(135deg,#6366f1,#8b5cf6);
-            color:white; border-color:#6366f1;
-            box-shadow:0 4px 15px rgba(99,102,241,0.4);
+            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff;
+            border-color:#6366f1; box-shadow:0 4px 15px rgba(99,102,241,0.4);
         }
-        /* Level terkunci */
         .level-btn.terkunci {
             background: rgba(30,41,59,0.4); color:#64748b;
             border-color:#475569; cursor:not-allowed; opacity:0.55;
         }
-        .level-btn.terkunci:hover { background: rgba(30,41,59,0.4); color:#64748b; border-color:#475569; }
-        /* Level sudah lulus */
+        .level-btn.terkunci:hover { background:rgba(30,41,59,0.4); color:#64748b; border-color:#475569; }
         .level-btn.lulus {
-            background: rgba(34,197,94,0.15); color:#86efac;
-            border-color:#22c55e;
+            background: rgba(34,197,94,0.15); color:#86efac; border-color:#22c55e;
         }
         
         .info-bank {
-            background: rgba(15,23,42,0.4);
-            border-left:4px solid #8b5cf6;
+            background: rgba(15,23,42,0.4); border-left:4px solid #8b5cf6;
             padding:10px 15px; border-radius:8px; margin-bottom:20px;
             color:#cbd5e1; font-size:14px;
         }
-        
         .btn-mulai {
             display:block; width:100%;
-            background: linear-gradient(135deg,#6366f1,#8b5cf6); color:white;
+            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff;
             padding:15px; border:none; border-radius:12px; font-size:18px;
-            font-weight:bold; cursor:pointer; transition:all 0.3s;
-            margin-top:15px;
+            font-weight:bold; cursor:pointer; transition:all 0.3s; margin-top:15px;
         }
-        .btn-mulai:hover { background: linear-gradient(135deg,#4f46e5,#7c3aed); transform:translateY(-2px); }
+        .btn-mulai:hover { transform:translateY(-2px); }
         .btn-mulai:disabled { background:#334155; cursor:not-allowed; transform:none; opacity:0.5; }
         
         .question-area { display:none; }
         .question-area.show { display:block; }
-        
         .top-bar {
             display:flex; justify-content:space-between; align-items:center;
             margin-bottom:20px; flex-wrap:wrap; gap:10px;
         }
-        .progress {
-            background:#1e293b; border-radius:20px; height:12px;
-            flex-grow:1; margin:0 15px; min-width:120px; overflow:hidden;
-        }
-        .progress-bar {
-            height:100%; background:linear-gradient(90deg,#6366f1,#8b5cf6);
-            border-radius:20px; transition:width 0.5s ease; width:10%;
-        }
+        .progress { background:#1e293b; border-radius:20px; height:12px;
+            flex-grow:1; margin:0 15px; min-width:120px; overflow:hidden; }
+        .progress-bar { height:100%; background:linear-gradient(90deg,#6366f1,#8b5cf6);
+            border-radius:20px; transition:width 0.5s ease; width:10%; }
         .score-display, .timer-display {
-            background: rgba(51,65,85,0.6); padding:8px 15px; border-radius:20px;
+            background:rgba(51,65,85,0.6); padding:8px 15px; border-radius:20px;
             font-weight:bold; color:#c7d2fe; font-size:14px;
             border:1px solid rgba(129,140,248,0.3);
         }
-        
         .question-card { margin:20px 0; }
         .question-card .q-number {
-            display:inline-block;
-            background: linear-gradient(135deg,#6366f1,#8b5cf6); color:white;
-            padding:6px 16px; border-radius:20px; font-size:15px; margin-bottom:12px;
-            font-weight:700;
+            display:inline-block; background:linear-gradient(135deg,#6366f1,#8b5cf6);
+            color:#fff; padding:6px 16px; border-radius:20px; font-size:15px;
+            margin-bottom:12px; font-weight:700;
         }
-        /* ===== FONT PERTANYAAN DIPERBESAR ===== */
-        .question-card h3 {
-            color:#f1f5f9; font-size:24px; line-height:1.6;
-            margin-bottom:22px; font-weight:600;
-        }
-        
+        /* FONT PERTANYAAN BESAR */
+        .question-card h3 { color:#f1f5f9; font-size:24px; line-height:1.6;
+            margin-bottom:22px; font-weight:600; }
         .option-btn {
             display:block; width:100%; text-align:left; padding:15px 20px;
-            border:2px solid #3b4a63; border-radius:12px;
-            background: rgba(15,23,42,0.4); color:#e2e8f0;
-            margin-bottom:10px; cursor:pointer; font-size:17px; line-height:1.5;
-            transition: all 0.2s ease;
+            border:2px solid #3b4a63; border-radius:12px; background:rgba(15,23,42,0.4);
+            color:#e2e8f0; margin-bottom:10px; cursor:pointer; font-size:17px;
+            line-height:1.5; transition:all 0.2s ease;
         }
-        .option-btn:hover { border-color:#818cf8; background: rgba(51,65,85,0.6); }
-        .option-btn.selected { border-color:#8b5cf6; background: rgba(139,92,246,0.2); }
-        .option-btn.correct { border-color:#22c55e; background: rgba(34,197,94,0.15); color:#bbf7d0; }
-        .option-btn.wrong { border-color:#ef4444; background: rgba(239,68,68,0.15); color:#fecaca; }
+        .option-btn:hover { border-color:#818cf8; background:rgba(51,65,85,0.6); }
+        .option-btn.correct { border-color:#22c55e; background:rgba(34,197,94,0.15); color:#bbf7d0; }
+        .option-btn.wrong { border-color:#ef4444; background:rgba(239,68,68,0.15); color:#fecaca; }
         .option-btn:disabled { cursor:not-allowed; }
         .option-letter { font-weight:bold; color:#a5b4fc; margin-right:10px; }
         
-        .result-area { display:none; text-align:center; padding:30px 0; }
+        .result-area { display:none; text-align:center; padding:25px 0; }
         .result-area.show { display:block; }
         .result-area h2 { color:#e0e7ff; }
-        .result-score {
-            font-size:50px; font-weight:bold; color:#a78bfa; margin:15px 0;
-            background: linear-gradient(135deg,#a78bfa,#818cf8);
-            -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-        }
-        .result-msg { font-size:20px; color:#e2e8f0; margin-bottom:10px; }
-        .result-level { font-size:16px; color:#fff; padding:8px 20px; display:inline-block; border-radius:20px; margin-top:10px; font-weight:bold; }
+        .result-score { font-size:48px; font-weight:bold; margin:12px 0; color:#a78bfa; }
+        .result-msg { font-size:19px; color:#e2e8f0; margin-bottom:8px; white-space:pre-line; }
+        .result-level { font-size:15px; color:#fff; padding:8px 20px; display:inline-block;
+            border-radius:20px; margin-top:8px; font-weight:bold; }
         
-        .review-list { text-align:left; margin-top:25px; }
+        .review-list { text-align:left; margin-top:22px; }
         .review-list h3 { color:#e0e7ff; }
-        .review-item {
-            background: rgba(15,23,42,0.5);
-            border:1px solid #334155; border-radius:10px;
-            padding:15px; margin-bottom:15px;
-        }
+        .review-item { background:rgba(15,23,42,0.5); border:1px solid #334155;
+            border-radius:10px; padding:15px; margin-bottom:15px; }
         .review-item .r-question { font-weight:bold; color:#f1f5f9; margin-bottom:10px; font-size:16px; }
         .review-item .r-answer { font-size:15px; margin:5px 0; color:#cbd5e1; }
-        .r-correct { color:#4ade80; font-weight:bold; }
-        .r-wrong { color:#f87171; font-weight:bold; }
-        .kunci {
-            background: rgba(34,197,94,0.1); border-left:4px solid #22c55e;
-            padding:10px 15px; border-radius:8px; font-size:14px; margin-top:5px;
-            color:#bbf7d0;
-        }
+        .kunci { background:rgba(34,197,94,0.1); border-left:4px solid #22c55e;
+            padding:10px 15px; border-radius:8px; font-size:14px; margin-top:5px; color:#bbf7d0; }
         
         .btn-kembali {
-            display:inline-block; background: rgba(51,65,85,0.5); color:#a5b4fc;
-            padding:12px 25px; border:2px solid #6366f1; border-radius:25px;
-            text-decoration:none; font-weight:bold; margin-top:20px;
-            transition:all 0.3s; color:#c7d2fe; border-color:#4f46e5;
+            background:rgba(51,65,85,0.5); color:#c7d2fe; padding:11px 24px;
+            border:2px solid #4f46e5; border-radius:25px; text-decoration:none;
+            font-weight:bold; margin-top:18px; display:inline-block; transition:all 0.3s;
         }
-        .btn-kembali:hover { background:#6366f1; color:white; }
-        
+        .btn-kembali:hover { background:#6366f1; color:#fff; }
         .btn-selesai {
-            background:#22c55e; color:white; padding:12px 25px;
-            border:none; border-radius:25px; font-weight:bold; font-size:16px;
-            cursor:pointer; margin-top:10px; transition:all 0.3s;
+            background:#22c55e; color:#fff; padding:12px 25px; border:none;
+            border-radius:25px; font-weight:bold; font-size:16px; cursor:pointer;
+            margin-top:10px; transition:all 0.3s;
         }
         .btn-selesai:hover { background:#16a34a; }
-        
         .footer { text-align:center; padding:20px; color:#64748b; font-size:12px; }
         
-        /* Notifikasi unlock */
         .notif-open {
-            display:none;
             position:fixed; top:20px; left:50%; transform:translateX(-50%);
-            background:#065f46; color:#d1fae5; padding:15px 25px;
-            border-radius:12px; border:1px solid #34d399;
-            box-shadow:0 10px 30px rgba(0,0,0,0.3); z-index:999;
-            font-weight:bold; font-size:15px;
-            max-width:90%; text-align:center;
+            background:#065f46; color:#d1fae5; padding:14px 22px; border-radius:12px;
+            border:1px solid #34d399; box-shadow:0 10px 30px rgba(0,0,0,0.3);
+            z-index:999; font-weight:bold; font-size:15px; max-width:90%;
+            text-align:center; opacity:0; pointer-events:none; transition:opacity 0.3s;
         }
-        .notif-open.show { display:block; animation:fadeInOut 4s forwards; }
-        @keyframes fadeInOut {
-            0%{opacity:0; transform:translate(-50%,-20px);}
-            10%{opacity:1; transform:translate(-50%,0);}
-            85%{opacity:1;}
-            100%{opacity:0;}
-        }
+        .notif-open.show { opacity:1; }
         
-        @media (max-width: 600px) {
-            .container { margin:15px auto; }
-            .header h1 { font-size:20px; }
-            .level-btn { padding:10px 16px; font-size:14px; }
+        @media (max-width:600px) {
+            .container { margin:12px auto; }
+            .level-btn { padding:9px 14px; font-size:13px; }
             .question-card h3 { font-size:20px; }
             .option-btn { font-size:15px; }
         }
@@ -209,6 +168,8 @@
     <div class="header">
         <h1>✏️ Latihan Soal IPAS</h1>
         <p>Bab 1: Keajaiban Tubuhku - Kelas 3</p>
+        <!-- Info user yang login -->
+        <div class="user-info" id="userInfo"></div>
     </div>
     
     <div class="container">
@@ -216,68 +177,81 @@
         <div class="card" id="levelSelectCard">
             <div class="level-select">
                 <h2>📊 Pilih Level Soal</h2>
-                <!-- Tombol level dibuat otomatis oleh JS -->
                 <div id="levelButtons"></div>
             </div>
-            
             <div id="infoTersedia" class="info-bank">
                 📚 Silakan pilih level untuk melihat jumlah soal yang tersedia.
             </div>
-            
             <button class="btn-mulai" id="btnMulai" disabled onclick="mulaiLatihan()">
                 ▶️ Mulai Latihan (10 Soal)
             </button>
         </div>
-        
+
         <!-- Area Kuis -->
         <div class="card question-area" id="questionArea">
             <div class="top-bar">
                 <div class="score-display">⭐ Skor: <span id="skorLive">0</span></div>
-                <div class="progress">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
+                <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
                 <div class="timer-display">⏱️ <span id="timer">00:00</span></div>
             </div>
-            
             <div id="questionContainer"></div>
-            
             <button class="btn-mulai" id="btnSelesai" onclick="selesaiLatihan()">
                 ✅ Selesai & Lihat Hasil
             </button>
         </div>
-        
+
         <!-- Area Hasil -->
         <div class="card result-area" id="resultArea">
             <h2>🏆 Hasil Latihan</h2>
             <div class="result-score" id="scoreAkhir">0/10</div>
             <div class="result-msg" id="resultMsg"></div>
             <div id="levelBadge" class="result-level"></div>
-            
             <div class="review-list" id="reviewList"></div>
-            
-            <a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a>
-            <br>
+            <a href="#" class="btn-kembali" onclick="kembaliPilihLevel(event)">← Pilih Level Lagi</a><br>
             <button class="btn-selesai" onclick="ulangiLatihan()">🔄 Ulangi Latihan</button>
         </div>
-        
+
         <div class="footer">
-            📖 Bank Soal IPAS Kelas 3 • Bab 1: Keajaiban Tubuhku • 220 Soal (C1-C5)
+            📖 Bank Soal IPAS Kelas 3 • Bab 1: Keajaiban Tubuhku • Tiap siswa punya progres sendiri
         </div>
     </div>
 
     <script src="soal-IPAS-Bab1.js"></script>
     <script>
-        // ============ SISTEM UNLOCK LEVEL (BARU) ============
-        const urutanLevel = ['C1', 'C2', 'C3', 'C4', 'C5'];
-        const KUNCI_LULUS = 'levelLulus_IPAS_Bab1';
-        const NILAI_MIN_LULUS = 70;  // persen minimal untuk lulus
+        // ============ AMBIL USER LOGIN ============
+        const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
 
+        // === PENJAGA LOGIN: jika tidak ada user, kembali ke auth.html ===
+        if (!currentUser || !currentUser.id) {
+            alert('Anda harus masuk terlebih dahulu!');
+            location.href = 'auth.html';
+        }
+
+        // ============ KUNCI PER-USER ============
+        // Setiap user punya progres sendiri
+        const userId = currentUser ? currentUser.id : 'guest';
+        const KUNCI_LULUS = 'levelLulus_IPAS_' + userId;
+
+        // Tampilkan identitas user di header
+        if (currentUser) {
+            const labelJenis = { NISN:'NISN', WhatsApp:'WA', Email:'Email' };
+            const singkat = (currentUser.no_identitas || '').length > 14
+                ? currentUser.no_identitas.slice(0,14)+'…'
+                : currentUser.no_identitas;
+            document.getElementById('userInfo').innerHTML =
+                `👤 ${labelJenis[currentUser.jenis_identitas]||'User'}: <b>${singkat}</b>` +
+                ` <a class="btn-logout" href="#" onclick="keluar(event)">Keluar</a>`;
+        }
+
+        // ============ URUTAN & LABEL LEVEL ============
+        const urutanLevel = ['C1', 'C2', 'C3', 'C4', 'C5'];
+        const NILAI_MIN_LULUS = 70;  // persen
         const labelLevel = {
-            C1: 'Mengingat', C2: 'Memahami', C3: 'Mengaplikasi',
-            C4: 'Menganalisis', C5: 'Mengevaluasi'
+            C1:'Mengingat', C2:'Memahami', C3:'Mengaplikasi',
+            C4:'Menganalisis', C5:'Mengevaluasi'
         };
 
-        // Baca status lulus dari localStorage
+        // ============ STATUS LULUS (per user) ============
         function bacaStatusLulus() {
             try { return JSON.parse(localStorage.getItem(KUNCI_LULUS)) || {}; }
             catch(e) { return {}; }
@@ -287,365 +261,238 @@
             st[level] = true;
             localStorage.setItem(KUNCI_LULUS, JSON.stringify(st));
         }
-        function sudahLulus(level) {
-            return bacaStatusLulus()[level] === true;
-        }
-        // Level C1 selalu terbuka; lainnya butuh level sebelumnya lulus
+        function sudahLulus(level) { return bacaStatusLulus()[level] === true; }
         function bisaDibuka(level) {
             const idx = urutanLevel.indexOf(level);
             if (idx <= 0) return true;
             return sudahLulus(urutanLevel[idx - 1]);
         }
 
-        // Render ulang tombol level sesuai status
+        // ============ RENDER TOMBOL LEVEL ============
         function renderLevelButtons() {
             const container = document.getElementById('levelButtons');
             container.innerHTML = '';
-
             urutanLevel.forEach((level) => {
                 const jml = (bankSoalIPASBab1[level] || []).length;
                 const terbuka = bisaDibuka(level);
                 const lulus = sudahLulus(level);
-
-                let ikon = '';
-                let kelas = '';
-                if (lulus) {
-                    ikon = ' ✅';         // sudah lulus
-                    kelas = ' lulus';
-                } else if (terbuka) {
-                    ikon = ' ▶️';          // siap dikerjakan
-                } else {
-                    ikon = ' 🔒';          // terkunci
-                    kelas = ' terkunci';
-                }
+                let ikon='', kelas='';
+                if (lulus) { ikon=' ✅'; kelas=' lulus'; }
+                else if (terbuka) { ikon=' ▶️'; }
+                else { ikon=' 🔒'; kelas=' terkunci'; }
 
                 const btn = document.createElement('button');
-                btn.className = 'level-btn' + kelas;
-                btn.dataset.level = level;
+                btn.className='level-btn'+kelas;
                 btn.textContent = `${level} - ${labelLevel[level]} (${jml})${ikon}`;
-
                 if (terbuka) {
                     btn.onclick = () => pilihLevel(level, btn);
                 } else {
                     btn.onclick = () => {
-                        const prev = urutanLevel[urutanLevel.indexOf(level) - 1];
-                        alert(`🔒 Level ${level} masih terkunci!\nLuluskan dulu Level ${prev} (nilai ≥ ${NILAI_MIN_LULUS}).`);
+                        const prev = urutanLevel[urutanLevel.indexOf(level)-1];
+                        alert(`🔒 Level ${level} masih terkunci!\nLuluskan Level ${prev} (nilai ≥ ${NILAI_MIN_LULUS}) dulu.`);
                     };
                 }
                 container.appendChild(btn);
             });
         }
-        // ============ AKHIR SISTEM UNLOCK ============
 
-        // ======= STATE GLOBAL =======
+        // ============ STATE GLOBAL ============
         let currentLevel = null;
-        let soalLatihan = [];        // 10 soal acak
+        let soalLatihan = [];
         let nomorSaatIni = 0;
-        let jawabanUser = [];        // array of {soal, pilihanUser, benar}
+        let jawabanUser = [];
         let skor = 0;
         let timerInterval;
         let detikBerjalan = 0;
-        
-        // ======= FUNGSI UTILITAS =======
+
+        // ============ UTILITAS ============
         function shuffle(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
+            const arr=[...array];
+            for (let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
             return arr;
         }
-        
-        function formatWaktu(detik) {
-            const m = Math.floor(detik / 60);
-            const s = detik % 60;
+        function formatWaktu(d) {
+            const m=Math.floor(d/60), s=d%60;
             return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }
-        
-        // ======= PILIH LEVEL (DENGAN CEK KUNCI) =======
+
+        // ============ PILIH LEVEL (cegah terkunci) ============
         function pilihLevel(level, btn) {
-            // CEK KUNCI — tahan jika terkunci
             if (!bisaDibuka(level)) {
-                const prev = urutanLevel[urutanLevel.indexOf(level) - 1];
-                alert(`🔒 Level ${level} masih terkunci!\nLuluskan Level ${prev} (nilai ≥ ${NILAI_MIN_LULUS}) dulu.`);
+                const prev = urutanLevel[urutanLevel.indexOf(level)-1];
+                alert(`🔒 Level ${level} terkunci!\nLuluskan Level ${prev} (nilai ≥ ${NILAI_MIN_LULUS}) dulu.`);
                 return;
             }
-
             currentLevel = level;
-            
-            // aktifkan tombol
-            document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // update info (hitung jumlah dari data sebenarnya)
-            const total = (bankSoalIPASBab1[level] || []).length;
-            
-            document.getElementById('infoTersedia').innerHTML = 
-                `📚 Level <b>${level} (${labelLevel[level]})</b>: tersedia <b>${total} soal</b>. 
-                Selesaikan 10 soal dan raih nilai ≥ ${NILAI_MIN_LULUS} untuk membuka level berikutnya.`;
-            
-            // aktifkan tombol mulai
+
+            const total = (bankSoalIPASBab1[level]||[]).length;
+            document.getElementById('infoTersedia').innerHTML =
+                `📚 Level <b>${level} (${labelLevel[level]})</b>: tersedia <b>${total} soal</b>. ` +
+                `Selesaikan 10 soal, raih nilai ≥ ${NILAI_MIN_LULUS} untuk buka level berikutnya.`;
             document.getElementById('btnMulai').disabled = false;
         }
-        
-        // ======= MULAI LATIHAN =======
+
+        // ============ MULAI LATIHAN ============
         function mulaiLatihan() {
-            if (!currentLevel) {
-                alert('Silakan pilih level terlebih dahulu!');
-                return;
-            }
-            
-            // Ambil 10 soal acak dari level
+            if (!currentLevel) { alert('Pilih level dulu!'); return; }
             const bankLevel = bankSoalIPASBab1[currentLevel];
-            soalLatihan = shuffle(bankLevel).slice(0, 10);
-            
-            nomorSaatIni = 0;
-            jawabanUser = [];
-            skor = 0;
-            detikBerjalan = 0;
-            
-            // mulai timer
+            soalLatihan = shuffle(bankLevel).slice(0,10);
+            nomorSaatIni=0; jawabanUser=[]; skor=0; detikBerjalan=0;
             if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(() => {
-                detikBerjalan++;
-                document.getElementById('timer').textContent = formatWaktu(detikBerjalan);
-            }, 1000);
-            
-            // tampilkan area kuis
-            document.getElementById('levelSelectCard').style.display = 'none';
+            timerInterval = setInterval(()=>{ detikBerjalan++;
+                document.getElementById('timer').textContent=formatWaktu(detikBerjalan); },1000);
+
+            document.getElementById('levelSelectCard').style.display='none';
             document.getElementById('questionArea').classList.add('show');
             document.getElementById('resultArea').classList.remove('show');
-            
             tampilkanSoal();
         }
-        
-        // ======= TAMPILKAN SOAL =======
+
+        // ============ TAMPILKAN SOAL ============
         function tampilkanSoal() {
-            const soal = soalLatihan[nomorSaatIni];
-            const container = document.getElementById('questionContainer');
-            const total = soalLatihan.length;
-            
-            // Update progress & skor
-            const pct = ((nomorSaatIni) / total) * 100;
-            document.getElementById('progressBar').style.width = pct + '%';
-            document.getElementById('skorLive').textContent = skor;
-            
-            const huruf = ['A', 'B', 'C', 'D', 'E'];
-            
-            let html = `
-                <div class="question-card">
-                    <span class="q-number">Soal ${nomorSaatIni + 1} / ${total}</span>
-                    <h3>${soal.soal}</h3>
-                    <div id="optionsList">
-            `;
-            
-            soal.pilihan.forEach((pil, idx) => {
-                html += `
-                    <button class="option-btn" onclick="pilihJawaban(${idx})">
-                        <span class="option-letter">${huruf[idx]}.</span> ${pil}
-                    </button>
-                `;
-            });
-            
-            html += `</div></div>`;
-            container.innerHTML = html;
+            const soal=soalLatihan[nomorSaatIni];
+            const container=document.getElementById('questionContainer');
+            const total=soalLatihan.length;
+            const pct=(nomorSaatIni/total)*100;
+            document.getElementById('progressBar').style.width=pct+'%';
+            document.getElementById('skorLive').textContent=skor;
+            const huruf=['A','B','C','D','E'];
+            let html=`<div class="question-card">
+                <span class="q-number">Soal ${nomorSaatIni+1} / ${total}</span>
+                <h3>${soal.soal}</h3><div id="optionsList">`;
+            soal.pilihan.forEach((pil,idx)=>{ html+=`
+                <button class="option-btn" onclick="pilihJawaban(${idx})">
+                    <span class="option-letter">${huruf[idx]}.</span> ${pil}</button>`; });
+            html+=`</div></div>`;
+            container.innerHTML=html;
         }
-        
-        // ======= PILIH JAWABAN (TIDAK DIUBAH) =======
+
+        // ============ PILIH JAWABAN ============
         function pilihJawaban(idx) {
-            const soal = soalLatihan[nomorSaatIni];
-            const semuaBtn = document.querySelectorAll('.option-btn');
-            
-            const benar = (idx === soal.kunci);
+            const soal=soalLatihan[nomorSaatIni];
+            const semuaBtn=document.querySelectorAll('.option-btn');
+            const benar=(idx===soal.kunci);
             if (benar) skor++;
-            
-            jawabanUser.push({
-                soal: soal.soal,
-                pilihan: soal.pilihan,
-                pilihanUser: idx,
-                kunci: soal.kunci,
-                benar: benar
+            jawabanUser.push({ soal:soal.soal, pilihan:soal.pilihan, pilihanUser:idx,
+                kunci:soal.kunci, benar });
+            semuaBtn.forEach((btn,i)=>{
+                btn.disabled=true;
+                if (i===soal.kunci) btn.classList.add('correct');
+                if (i===idx && idx!==soal.kunci) btn.classList.add('wrong');
             });
-            
-            semuaBtn.forEach((btn, i) => {
-                btn.disabled = true;
-                if (i === soal.kunci) {
-                    btn.classList.add('correct');
-                }
-                if (i === idx && idx !== soal.kunci) {
-                    btn.classList.add('wrong');
-                }
-            });
-            
-            document.getElementById('skorLive').textContent = skor;
-            
-            const btnSelesai = document.getElementById('btnSelesai');
-            if (nomorSaatIni < soalLatihan.length - 1) {
-                btnSelesai.innerHTML = '➡️ Soal Berikutnya';
-                btnSelesai.onclick = () => {
-                    nomorSaatIni++;
-                    tampilkanSoal();
-                    btnSelesai.innerHTML = '✅ Selesai & Lihat Hasil';
-                    btnSelesai.onclick = selesaiLatihan;
-                };
+            document.getElementById('skorLive').textContent=skor;
+            const bs=document.getElementById('btnSelesai');
+            if (nomorSaatIni < soalLatihan.length-1) {
+                bs.innerHTML='➡️ Soal Berikutnya';
+                bs.onclick=()=>{ nomorSaatIni++; tampilkanSoal();
+                    bs.innerHTML='✅ Selesai & Lihat Hasil'; bs.onclick=selesaiLatihan; };
             } else {
-                btnSelesai.innerHTML = '✅ Selesai & Lihat Hasil';
-                btnSelesai.onclick = selesaiLatihan;
+                bs.innerHTML='✅ Selesai & Lihat Hasil'; bs.onclick=selesaiLatihan;
             }
         }
-        
-        // ======= SELESAI LATIHAN (DITAMBAH LOGIKA LULUS) =======
+
+        // ============ SELESAI LATIHAN ============
         function selesaiLatihan() {
             clearInterval(timerInterval);
-            
             if (jawabanUser.length < soalLatihan.length) {
-                for (let i = jawabanUser.length; i < soalLatihan.length; i++) {
-                    jawabanUser.push({
-                        soal: soalLatihan[i].soal,
-                        pilihan: soalLatihan[i].pilihan,
-                        pilihanUser: -1,
-                        kunci: soalLatihan[i].kunci,
-                        benar: false
-                    });
+                for (let i=jawabanUser.length;i<soalLatihan.length;i++){
+                    jawabanUser.push({ soal:soalLatihan[i].soal, pilihan:soalLatihan[i].pilihan,
+                        pilihanUser:-1, kunci:soalLatihan[i].kunci, benar:false });
                 }
             }
-            
             document.getElementById('questionArea').classList.remove('show');
             document.getElementById('resultArea').classList.add('show');
-            
-            const scoreAkhir = jawabanUser.filter(j => j.benar).length;
+
+            const scoreAkhir = jawabanUser.filter(j=>j.benar).length;
             const total = soalLatihan.length;
-            
-            document.getElementById('scoreAkhir').textContent = `${scoreAkhir}/${total}`;
-            
-            const pct = (scoreAkhir / total) * 100;
-            let msg, badgeColor, badgeText;
-            
-            // [BARU] cek apakah berhasil lulus untuk buka level berikutnya
+            document.getElementById('scoreAkhir').textContent=`${scoreAkhir}/${total}`;
+
+            const pct=(scoreAkhir/total)*100;
             const lulusLevelIni = (pct >= NILAI_MIN_LULUS);
-            const levelBerikutnya = urutanLevel[urutanLevel.indexOf(currentLevel) + 1];
+            const levelBerikutnya = urutanLevel[urutanLevel.indexOf(currentLevel)+1];
 
-            if (pct >= 90) {
-                msg = '🌟 Luar biasa! Kamu sangat paham!';
-                badgeText = '🏅 SANGAT BAIK';
-                badgeColor = 'background:#f59e0b;';
-            } else if (pct >= 75) {
-                msg = '👍 Bagus sekali! Sedikit lagi sempurna!';
-                badgeText = '🎖️ BAGUS';
-                badgeColor = 'background:#22c55e;';
-            } else if (pct >= 60) {
-                msg = '😊 Cukup baik. Ayo tingkatkan lagi!';
-                badgeText = '📈 CUKUP';
-                badgeColor = 'background:#3b82f6;';
-            } else if (pct >= 40) {
-                msg = '💪 Jangan menyerah! Coba pelajari lagi dan ulangi.';
-                badgeText = '📚 PERLU BELAJAR LAGI';
-                badgeColor = 'background:#f97316;';
-            } else {
-                msg = '📖 Yuk baca lagi materinya, lalu coba lagi ya!';
-                badgeText = '💡 MULAI ULANG';
-                badgeColor = 'background:#ef4444;';
-            }
-            
-            // Tambahkan keterangan lulus pada pesan jika berhasil
+            let msg, badgeColor, badgeText;
+            if (pct>=90){ msg='🌟 Luar biasa! Kamu sangat paham!'; badgeText='🏅 SANGAT BAIK'; badgeColor='#f59e0b'; }
+            else if (pct>=75){ msg='👍 Bagus sekali!'; badgeText='🎖️ BAGUS'; badgeColor='#22c55e'; }
+            else if (pct>=60){ msg='😊 Cukup baik.'; badgeText='📈 CUKUP'; badgeColor='#3b82f6'; }
+            else if (pct>=40){ msg='💪 Ayo coba lagi!'; badgeText='📚 PERLU BELAJAR'; badgeColor='#f97316'; }
+            else { msg='📖 Baca lagi materinya ya!'; badgeText='💡 MULAI ULANG'; badgeColor='#ef4444'; }
+
             if (lulusLevelIni) {
-                msg += '\n (✅ Lulus!)';
-                // Simpan kelulusan agar level berikutnya terbuka
-                simpanStatusLulus(currentLevel);
+                msg += '\n✅ Lulus! Level berikutnya terbuka.';
+                simpanStatusLulus(currentLevel);   // simpan per user
             }
-            
-            document.getElementById('resultMsg').textContent = msg;
-            
-            const badge = document.getElementById('levelBadge');
-            badge.textContent = `${badgeText} • Level ${currentLevel}`;
-            badge.style.background = badgeColor;
-            
-            tampilkanReview();
 
-            // [BARU] Notifikasi jika ada level baru yang terbuka
+            document.getElementById('resultMsg').textContent=msg;
+            const badge=document.getElementById('levelBadge');
+            badge.textContent=`${badgeText} • Level ${currentLevel}`;
+            badge.style.background=badgeColor;
+
+            tampilkanReview();
             if (lulusLevelIni && levelBerikutnya) {
-                tampilkanNotifikasi(
-                    `🎉 Selamat! Kamu lulus Level ${currentLevel}!\nLevel ${levelBerikutnya} (${labelLevel[levelBerikutnya]}) sekarang terbuka!`
-                );
+                tampilkanNotifikasi(`🎉 Level ${currentLevel} lulus!\nLevel ${levelBerikutnya} (${labelLevel[levelBerikutnya]}) terbuka!`);
             }
-            // Perbarui tombol level (kalau ada yang baru terbuka)
             renderLevelButtons();
         }
 
-        // Fungsi notifikasi popup kecil melayang
-        function tampilkanNotifikasi(pesan) {
-            const el = document.getElementById('notifOpen');
-            el.textContent = pesan;
-            el.classList.add('show');
-            setTimeout(() => el.classList.remove('show'), 4500);
-        }
-        
-        // ======= REVIEW JAWABAN (TIDAK DIUBAH) =======
+        // ============ REVIEW ============
         function tampilkanReview() {
-            const list = document.getElementById('reviewList');
-            const huruf = ['A', 'B', 'C', 'D', 'E'];
-            let html = '<h3 style="margin:15px 0;">📋 Pembahasan:</h3>';
-            
-            jawabanUser.forEach((j, i) => {
-                html += `
-                    <div class="review-item">
-                        <div class="r-question">${i+1}. ${j.soal}</div>
-                `;
-                
-                j.pilihan.forEach((pil, idx) => {
-                    let style = '';
-                    if (idx === j.kunci) {
-                        style = 'border-left:4px solid #22c55e; padding-left:8px;';
-                    }
-                    if (idx === j.pilihanUser && !j.benar) {
-                        style = 'border-left:4px solid #ef4444; padding-left:8px;';
-                    }
-                    const mark = (idx === j.kunci) ? ' ✔' : ((idx === j.pilihanUser && !j.benar) ? ' ✘' : '');
-                    html += `
-                        <div class="r-answer" style="${style}">
-                            ${huruf[idx]}. ${pil}${mark}
-                        </div>
-                    `;
+            const list=document.getElementById('reviewList');
+            const huruf=['A','B','C','D','E'];
+            let html='<h3 style="margin:15px 0;">📋 Pembahasan:</h3>';
+            jawabanUser.forEach((j,i)=>{
+                html+=`<div class="review-item"><div class="r-question">${i+1}. ${j.soal}</div>`;
+                j.pilihan.forEach((pil,idx)=>{
+                    let style='';
+                    if (idx===j.kunci) style='border-left:4px solid #22c55e; padding-left:8px;';
+                    if (idx===j.pilihanUser && !j.benar) style='border-left:4px solid #ef4444; padding-left:8px;';
+                    const mark=(idx===j.kunci)?' ✔':((idx===j.pilihanUser&&!j.benar)?' ✘':'');
+                    html+=`<div class="r-answer" style="${style}">${huruf[idx]}. ${pil}${mark}</div>`;
                 });
-                
-                if (!j.benar) {
-                    html += `
-                        <div class="kunci">
-                            💡 Jawaban yang benar: <b>${huruf[j.kunci]}. ${j.pilihan[j.kunci]}</b>
-                        </div>
-                    `;
-                }
-                
-                html += '</div>';
+                if (!j.benar) html+=`<div class="kunci">💡 Jawaban benar: <b>${huruf[j.kunci]}. ${j.pilihan[j.kunci]}</b></div>`;
+                html+='</div>';
             });
-            
-            list.innerHTML = html;
+            list.innerHTML=html;
         }
-        
-        // ======= ULANGI (DITAMBAH RENDER ULANG TOMBOL) =======
+
+        // ============ ULANGI / KEMBALI ============
         function ulangiLatihan() {
             document.getElementById('resultArea').classList.remove('show');
-            document.getElementById('levelSelectCard').style.display = 'block';
-            document.getElementById('questionArea').classList.remove('show');
-            
-            nomorSaatIni = 0;
-            jawabanUser = [];
-            skor = 0;
-            detikBerjalan = 0;
-            document.getElementById('timer').textContent = '00:00';
-            document.getElementById('skorLive').textContent = '0';
-            document.getElementById('btnMulai').disabled = true;
-            
-            document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-            currentLevel = null;
-            document.getElementById('infoTersedia').innerHTML = 
-                '📚 Silakan pilih level untuk melihat jumlah soal yang tersedia.';
-            
-            // render ulang tombol level (untuk munculkan level baru yang terbuka)
+            document.getElementById('levelSelectCard').style.display='block';
+            resetQ();
             renderLevelButtons();
         }
+        function kembaliPilihLevel(e) {
+            if (e) e.preventDefault();
+            ulangiLatihan();
+        }
+        function resetQ() {
+            nomorSaatIni=0; jawabanUser=[]; skor=0; detikBerjalan=0;
+            document.getElementById('timer').textContent='00:00';
+            document.getElementById('skorLive').textContent='0';
+            document.getElementById('btnMulai').disabled=true;
+            document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
+            currentLevel=null;
+            document.getElementById('infoTersedia').innerHTML='📚 Silakan pilih level.';
+            document.getElementById('questionArea').classList.remove('show');
+        }
 
-        // ======= INISIALISASI SAAT PERTAMA DIBUKA =======
+        // ============ NOTIFIKASI & LOGOUT ============
+        function tampilkanNotifikasi(pesan) {
+            const el=document.getElementById('notifOpen');
+            el.textContent=pesan; el.classList.add('show');
+            setTimeout(()=>el.classList.remove('show'),4500);
+        }
+        function keluar(e) {
+            if (e) e.preventDefault();
+            localStorage.removeItem('user');   // hapus sesi
+            // (opsional hapus progres? biarkan agar tersimpan per user ketika login kembali)
+            location.href='auth.html';
+        }
+
+        // ============ INISIALISASI ============
         renderLevelButtons();
     </script>
 </body>
