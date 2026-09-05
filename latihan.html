@@ -3,592 +3,494 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan IPAS Bab 1</title>
+    <title>Latihan Soal IPAS - Bab 1: Keajaiban Tubuhku</title>
     <style>
-        /* ========== RESET & BODY ========== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
+        body { background:#f0f4ff; min-height:100vh; }
         
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            color: #e2e8f0;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            position: relative;
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white; padding: 25px 20px; text-align:center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-
-        /* ========== ANIMASI BINTANG ========== */
-        .stars, .twinkling, .clouds {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: block;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .stars {
-            background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMzAiIHI9IjEiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSIxMjAiIGN5PSI4MCIgcj0iMS41IiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSIxIiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMzUwIiBjeT0iNjAiIHI9IjIiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSI0MDAiIGN5PSIyMDAiIHI9IjEiIGZpbGw9IiNmZmYiLz48Y2lyY2xlIGN4PSI4MCIgY3k9IjI1MCIgcj0iMS41IiBmaWxsPSIjZmZmIi8+PC9zdmc+') repeat;
-            background-size: 500px 500px;
-            animation: zoom 50s infinite linear;
-        }
-        .twinkling {
-            background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOCIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjEwMCIgcj0iMyIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC43Ii8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMjAwIiByPSIxLjUiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOSIvPjxjaXJjbGUgY3g9IjMwMCIgY3k9IjI1MCIgcj0iMiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC42Ii8+PC9zdmc+') repeat;
-            background-size: 500px 500px;
-            animation: twinkle 3s infinite;
-            opacity: 0.5;
-        }
-        .clouds {
-            background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNjAiIGZpbGw9InVybCgjZykiLz48Y2lyY2xlIGN4PSIzMDAiIGN5PSIxNTAiIHI9IjUwIiBmaWxsPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iMjAwIiBjeT0iMjAwIiByPSI4MCIgZmlsbD0idXJsKCNnKSIvPjwvc3ZnPg==') repeat;
-            background-size: 500px 500px;
-            animation: drift 50s infinite linear;
-            opacity: 0.4;
-        }
-
-        /* ========== ANIMATION KEYFRAMES ========== */
-        @keyframes zoom { from { transform: scale(1); } to { transform: scale(1.5); } }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-        @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-500px); } }
-
-        /* ========== CONTAINER ========== */
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 20px 15px 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Header kecil - tidak mendominasi */
-        .header-mini {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 8px 0;
-        }
-        .btn-back {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            color: #93c5fd;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            backdrop-filter: blur(5px);
-            white-space: nowrap;
-        }
-        .btn-back:hover { background: rgba(30, 41, 59, 0.9); color: #dbeafe; }
+        .header h1 { font-size:24px; margin-bottom:5px; }
+        .header p { font-size:14px; opacity:0.9; }
         
-        .judul-kecil {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #94a3b8;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* ========== CARD ========== */
+        .container { max-width:800px; margin:30px auto; padding:0 15px; }
+        
         .card {
-            background: rgba(15, 23, 42, 0.72);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.1) inset;
-            transition: all 0.2s;
+            background: white; border-radius:16px; padding:25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); margin-bottom:20px;
         }
-        .card h3 { color: #e0e7ff; margin-bottom: 12px; font-size: 1.1rem; }
-
-        /* Info tambahan kecil */
-        .info-kecil {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-bottom: 10px;
-            text-align: center;
+        
+        .level-select { text-align:center; margin-bottom:20px; }
+        .level-select h2 { color:#333; margin-bottom:15px; font-size:20px; }
+        
+        .level-btn {
+            display:inline-block; padding:12px 25px; margin:5px;
+            background:#eef2ff; color:#667eea; border:2px solid #667eea;
+            border-radius:25px; font-weight:bold; cursor:pointer;
+            transition: all 0.3s ease;
         }
-        .info-kecil b { color: #a5b4fc; }
-
-        /* Tombol level */
-        .level-buttons { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-        .btn-level {
-            background: rgba(51, 65, 85, 0.6);
-            border: 1px solid rgba(100, 116, 139, 0.3);
-            color: #cbd5e1;
-            padding: 10px 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s;
-            backdrop-filter: blur(5px);
+        .level-btn:hover { background:#667eea; color:white; }
+        .level-btn.active { background:#667eea; color:white; box-shadow:0 4px 12px rgba(102,126,234,0.4); }
+        
+        .info-bank {
+            background:#f8faff; border-left:4px solid #764ba2;
+            padding:10px 15px; border-radius:8px; margin-bottom:20px;
+            color:#555; font-size:14px;
         }
-        .btn-level:hover { background: rgba(71, 85, 105, 0.8); border-color: #64748b; }
-        .btn-level.aktif { 
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-color: #6366f1;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-        }
-        .btn-level:disabled { opacity: 0.3; cursor: not-allowed; }
-
-        /* Tombol mulai */
+        
         .btn-mulai {
-            width: 100%;
-            padding: 16px;
-            font-size: 1.1rem;
-            font-weight: 800;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: #fff;
-            transition: all 0.2s;
-            letter-spacing: 0.5px;
-            margin-top: 14px;
+            display:block; width:100%; background:#764ba2; color:white;
+            padding:15px; border:none; border-radius:12px; font-size:18px;
+            font-weight:bold; cursor:pointer; transition:all 0.3s;
+            margin-top:15px;
         }
-        .btn-mulai:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4); }
-        .btn-mulai:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-        /* Soal */
-        .badge-soal-hdr {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #c7d2fe;
-            padding: 6px 14px;
-            border-radius: 18px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+        .btn-mulai:hover { background:#5e3a85; transform:translateY(-2px); }
+        .btn-mulai:disabled { background:#ccc; cursor:not-allowed; transform:none; }
+        
+        .question-area { display:none; }
+        .question-area.show { display:block; }
+        
+        .top-bar {
+            display:flex; justify-content:space-between; align-items:center;
+            margin-bottom:20px; flex-wrap:wrap; gap:10px;
         }
-        .soal-teks {
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: #f1f5f9;
-            line-height: 1.5;
-            margin-bottom: 18px;
-            padding: 5px 2px;
-            letter-spacing: 0.2px;
+        .progress {
+            background:#e0e0e0; border-radius:20px; height:12px;
+            flex-grow:1; margin:0 15px; min-width:120px; overflow:hidden;
         }
-        .opsi-list { display: flex; flex-direction: column; gap: 10px; }
-        .opsi-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            border-radius: 12px;
-            color: #e2e8f0;
-            font-size: 1.05rem;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-            backdrop-filter: blur(5px);
+        .progress-bar {
+            height:100%; background:linear-gradient(90deg,#667eea,#764ba2);
+            border-radius:20px; transition:width 0.5s ease; width:10%;
         }
-        .opsi-btn:hover { border-color: rgba(99, 102, 241, 0.6); background: rgba(51, 65, 85, 0.5); }
-        .opsi-btn .huruf {
-            background: rgba(99, 102, 241, 0.2);
-            border: 1px solid rgba(99, 102, 241, 0.4);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1rem;
-            flex-shrink: 0;
+        .score-display, .timer-display {
+            background:#eef2ff; padding:8px 15px; border-radius:20px;
+            font-weight:bold; color:#667eea; font-size:14px;
         }
-        .opsi-btn.benar {
-            border-color: #34d399;
-            background: rgba(52, 211, 153, 0.15);
+        
+        .question-card { margin:20px 0; }
+        .question-card .q-number {
+            display:inline-block; background:#764ba2; color:white;
+            padding:5px 15px; border-radius:20px; font-size:14px; margin-bottom:10px;
         }
-        .opsi-btn.benar .huruf { background: #34d399; border-color: #34d399; color: #064e3b; }
-        .opsi-btn.salah {
-            border-color: #f87171;
-            background: rgba(248, 113, 113, 0.15);
+        .question-card h3 { color:#333; font-size:18px; line-height:1.5; margin-bottom:20px; }
+        
+        .option-btn {
+            display:block; width:100%; text-align:left; padding:15px 20px;
+            border:2px solid #ddd; border-radius:12px; background:#fafaff;
+            margin-bottom:10px; cursor:pointer; font-size:15px; line-height:1.4;
+            transition: all 0.2s ease;
         }
-        .opsi-btn.salah .huruf { background: #f87171; border-color: #f87171; color: #450a0a; }
-        .opsi-btn:disabled { cursor: not-allowed; }
-
-        /* Feedback */
-        .feedback {
-            margin-top: 12px;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            display: none;
+        .option-btn:hover { border-color:#667eea; background:#f0f2ff; }
+        .option-btn.selected { border-color:#764ba2; background:#e8e0ff; }
+        .option-btn.correct { border-color:#22c55e; background:#e8ffe8; }
+        .option-btn.wrong { border-color:#ef4444; background:#ffe8e8; }
+        .option-letter { font-weight:bold; color:#764ba2; margin-right:10px; }
+        
+        .result-area { display:none; text-align:center; padding:30px 0; }
+        .result-area.show { display:block; }
+        .result-score { font-size:50px; font-weight:bold; color:#764ba2; margin:15px 0; }
+        .result-msg { font-size:20px; color:#333; margin-bottom:10px; }
+        .result-level { font-size:16px; color:#fff; padding:8px 20px; display:inline-block; border-radius:20px; margin-top:10px; }
+        
+        .review-list { text-align:left; margin-top:25px; }
+        .review-item {
+            background:#fafaff; border:1px solid #e0e0e0; border-radius:10px;
+            padding:15px; margin-bottom:15px;
         }
-        .feedback.benar { background: rgba(52, 211, 153, 0.1); color: #6ee7b7; border: 1px solid rgba(52, 211, 153, 0.3); display: block; }
-        .feedback.salah { background: rgba(248, 113, 113, 0.1); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.3); display: block; }
-
-        /* Tombol lanjut */
-        .btn-lanjut {
-            width: 100%;
-            padding: 14px;
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.4);
-            color: #c7d2fe;
-            font-size: 1.05rem;
-            font-weight: 700;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            backdrop-filter: blur(5px);
-            margin-top: 12px;
-            display: none;
+        .review-item .r-question { font-weight:bold; color:#333; margin-bottom:10px; }
+        .review-item .r-answer { font-size:14px; margin:5px 0; }
+        .r-correct { color:#22c55e; font-weight:bold; }
+        .r-wrong { color:#ef4444; font-weight:bold; }
+        .kunci {
+            background:#eef9f0; border-left:4px solid #22c55e;
+            padding:10px 15px; border-radius:8px; font-size:14px; margin-top:5px;
         }
-        .btn-lanjut:hover { background: rgba(99, 102, 241, 0.3); }
-
-        /* Hasil */
-        .hasil-score {
-            font-size: 3.5rem;
-            font-weight: 900;
-            text-align: center;
-            background: linear-gradient(135deg, #a78bfa, #818cf8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin: 15px 0;
+        
+        .btn-kembali {
+            display:inline-block; background:#f0f4ff; color:#667eea;
+            padding:10px 25px; border:2px solid #667eea; border-radius:25px;
+            text-decoration:none; font-weight:bold; margin-top:20px;
+            transition:all 0.3s;
         }
-        .hasil-pesan { text-align: center; font-size: 1.3rem; color: #e2e8f0; margin-bottom: 20px; }
-        .btn-group-result { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .btn-action {
-            padding: 12px 24px;
-            border-radius: 25px;
-            border: none;
-            background: rgba(51, 65, 85, 0.6);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            color: #e2e8f0;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+        .btn-kembali:hover { background:#667eea; color:white; }
+        
+        .btn-selesai {
+            background:#22c55e; color:white; padding:12px 25px;
+            border:none; border-radius:25px; font-weight:bold; font-size:16px;
+            cursor:pointer; margin-top:10px; transition:all 0.3s;
         }
-        .btn-action:hover { background: rgba(71, 85, 105, 0.8); }
-        .btn-action.primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; }
-        .btn-action.primary:hover { opacity: 0.9; }
-
-        /* Hidden */
-        .hidden { display: none !important; }
-
-        .deskripsi-mapel {
-            font-size: 0.9rem;
-            color: #64748b;
-            text-align: center;
-            margin-bottom: 8px;
+        .btn-selesai:hover { background:#16a34a; }
+        
+        .footer { text-align:center; padding:20px; color:#999; font-size:12px; }
+        
+        @media (max-width: 600px) {
+            .container { margin:15px auto; }
+            .header h1 { font-size:20px; }
+            .level-btn { padding:10px 18px; font-size:14px; }
+            .question-card h3 { font-size:16px; }
         }
     </style>
 </head>
 <body>
-    <!-- Background bintang -->
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <div class="clouds"></div>
-
+    <div class="header">
+        <h1>✏️ Latihan Soal IPAS</h1>
+        <p>Bab 1: Keajaiban Tubuhku - Kelas 3</p>
+    </div>
+    
     <div class="container">
-
-        <!-- Header kecil -->
-        <div class="header-mini">
-            <a href="dashboard.html" class="btn-back">🏠 Dashboard</a>
-            <div class="judul-kecil">🌌 IPAS • Bab 1</div>
-        </div>
-
-        <!-- LEVEL SELECTION -->
-        <div class="card" id="areaLevel">
-            <h3 style="text-align:center;">Pilih Level Kognitif</h3>
-            <div class="info-kecil" id="info-jumlah">Muat data...</div>
-            <div class="level-buttons" id="tombol-level"></div>
-            <button class="btn-mulai" id="btn-mulai" disabled>🚀 Mulai</button>
-        </div>
-
-        <!-- QUIZ AREA -->
-        <div class="card hidden" id="area-kuis">
-            <span class="badge-soal-hdr" id="nomor-soal"></span>
-            <div class="soal-teks" id="teks-soal">-</div>
-            <div class="opsi-list" id="list-opsi"></div>
-            <div class="feedback" id="area-feedback"></div>
-            <button class="btn-lanjut" id="btn-lanjut">➡️ Soal Berikutnya</button>
-        </div>
-
-        <!-- HASIL AREA -->
-        <div class="card hidden" id="area-hasil">
-            <h2 style="text-align:center;color:#e0e7ff;">🏆 Hasilnya</h2>
-            <div class="hasil-score" id="skor-akhir">0/0</div>
-            <div class="hasil-pesan" id="pesan-hasil">-</div>
-            <div style="text-align:center;color:#64748b;font-size:0.9rem;margin-bottom:15px;" id="detail-hasil"></div>
-            <div class="btn-group-result">
-                <button class="btn-action primary" onclick="ulangi()">🔄 Ulangi</button>
-                <button class="btn-action" onclick="resetLevel()">📋 Pilih Level</button>
+        <!-- Pilihan Level -->
+        <div class="card" id="levelSelectCard">
+            <div class="level-select">
+                <h2>📊 Pilih Level Soal</h2>
+                
+                <button class="level-btn" data-level="C1" onclick="pilihLevel('C1', this)">C1 - Mengingat</button>
+                <button class="level-btn" data-level="C2" onclick="pilihLevel('C2', this)">C2 - Memahami</button>
+                <button class="level-btn" data-level="C3" onclick="pilihLevel('C3', this)">C3 - Mengaplikasi</button>
+                <button class="level-btn" data-level="C4" onclick="pilihLevel('C4', this)">C4 - Menganalisis</button>
+                <button class="level-btn" data-level="C5" onclick="pilihLevel('C5', this)">C5 - Mengevaluasi</button>
             </div>
+            
+            <div id="infoTersedia" class="info-bank">
+                📚 Silakan pilih level untuk melihat jumlah soal yang tersedia.
+            </div>
+            
+            <button class="btn-mulai" id="btnMulai" disabled onclick="mulaiLatihan()">
+                ▶️ Mulai Latihan (10 Soal)
+            </button>
+        </div>
+        
+        <!-- Area Kuis -->
+        <div class="card question-area" id="questionArea">
+            <div class="top-bar">
+                <div class="score-display">⭐ Skor: <span id="skorLive">0</span></div>
+                <div class="progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="timer-display">⏱️ <span id="timer">00:00</span></div>
+            </div>
+            
+            <div id="questionContainer"></div>
+            
+            <button class="btn-mulai" id="btnSelesai" onclick="selesaiLatihan()">
+                ✅ Selesai & Lihat Hasil
+            </button>
+        </div>
+        
+        <!-- Area Hasil -->
+        <div class="card result-area" id="resultArea">
+            <h2>🏆 Hasil Latihan</h2>
+            <div class="result-score" id="scoreAkhir">0/10</div>
+            <div class="result-msg" id="resultMsg"></div>
+            <div id="levelBadge" class="result-level"></div>
+            
+            <div class="review-list" id="reviewList"></div>
+            
+            <a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a>
+            <br>
+            <button class="btn-selesai" onclick="ulangiLatihan()">🔄 Ulangi Latihan</button>
+        </div>
+        
+        <div class="footer">
+            📖 Bank Soal IPAS Kelas 3 • Bab 1: Keajaiban Tubuhku • 220 Soal (C1-C5)
         </div>
     </div>
 
-    <!-- LOAD FILE SOAL -->
     <script src="soal-IPAS-Bab1.js"></script>
-
     <script>
-        // ============================================
-        // SETUP DATA
-        // ============================================
-        const bankData = bankSoalIPASBab1;
-        const LEVELS = [
-            { kode: 'C1', nama: 'Mengingat' },
-            { kode: 'C2', nama: 'Memahami' },
-            { kode: 'C3', nama: 'Mengaplikasi' },
-            { kode: 'C4', nama: 'Menganalisis' },
-            { kode: 'C5', nama: 'Mengevaluasi' }
-        ];
-
-        // State
-        let activeLevel = null;
-        let currentSoal = [];
-        let indexSoal = 0;
+        // ======= STATE GLOBAL =======
+        let currentLevel = null;
+        let soalLatihan = [];        // 10 soal acak
+        let nomorSaatIni = 0;
+        let jawabanUser = [];        // array of {soal, pilihanUser, benar}
         let skor = 0;
-        let sudahJawab = false;
-
-        // ============================================
-        // VALIDASI & RENDER LEVEL
-        // ============================================
-        function renderLevel() {
-            const container = document.getElementById('tombol-level');
-            container.innerHTML = '';
-
-            let totalTersedia = 0;
-
-            LEVELS.forEach((lv, i) => {
-                const jml = (bankData && bankData[lv.kode]) ? bankData[lv.kode].length : 0;
-                totalTersedia += jml;
-
-                const btn = document.createElement('button');
-                btn.className = 'btn-level';
-                btn.dataset.level = lv.kode;
-                btn.innerHTML = `${lv.kode} • ${lv.nama} <span style="opacity:0.7;">(${jml})</span>`;
-
-                if (jml === 0) {
-                    btn.disabled = true;
-                } else {
-                    if (activeLevel === null) {
-                        activeLevel = lv.kode;
-                        btn.classList.add('aktif');
-                    } else if (activeLevel === lv.kode) {
-                        btn.classList.add('aktif');
-                    }
-                    btn.onclick = () => {
-                        activeLevel = lv.kode;
-                        container.querySelectorAll('.btn-level').forEach(b => b.classList.remove('aktif'));
-                        btn.classList.add('aktif');
-                        document.getElementById('btn-mulai').disabled = false;
-                    };
-                }
-                container.appendChild(btn);
-            });
-
-            if (activeLevel) {
-                document.getElementById('btn-mulai').disabled = false;
-                const jmlLevel = (bankData[activeLevel] || []).length;
-                const namaLv = LEVELS.find(l => l.kode === activeLevel).nama;
-                document.getElementById('info-jumlah').innerHTML =
-                    `Pilih level, lalu mulai. Level <b style="color:#a5b4fc;">${activeLevel} (${namaLv})</b> tersedia <b style="color:#a5b4fc;">${jmlLevel}</b> soal. Anda akan mengerjakan 10 soal.`;
-            } else {
-                document.getElementById('info-jumlah').innerHTML = 'Tidak ada soal yang tersedia.';
+        let timerInterval;
+        let detikBerjalan = 0;
+        
+        // Data jumlah soal per level
+        const jumlahPerLevel = {
+            C1: 60, C2: 50, C3: 45, C4: 35, C5: 30
+        };
+        
+        // ======= FUNGSI UTILITAS =======
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
             }
+            return arr;
         }
-
-        // ============================================
-        // MULAI KUIS
-        // ============================================
-        document.getElementById('btn-mulai').addEventListener('click', mulaiKuis);
-
-        function mulaiKuis() {
-            if (!activeLevel || !bankData || !bankData[activeLevel]) {
-                alert('Pilih level terlebih dahulu!');
+        
+        function formatWaktu(detik) {
+            const m = Math.floor(detik / 60);
+            const s = detik % 60;
+            return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+        
+        // ======= PILIH LEVEL =======
+        function pilihLevel(level, btn) {
+            currentLevel = level;
+            
+            // aktifkan tombol
+            document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // update info
+            const total = jumlahPerLevel[level];
+            const label = {
+                C1: 'Mengingat', C2: 'Memahami', C3: 'Mengaplikasi', 
+                C4: 'Menganalisis', C5: 'Mengevaluasi'
+            }[level];
+            
+            document.getElementById('infoTersedia').innerHTML = 
+                `📚 Level <b>${level} (${label})</b>: tersedia <b>${total} soal</b>. 
+                Kami akan memilih 10 soal secara acak dari bank soal.`;
+            
+            // aktifkan tombol mulai
+            document.getElementById('btnMulai').disabled = false;
+        }
+        
+        // ======= MULAI LATIHAN =======
+        function mulaiLatihan() {
+            if (!currentLevel) {
+                alert('Silakan pilih level terlebih dahulu!');
                 return;
             }
-
-            const semua = bankData[activeLevel];
-            const acak = shuffle([...semua]);
-            currentSoal = acak.slice(0, Math.min(10, acak.length));
-            indexSoal = 0;
+            
+            // Ambil 10 soal acak dari level
+            const bankLevel = bankSoalIPAS[currentLevel];
+            soalLatihan = shuffle(bankLevel).slice(0, 10);
+            
+            nomorSaatIni = 0;
+            jawabanUser = [];
             skor = 0;
-            sudahJawab = false;
-
-            // Tampilkan kuis
-            document.getElementById('area-level').style.display = 'none';
-            document.getElementById('area-hasil').classList.add('hidden');
-            const areaKuis = document.getElementById('area-kuis');
-            areaKuis.classList.remove('hidden');
-
-            tampilSoal();
+            detikBerjalan = 0;
+            
+            // mulai timer
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                detikBerjalan++;
+                document.getElementById('timer').textContent = formatWaktu(detikBerjalan);
+            }, 1000);
+            
+            // tampilkan area kuis
+            document.getElementById('levelSelectCard').style.display = 'none';
+            document.getElementById('questionArea').classList.add('show');
+            document.getElementById('resultArea').classList.remove('show');
+            
+            tampilkanSoal();
         }
-
-        // ============================================
-        // TAMPIL SOAL
-        // ============================================
-        function tampilSoal() {
-            const soal = currentSoal[indexSoal];
-            const total = currentSoal.length;
-
-            document.getElementById('nomor-soal').textContent = `Soal ${indexSoal + 1} / ${total} • Level ${activeLevel}`;
-            document.getElementById('teks-soal').textContent = soal.soal;
-
-            const opsiContainer = document.getElementById('list-opsi');
-            opsiContainer.innerHTML = '';
-            const huruf = ['A', 'B', 'C', 'D'];
-
+        
+        // ======= TAMPILKAN SOAL =======
+        function tampilkanSoal() {
+            const soal = soalLatihan[nomorSaatIni];
+            const container = document.getElementById('questionContainer');
+            const total = soalLatihan.length;
+            
+            // Update progress & skor
+            const pct = ((nomorSaatIni) / total) * 100;
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('skorLive').textContent = skor;
+            
+            const huruf = ['A', 'B', 'C', 'D', 'E'];
+            
+            let html = `
+                <div class="question-card">
+                    <span class="q-number">Soal ${nomorSaatIni + 1} / ${total}</span>
+                    <h3>${soal.soal}</h3>
+                    <div id="optionsList">
+            `;
+            
             soal.pilihan.forEach((pil, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'opsi-btn';
-                btn.innerHTML = `<span class="huruf">${huruf[idx]}</span> ${pil}`;
-                btn.onclick = () => jawab(idx, btn);
-                opsiContainer.appendChild(btn);
+                html += `
+                    <button class="option-btn" onclick="pilihJawaban(${idx})">
+                        <span class="option-letter">${huruf[idx]}.</span> ${pil}
+                    </button>
+                `;
             });
-
-            // Reset
-            document.getElementById('area-feedback').className = 'feedback';
-            document.getElementById('area-feedback').textContent = '';
-            document.getElementById('btn-lanjut').style.display = 'none';
-            sudahJawab = false;
+            
+            html += `</div></div>`;
+            container.innerHTML = html;
         }
-
-        // ============================================
-        // JAWAB
-        // ============================================
-        function jawab(idx, tombol) {
-            if (sudahJawab) return;
-            sudahJawab = true;
-
-            const soal = currentSoal[indexSoal];
-            const semua = document.querySelectorAll('.opsi-btn');
-            semua.forEach(b => b.disabled = true);
-
+        
+        // ======= PILIH JAWABAN =======
+        function pilihJawaban(idx) {
+            const soal = soalLatihan[nomorSaatIni];
+            const semuaBtn = document.querySelectorAll('.option-btn');
+            
+            // Tandai semua tombol disabled visual
             const benar = (idx === soal.kunci);
             if (benar) skor++;
-
-            semua.forEach((b, i) => {
-                if (i === soal.kunci) b.classList.add('benar');
-                if (i === idx && !benar) b.classList.add('salah');
+            
+            // Simpan jawaban
+            jawabanUser.push({
+                soal: soal.soal,
+                pilihan: soal.pilihan,
+                pilihanUser: idx,
+                kunci: soal.kunci,
+                benar: benar
             });
-
-            const fb = document.getElementById('area-feedback');
-            if (benar) {
-                fb.className = 'feedback benar';
-                fb.textContent = '✅ Benar!';
-            } else {
-                fb.className = 'feedback salah';
-                fb.textContent = `❌ Salah. Jawaban yang benar: ${soal.pilihan[soal.kunci]}`;
-            }
-
-            // Aktifkan tombol lanjut
-            const btnLanjut = document.getElementById('btn-lanjut');
-            btnLanjut.style.display = 'block';
-            if (indexSoal === currentSoal.length - 1) {
-                btnLanjut.textContent = '✅ Lihat Hasil';
-            } else {
-                btnLanjut.textContent = '➡️ Soal Berikutnya';
-            }
-        }
-
-        // ============================================
-        // LANJUT
-        // ============================================
-        document.getElementById('btn-lanjut').addEventListener('click', function() {
-            if (indexSoal < currentSoal.length - 1) {
-                indexSoal++;
-                tampilSoal();
-            } else {
-                tampilkanHasil();
-            }
-        });
-
-        // ============================================
-        // TAMPIL HASIL
-        // ============================================
-        function tampilkanHasil() {
-            document.getElementById('area-kuis').classList.add('hidden');
-            document.getElementById('area-hasil').classList.remove('hidden');
-
-            const total = currentSoal.length;
-            const pct = Math.round((skor / total) * 100);
-
-            document.getElementById('skor-akhir').textContent = `${skor}/${total}`;
             
-            let pesan;
-            if (pct >= 90) pesan = '🌟 Sempurna!';
-            else if (pct >= 75) pesan = '💪 Bagus sekali!';
-            else if (pct >= 60) pesan = '😊 Lumayan, terus berlatih!';
-            else if (pct >= 40) pesan = '⚠️ Perlu belajar lagi!';
-            else pesan = '📖 Ulangi materinya ya!';
+            // Tampilkan feedback warna
+            semuaBtn.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === soal.kunci) {
+                    btn.classList.add('correct');
+                }
+                if (i === idx && idx !== soal.kunci) {
+                    btn.classList.add('wrong');
+                }
+            });
             
-            document.getElementById('pesan-hasil').textContent = pesan;
-            document.getElementById('detail-hasil').textContent = `Benar: ${skor} • Salah: ${total - skor} • Nilai: ${pct} • Level: ${activeLevel}`;
-        }
-
-        // ============================================
-        // UTIL
-        // ============================================
-        function shuffle(arr) {
-            const a = [...arr];
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
+            // Update skor live
+            document.getElementById('skorLive').textContent = skor;
+            
+            // Tombol lanjut / selesai
+            const btnSelesai = document.getElementById('btnSelesai');
+            if (nomorSaatIni < soalLatihan.length - 1) {
+                // ganti tombol jadi "Lanjut"
+                btnSelesai.innerHTML = '➡️ Soal Berikutnya';
+                btnSelesai.onclick = () => {
+                    nomorSaatIni++;
+                    tampilkanSoal();
+                    btnSelesai.innerHTML = '✅ Selesai & Lihat Hasil';
+                    btnSelesai.onclick = selesaiLatihan;
+                };
+            } else {
+                btnSelesai.innerHTML = '✅ Selesai & Lihat Hasil';
+                btnSelesai.onclick = selesaiLatihan;
             }
-            return a;
         }
-
-        function ulangi() {
-            if (!activeLevel || !bankData[activeLevel]) return;
-            const semua = bankData[activeLevel];
-            const acak = shuffle([...semua]);
-            currentSoal = acak.slice(0, Math.min(10, acak.length));
-            indexSoal = 0;
+        
+        // ======= SELESAI LATIHAN =======
+        function selesaiLatihan() {
+            clearInterval(timerInterval);
+            
+            // Jika ada soal yang belum dijawab
+            if (jawabanUser.length < soalLatihan.length) {
+                // tambahkan yang belum dijawab sebagai salah
+                for (let i = jawabanUser.length; i < soalLatihan.length; i++) {
+                    jawabanUser.push({
+                        soal: soalLatihan[i].soal,
+                        pilihan: soalLatihan[i].pilihan,
+                        pilihanUser: -1,  // tidak dijawab
+                        kunci: soalLatihan[i].kunci,
+                        benar: false
+                    });
+                }
+            }
+            
+            // Tampilkan hasil
+            document.getElementById('questionArea').classList.remove('show');
+            document.getElementById('resultArea').classList.add('show');
+            
+            const scoreAkhir = jawabanUser.filter(j => j.benar).length;
+            const total = soalLatihan.length;
+            
+            document.getElementById('scoreAkhir').textContent = `${scoreAkhir}/${total}`;
+            
+            // Pesan & Badge
+            const pct = (scoreAkhir / total) * 100;
+            let msg, badgeColor, badgeText;
+            
+            if (pct >= 90) {
+                msg = '🌟 Luar biasa! Kamu sangat paham!';
+                badgeText = '🏅 SANGAT BAIK';
+                badgeColor = 'background:#f59e0b;';
+            } else if (pct >= 75) {
+                msg = '👍 Bagus sekali! Sedikit lagi sempurna!';
+                badgeText = '🎖️ BAGUS';
+                badgeColor = 'background:#22c55e;';
+            } else if (pct >= 60) {
+                msg = '😊 Cukup baik. Ayo tingkatkan lagi!';
+                badgeText = '📈 CUKUP';
+                badgeColor = 'background:#3b82f6;';
+            } else if (pct >= 40) {
+                msg = '💪 Jangan menyerah! Coba pelajari lagi dan ulangi.';
+                badgeText = '📚 PERLU BELAJAR LAGI';
+                badgeColor = 'background:#f97316;';
+            } else {
+                msg = '📖 Yuk baca lagi materinya, lalu coba lagi ya!';
+                badgeText = '💡 MULAI ULANG';
+                badgeColor = 'background:#ef4444;';
+            }
+            
+            document.getElementById('resultMsg').textContent = msg;
+            
+            const badge = document.getElementById('levelBadge');
+            badge.textContent = `${badgeText} • Level ${currentLevel}`;
+            badge.style.background = badgeColor;
+            
+            // Tampilkan review
+            tampilkanReview();
+        }
+        
+        // ======= REVIEW JAWABAN =======
+        function tampilkanReview() {
+            const list = document.getElementById('reviewList');
+            const huruf = ['A', 'B', 'C', 'D', 'E'];
+            let html = '<h3 style="margin:15px 0;color:#333;">📋 Pembahasan:</h3>';
+            
+            jawabanUser.forEach((j, i) => {
+                const warna = j.benar ? '✅' : '❌';
+                html += `
+                    <div class="review-item">
+                        <div class="r-question">${i+1}. ${j.soal}</div>
+                `;
+                
+                j.pilihan.forEach((pil, idx) => {
+                    let style = '';
+                    if (idx === j.kunci) {
+                        style = 'border-left:4px solid #22c55e; padding-left:8px;';
+                    }
+                    if (idx === j.pilihanUser && !j.benar) {
+                        style = 'border-left:4px solid #ef4444; padding-left:8px;';
+                    }
+                    const mark = (idx === j.kunci) ? ' ✔' : ((idx === j.pilihanUser && !j.benar) ? ' ✘' : '');
+                    html += `
+                        <div class="r-answer" style="${style}">
+                            ${huruf[idx]}. ${pil}${mark}
+                        </div>
+                    `;
+                });
+                
+                if (!j.benar) {
+                    html += `
+                        <div class="kunci">
+                            💡 Jawaban yang benar: <b>${huruf[j.kunci]}. ${j.pilihan[j.kunci]}</b>
+                        </div>
+                    `;
+                }
+                
+                html += '</div>';
+            });
+            
+            list.innerHTML = html;
+        }
+        
+        // ======= ULANGI =======
+        function ulangiLatihan() {
+            document.getElementById('resultArea').classList.remove('show');
+            document.getElementById('levelSelectCard').style.display = 'block';
+            document.getElementById('questionArea').classList.remove('show');
+            
+            // reset
+            nomorSaatIni = 0;
+            jawabanUser = [];
             skor = 0;
-            sudahJawab = false;
-
-            document.getElementById('area-hasil').classList.add('hidden');
-            const areaKuis = document.getElementById('area-kuis');
-            areaKuis.classList.remove('hidden');
-            tampilSoal();
-        }
-
-        function resetLevel() {
-            document.getElementById('area-hasil').classList.add('hidden');
-            document.getElementById('area-kuis').classList.add('hidden');
-            document.getElementById('area-level').classList.remove('hidden');
-            activeLevel = null;
-            renderLevel();
-        }
-
-        // ============================================
-        // INIT
-        // ============================================
-        if (!bankData) {
-            document.body.innerHTML = `
-                <div style="text-align:center;padding:50px 20px;color:#fca5a5;font-family:sans-serif;">
-                    <h2>❌ VARIABEL TIDAK DITEMUKAN</h2>
-                    <p style="color:#94a3b8;">Pastikan file <code>soal-IPAS-Bab1.js</code> ada di folder yang sama,<br>dan di dalamnya ada <code>const bankSoalIPASBab1</code>.</p>
-                    <a href="dashboard.html" style="display:inline-block;margin-top:20px;padding:12px 30px;background:#6366f1;color:white;border-radius:25px;text-decoration:none;">🏠 Kembali</a>
-                </div>
-            `;
-        } else {
-            renderLevel();
+            detikBerjalan = 0;
+            document.getElementById('timer').textContent = '00:00';
+            document.getElementById('skorLive').textContent = '0';
+            document.getElementById('btnMulai').disabled = true;
+            
+            // deselect level
+            document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+            currentLevel = null;
+            document.getElementById('infoTersedia').innerHTML = 
+                '📚 Silakan pilih level untuk melihat jumlah soal yang tersedia.';
         }
     </script>
 </body>
