@@ -1,32 +1,111 @@
-<Artifact identifier="dashboard-standalone-final" type="text/html" language="html" title="dashboard.html - Satu File Siap Pakai"> ```html <!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Dashboard Belajar - Kelas 3</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1f2937; min-height: 100vh; } .header { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); } .header-left h1 { font-size: 1.2rem; font-weight: 700; } .header-left p { font-size: 0.8rem; opacity: 0.9; } .btn-logout { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 0.4rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: background 0.2s; } .btn-logout:hover { background: rgba(255,255,255,0.3); } .container { max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; } .section-header { text-align: center; margin-bottom: 1.8rem; } .section-header h2 { font-size: 1.6rem; font-weight: 800; color: #312e81; margin-bottom: 0.3rem; } .section-header p { color: #6b7280; font-size: 1rem; } .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1.1rem; } .card { background: white; border-radius: 1rem; padding: 1.4rem 1rem; text-align: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-top: 5px solid #c7d2fe; transition: transform 0.2s, box-shadow 0.2s; } .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); } .card .ico { font-size: 2.2rem; display: block; margin-bottom: 0.5rem; } .card h3 { font-size: 1.05rem; font-weight: 700; } .card p { font-size: 0.78rem; color: #6b7280; margin-top: 0.2rem; }
-/* Aksen kelas */
-.kd-kelas3 { border-top-color: #10b981; }
-.kd-lain { border-top-color: #9ca3af; opacity: 0.7; }
+<Artifact identifier="dashboard-html-integration" type="text/html" language="html" title="dashboard.html - Struktur Lengkap"> ```html <!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Dashboard Siswa</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: #1f2937; min-height: 100vh; }
+/* ===== HEADER ===== */
+.header {
+background: linear-gradient(135deg, #6366f1, #8b5cf6);
+color: white;
+padding: 1.2rem 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.header-left h1 { font-size: 1.3rem; font-weight: 700; }
+.header-left p { font-size: 0.85rem; opacity: 0.9; }
+.btn-logout {
+background: rgba(255,255,255,0.15);
+border: 1px solid rgba(255,255,255,0.4);
+color: white;
+padding: 0.5rem 1.2rem;
+border-radius: 8px;
+cursor: pointer;
+font-weight: 600;
+font-size: 0.9rem;
+transition: background 0.2s;
+}
+.btn-logout:hover { background: rgba(255,255,255,0.3); }
 
-/* Aksen mapel */
+.container {
+max-width: 1000px;
+margin: 2rem auto;
+padding: 0 1.5rem;
+}
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+text-align: center;
+margin-bottom: 1.8rem;
+}
+.section-title h2 {
+font-size: 1.7rem;
+font-weight: 800;
+color: #312e81;
+margin-bottom: 0.3rem;
+}
+.section-title p {
+color: #6b7280;
+font-size: 1rem;
+}
+
+/* ===== KELAS & MAPEL (GRID) ===== */
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+gap: 1.2rem;
+margin-bottom: 2rem;
+}
+
+.card {
+background: white;
+border-radius: 1rem;
+padding: 1.6rem 1rem;
+text-align: center;
+cursor: pointer;
+box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+border-top: 5px solid #c7d2fe;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+transform: translateY(-5px);
+box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.card .icon {
+font-size: 2.5rem;
+display: block;
+margin-bottom: 0.6rem;
+}
+.card h3 { font-size: 1.1rem; font-weight: 700; color: #1f2937; }
+.card p { font-size: 0.8rem; color: #6b7280; margin-top: 0.2rem; }
+
+/* Aksen warna per mapel */
 .mp-pancasila { border-top-color: #dc2626; }
 .mp-indo { border-top-color: #059669; }
 .mp-mtk { border-top-color: #2563eb; }
 .mp-ipas { border-top-color: #d97706; }
 .mp-inggris { border-top-color: #7c3aed; }
 
-/* List items */
-.list-container { max-width: 700px; margin: 0 auto; }
+/* ===== DAFTAR BAB & LEVEL (LIST) ===== */
+.list {
+max-width: 720px;
+margin: 0 auto;
+}
 .list-item {
 background: white;
 border-radius: 0.8rem;
-padding: 0.85rem 1.1rem;
-margin-bottom: 0.6rem;
+padding: 0.9rem 1.2rem;
+margin-bottom: 0.7rem;
 display: flex;
 align-items: center;
-gap: 0.9rem;
+gap: 0.8rem;
 cursor: pointer;
 box-shadow: 0 3px 8px rgba(0,0,0,0.06);
 border-left: 6px solid #c7d2fe;
 transition: background 0.15s, transform 0.15s;
 }
-.list-item:hover { background: #f0f4ff; transform: translateX(5px); }
-.badge {
+.list-item:hover {
+background: #eef2ff;
+transform: translateX(5px);
+}
+.list-item .label {
 background: #6b7280;
 color: white;
 font-weight: 700;
@@ -34,56 +113,63 @@ font-size: 0.75rem;
 padding: 0.3rem 0.7rem;
 border-radius: 6px;
 flex-shrink: 0;
-min-width: 55px;
+min-width: 70px;
 text-align: center;
 }
-.list-item .judul-item { font-weight: 600; }
-.keterangan { margin-left: auto; font-size: 0.78rem; color: #6b7280; white-space: nowrap; }
+.list-item .nama { font-weight: 600; }
+.list-item .keterangan {
+margin-left: auto;
+font-size: 0.8rem;
+color: #6b7280;
+}
 
-/* Aksen bab mapel */
-.bb-pancasila { border-left-color: #dc2626; }
-.bb-pancasila .badge { background: #dc2626; }
-.bb-indo { border-left-color: #059669; }
-.bb-indo .badge { background: #059669; }
-.bb-mtk { border-left-color: #2563eb; }
-.bb-mtk .badge { background: #2563eb; }
-.bb-ipas { border-left-color: #d97706; }
-.bb-ipas .badge { background: #d97706; }
-.bb-inggris { border-left-color: #7c3aed; }
-.bb-inggris .badge { background: #7c3aed; }
+/* Warna label di daftar bab mengikuti mapel */
+.bab-pancasila { border-left-color: #dc2626; }
+.bab-pancasila .label { background: #dc2626; }
+.bab-indo { border-left-color: #059669; }
+.bab-indo .label { background: #059669; }
+.bab-mtk { border-left-color: #2563eb; }
+.bab-mtk .label { background: #2563eb; }
+.bab-ipas { border-left-color: #d97706; }
+.bab-ipas .label { background: #d97706; }
+.bab-inggris { border-left-color: #7c3aed; }
+.bab-inggris .label { background: #7c3aed; }
 
-/* Aksen level C1-C5 */
+/* Warna level */
 .lv-c1 { border-left-color: #ef4444; }
-.lv-c1 .badge { background: #ef4444; }
+.lv-c1 .label { background: #ef4444; }
 .lv-c2 { border-left-color: #f59e0b; }
-.lv-c2 .badge { background: #f59e0b; }
+.lv-c2 .label { background: #f59e0b; }
 .lv-c3 { border-left-color: #3b82f6; }
-.lv-c3 .badge { background: #3b82f6; }
+.lv-c3 .label { background: #3b82f6; }
 .lv-c4 { border-left-color: #8b5cf6; }
-.lv-c4 .badge { background: #8b5cf6; }
+.lv-c4 .label { background: #8b5cf6; }
 .lv-c5 { border-left-color: #10b981; }
-.lv-c5 .badge { background: #10b981; }
+.lv-c5 .label { background: #10b981; }
 
+.hidden { display: none; }
+
+/* Tombol kembali */
 .btn-back {
 display: inline-block;
 background: #6366f1;
 color: white;
 border: none;
-padding: 0.45rem 1.1rem;
-border-radius: 7px;
+padding: 0.5rem 1.2rem;
+border-radius: 8px;
 cursor: pointer;
 font-weight: 600;
-font-size: 0.85rem;
-margin-bottom: 1.3rem;
+margin-bottom: 1.5rem;
+font-size: 0.9rem;
 }
 .btn-back:hover { background: #4f46e5; }
-.hidden { display: none !important; }
 
-@media (max-width: 500px) {
+/* Responsif */
+@media (max-width: 480px) {
 .header { flex-direction: column; gap: 0.5rem; text-align: center; }
 .list-item { flex-wrap: wrap; }
-.keterangan { margin-left: 0; white-space: normal; }
+.list-item .keterangan { margin-left: 0; }
 }
 </style>
 
-</head> <body> <header class="header"> <div class="header-left"> <h1 id="greet">Halo, Siswa!</h1> <p id="kelasBadge">Siswa</p> </div> <button class="btn-logout" id="logoutBtn">Logout</button> </header> <div class="container"> <!-- Section 1: Kelas --> <section id="section-kelas"> <div class="section-header"> <h2>Pilih Kelas</h2> <p>Silakan pilih kelas Anda.</p> </div> <div class="grid" id="kelas-list"></div> </section> <!-- Section 2: Mapel --> <section id="section-mapel" class="hidden"> <button class="btn-back" id="back-mapel">&#8592; Ganti Kelas</button> <div class="section-header"> <h2>Pilih Mata Pelajaran</h2> <p>Kelas 3</p> </div> <div class="grid" id="mapel-list"></div> </section> <!-- Section 3: Bab --> <section id="section-bab" class="hidden"> <button class="btn-back" id="back-bab">&#8592; Pilih Mapel</button> <div class="section-header"> <h2 id="judul-bab">-</h2> <p>Pilih bab / chapter untuk belajar.</p> </div> <div class="list-container" id="bab-list"></div> </section> <!-- Section 4: Level --> <section id="section-level" class="hidden"> <button class="btn-back" id="back-level">&#8592; Pilih Bab</button> <div class="section-header"> <h2 id="judul-level">-</h2> <p>Pilih level berpikir (C1 – C5).</p> </div> <div class="list-container" id="level-list"></div> </section> </div> <script> // ===================================================== // LOGIKA DASHBOARD - SATU FILE (tanpa file js terpisah) // ===================================================== document.addEventListener('DOMContentLoaded', function () { // ----- 1. CEK LOGIN ----- var token = localStorage.getItem('student_token'); var studentName = localStorage.getItem('student_name'); if (!token) { window.location.href = 'index.html'; return; } var greetEl = document.getElementById('greet'); var badgeEl = document.getElementById('kelasBadge'); if (greetEl) greetEl.textContent = 'Halo, ' + studentName + '!'; if (badgeEl) badgeEl.textContent = 'Siswa'; // ----- 2. DATA MAPEL & LEVEL ----- var DATA_MAPEL = { 'Pendidikan Pancasila': { ico: '🦅', clsMapel: 'mp-pancasila', clsBab: 'bb-pancasila', label: 'Bab', bab: [ 'Aku Anak Indonesia', 'Aku Patuh Aturan', 'Berbeda Itu Indah', 'Ayo Mengenal Pancasila' ] }, 'Bahasa Indonesia': { ico: '📖', clsMapel: 'mp-indo', clsBab: 'bb-indo', label: 'Bab', bab: [ 'Petualangan Ken dan Alif', 'Semangat Si Pantang Menyerah', 'Bintang Inspirasiku', 'Tulis Ceritamu', 'Sahabat Sungai Mahakam', 'Istana yang Membawa Bencana', 'Dengarkan Dongeng Seru', 'Dongengku, Karyaku' ] }, 'Matematika': { ico: '➕', clsMapel: 'mp-mtk', clsBab: 'bb-mtk', label: 'Bab', bab: [ 'Bilangan Cacah sampai 1.000', 'Kalimat Matematika', 'Pengukuran Panjang dan Berat', 'Unsur-Unsur Bangun Datar', 'Penyajian Data dalam Tabel' ] }, 'IPAS': { ico: '🔬', clsMapel: 'mp-ipas', clsBab: 'bb-ipas', label: 'Bab', bab: [ 'Keajaiban Tubuhku', 'Dahulu, Kini, dan Nanti', 'Peduli dan Berbagi', 'Siklus Hidup yang Menakjubkan', 'Bijak Berbelanja Kebutuhan', 'Energi, sang Pemberi Kekuatan', 'Jejak Penjelajah', 'Rahasia Tiga Wujud Zat' ] }, 'Bahasa Inggris': { ico: '🌍', clsMapel: 'mp-inggris', clsBab: 'bb-inggris', label: 'Chapter', bab: [ 'My Self', 'My Family', "My Family's Activities at Home", 'My School', 'My Classroom', 'My Teacher' ] } }; var DATA_LEVEL = [ { kode: 'C1', nama: 'Mengingat', ket: 'ingat materi', cls: 'lv-c1' }, { kode: 'C2', nama: 'Memahami', ket: 'paham konsep', cls: 'lv-c2' }, { kode: 'C3', nama: 'Menerapkan', ket: 'terapkan konsep', cls: 'lv-c3' }, { kode: 'C4', nama: 'Menganalisis', ket: 'urai hubungan', cls: 'lv-c4' }, { kode: 'C5', nama: 'Mengevaluasi', ket: 'nilai / periksa', cls: 'lv-c5' } ]; // ----- 3. REFERENSI ELEMEN ----- var sectionKelas = document.getElementById('section-kelas'); var sectionMapel = document.getElementById('section-mapel'); var sectionBab = document.getElementById('section-bab'); var sectionLevel = document.getElementById('section-level'); var kelasList = document.getElementById('kelas-list'); var mapelList = document.getElementById('mapel-list'); var babList = document.getElementById('bab-list'); var levelList = document.getElementById('level-list'); var mapelAktif = null; // ----- 4. FUNGSI TAMPILKAN SECTION ----- function showSection(section) { var sections = [sectionKelas, sectionMapel, sectionBab, sectionLevel]; for (var i = 0; i < sections.length; i++) { if (sections[i]) sections[i].classList.add('hidden'); } if (section) { section.classList.remove('hidden'); section.scrollIntoView({ behavior: 'smooth' }); } } // ----- 5. RENDER KELAS ----- function renderKelas() { kelasList.innerHTML = ''; for (var k = 1; k <= 6; k++) { var card = document.createElement('div'); card.className = 'card ' + (k === 3 ? 'kd-kelas3' : 'kd-lain'); card.innerHTML = '<span class="ico">📚</span><h3>Kelas ' + k + '</h3><p>Materi dan latihan</p>'; (function (kelas) { card.addEventListener('click', function () { if (kelas === 3) { renderMapel(); showSection(sectionMapel); } else { alert('Materi kelas ini belum tersedia'); } }); })(k); kelasList.appendChild(card); } } // ----- 6. RENDER MAPEL ----- function renderMapel() { mapelList.innerHTML = ''; for (var nama in DATA_MAPEL) { if (!DATA_MAPEL.hasOwnProperty(nama)) continue; var m = DATA_MAPEL[nama]; var card = document.createElement('div'); card.className = 'card ' + m.clsMapel; card.innerHTML = '<span class="ico">' + m.ico + '</span><h3>' + nama + '</h3><p>Kelas 3</p>'; (function (mapel) { card.addEventListener('click', function () { renderBab(mapel); }); })(nama); mapelList.appendChild(card); } } // ----- 7. RENDER BAB ----- function renderBab(mapel) { var m = DATA_MAPEL[mapel]; mapelAktif = mapel; document.getElementById('judul-bab').textContent = m.ico + ' ' + mapel; babList.innerHTML = ''; for (var i = 0; i < m.bab.length; i++) { (function (idx) { var item = document.createElement('div'); item.className = 'list-item ' + m.clsBab; item.innerHTML = '<span class="badge">' + m.label + ' ' + (idx + 1) + '</span><span class="judul-item">' + m.bab[idx] + '</span>'; item.addEventListener('click', function () { renderLevel(mapel, idx + 1); }); babList.appendChild(item); })(i); } showSection(sectionBab); } // ----- 8. RENDER LEVEL ----- function renderLevel(mapel, noBab) { var m = DATA_MAPEL[mapel]; var namaBab = m.bab[noBab - 1]; document.getElementById('judul-level').textContent = m.ico + ' ' + mapel + ' — ' + m.label + ' ' + noBab + ': ' + namaBab; levelList.innerHTML = ''; for (var i = 0; i < DATA_LEVEL.length; i++) { (function (lv) { var item = document.createElement('div'); item.className = 'list-item ' + lv.cls; item.innerHTML = '<span class="badge">' + lv.kode + '</span><span class="judul-item">' + lv.nama + '</span><span class="keterangan">' + lv.ket + '</span>'; item.addEventListener('click', function () { // Ganti dengan halaman latihan asli alert('Kelas 3 | ' + mapel + ' | Bab ' + noBab + ' | Level ' + lv.kode); }); levelList.appendChild(item); })(DATA_LEVEL[i]); } showSection(sectionLevel); } // ----- 9. TOMBOL KEMBALI ----- document.getElementById('back-mapel').addEventListener('click', function () { showSection(sectionKelas); }); document.getElementById('back-bab').addEventListener('click', function () { renderMapel(); showSection(sectionMapel); }); document.getElementById('back-level').addEventListener('click', function () { if (mapelAktif) renderBab(mapelAktif); }); // ----- 10. LOGOUT ----- document.getElementById('logoutBtn').addEventListener('click', function () { localStorage.clear(); window.location.href = 'index.html'; }); // ----- 11. MULAI ----- renderKelas(); }); </script> </body> </html> ``` </Artifact>
+</head> <body> <!-- ===== HEADER ===== --> <header class="header"> <div class="header-left"> <h1 id="greet">Halo, Siswa!</h1> <p id="kelasBadge">Loading...</p> </div> <button class="btn-logout" id="logoutBtn">Logout</button> </header> <div class="container"> <!-- ===== SECTION 1: PILIH KELAS ===== --> <section id="kelasSection"> <div class="section-title"> <h2>Pilih Kelas</h2> <p>Silakan pilih kelas Anda.</p> </div> <div class="grid" id="classList"></div> </section> <!-- ===== SECTION 2: PILIH MAPEL ===== --> <section id="mapelSection" class="hidden"> <button class="btn-back" id="backFromMapel">&#8592; Ganti Kelas</button> <div class="section-title"> <h2>Pilih Mata Pelajaran</h2> <p>Kelas 3</p> </div> <div class="grid" id="mapelList"></div> </section> <!-- ===== SECTION 3: PILIH BAB ===== --> <section id="babSection" class="hidden"> <button class="btn-back" id="backFromBab">&#8592; Pilih Mapel</button> <div class="section-title"> <h2 id="judulBab">-</h2> <p>Pilih bab / chapter untuk belajar.</p> </div> <div class="list" id="babList"></div> </section> <!-- ===== SECTION 4: PILIH LEVEL ===== --> <section id="levelSection" class="hidden"> <button class="btn-back" id="backFromLevel">&#8592; Pilih Bab</button> <div class="section-title"> <h2 id="judulLevel">-</h2> <p>Pilih level berpikir (C1 – C5).</p> </div> <div class="list" id="levelList"></div> </section> </div> <!-- Script dipisah ke file dashboard.js --> <script src="dashboard.js"></script> </body> </html> ``` </Artifact>
