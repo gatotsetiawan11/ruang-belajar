@@ -1,63 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan - Ruang Belajar</title>
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/latihan.css">
-
-    <!-- FontAwesome utk ikon ringan (opsional; bisa diganti emoji) -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body class="practice-page">
-
-    <!-- ======= NAV ======= -->
-    <header class="dash-navbar">
-        <div class="dash-brand">
-            <span class="dash-logo">✕</span>
-            <span class="dash-brand-name">Ruang Belajar</span>
-        </div>
-        <nav class="dash-nav-links">
-            <a href="dashboard.html" class="dash-nav-link">Beranda</a>
-            <a href="latihan.html" class="dash-nav-link is-active">Latihan</a>
-        </nav>
-        <button id="logoutButton" class="dash-logout" type="button">Keluar</button>
-    </header>
-
-    <!-- ======= KONTEN ======= -->
-    <main class="practice-main">
-
-        <div class="practice-head">
-            <div>
-                <span class="practice-kicker">Latihan Soal</span>
-                <h1 id="exerciseTitle">Muat soal…</h1>
-            </div>
-        </div>
-
-        <!-- loader / error -->
-        <p id="practiceStatus" class="practice-status"></p>
-
-        <!-- daftar soal diisi JS -->
-        <form id="questionForm" class="practice-form" hidden>
-            <div id="questionList"></div>
-
-            <div class="practice-submit-row">
-                <button id="submitButton" type="submit" class="auth-primary-button practice-submit">
-                    Kumpulkan Jawaban
-                </button>
-            </div>
-        </form>
-
-        <!-- hasil -->
-        <div id="resultBox" class="practice-result" hidden></div>
-
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/config.js"></script>
-    <script src="js/latihan.js"></script>
-</body>
-</html>
+<!DOCTYPE html>  
+<html lang="id">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Latihan IPAS - Bab 1</title>  
+    <style>  
+        * { box-sizing: border-box; margin: 0; padding:
