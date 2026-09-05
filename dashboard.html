@@ -14,39 +14,70 @@
 
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
-      background: #f0f2f5;
-      color: #1f2937;
+      color: #ffffff;
       min-height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: background 1.5s ease;
+    }
+
+    /* ===== OVERLAY GELAP AGAR TEKS TERBACA ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(10, 10, 30, 0.55); /* gelap transparan */
+      z-index: -1;
+    }
+
+    /* ===== ANIMASI BINTANG ===== */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background: transparent;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.9; }
     }
 
     .container {
       max-width: 1100px;
       margin: 0 auto;
       padding: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
     /* Navigasi layar */
-    .screen {
-      display: none;
-    }
-    .screen.active {
-      display: block;
-    }
+    .screen { display: none; }
+    .screen.active { display: block; }
 
     /* Header */
     header {
       text-align: center;
       margin-bottom: 2rem;
-      color: #312e81;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-    }
-    header p {
-      color: #6b7280;
-      margin-top: 0.3rem;
-    }
+    header h1 { font-size: 1.8rem; font-weight: 800; }
+    header p { margin-top: 0.3rem; opacity: 0.8; color: #e0e0ff; }
 
     /* Grid mapel - 5 kolom = 1 baris */
     .grid-mapel {
@@ -56,66 +87,56 @@
     }
 
     .card-mapel {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 12px;
       padding: 1.5rem 0.8rem;
       text-align: center;
       cursor: pointer;
       border-top: 5px solid #c7d2fe;
       transition: 0.2s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     .card-mapel:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      transform: translateY(-4px) scale(1.02);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
-    .card-mapel .emoji {
-      font-size: 2.5rem;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    .card-mapel .name {
-      font-weight: 700;
-    }
+    .card-mapel .emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+    .card-mapel .name { font-weight: 700; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
 
-    .c-pancasila { border-top-color: #dc2626; }
-    .c-matematika { border-top-color: #2563eb; }
-    .c-bindo { border-top-color: #059669; }
-    .c-ipas { border-top-color: #d97706; }
-    .c-bing { border-top-color: #7c3aed; }
+    .c-pancasila { border-top-color: #f87171; }
+    .c-matematika { border-top-color: #60a5fa; }
+    .c-bindo { border-top-color: #34d399; }
+    .c-ipas { border-top-color: #fbbf24; }
+    .c-bing { border-top-color: #a78bfa; }
 
-    .topbar {
-      margin-bottom: 1.2rem;
-    }
+    /* ===== TOMBOL KEMBALI ===== */
+    .topbar { margin-bottom: 1.2rem; }
     .btn-back {
-      background: #6b7280;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       color: #fff;
-      border: none;
       padding: 0.5rem 1.2rem;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      transition: 0.2s;
     }
-    .btn-back:hover {
-      background: #4b5563;
-    }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.35); }
 
-    .screen-header {
-      text-align: center;
-      margin-bottom: 1.8rem;
-    }
+    .screen-header { text-align: center; margin-bottom: 1.8rem; }
     .screen-header h2 {
       font-size: 1.5rem;
-      color: #312e81;
+      color: #ffffff;
       font-weight: 800;
+      text-shadow: 0 0 15px rgba(147, 197, 253, 0.6);
     }
-    .screen-header p {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      color: #4b5563;
-    }
+    .screen-header p { font-size: 0.9rem; opacity: 0.8; color: #dbeafe; }
 
-    /* Daftar bab - 1 kolom */
+    /* ===== DAFTAR BAB ===== */
     .grid-bab {
       display: grid;
       grid-template-columns: 1fr;
@@ -125,87 +146,88 @@
     }
 
     .card-bab {
-      background: #fff;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
       padding: 0.9rem 1.1rem;
       display: flex;
       align-items: center;
       gap: 0.9rem;
       cursor: pointer;
-      border-left: 6px solid #93c5fd;   /* biru pastel */
+      border-left: 6px solid #93c5fd;
       transition: 0.15s;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 
-      width: 480px;        /* lebar tetap */
-      max-width: 100%;     /* di HP menyesuaikan */
-      margin: 0 auto;      /* rata tengah */
+      width: 480px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
     }
-
     .card-bab:hover {
-      background: #dbeafe;   /* biru pastel lebih muda */
+      background: rgba(147, 197, 253, 0.25);
+      border-left-color: #60a5fa;
       transform: translateX(5px);
     }
 
     .bab-num {
-      background: #60a5fa;   /* biru pastel sedikit lebih tua */
+      background: rgba(96, 165, 250, 0.3);
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(147, 197, 253, 0.5);
       color: #fff;
       font-weight: 700;
       padding: 0.3rem 0.7rem;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 0.8rem;
       min-width: 60px;
       text-align: center;
     }
 
-    .bab-title {
-      font-weight: 600;
-      color: #1f2937;
-    }
+    .bab-title { font-weight: 600; color: #eef2ff; }
 
     @media (max-width: 700px) {
-      .grid-mapel {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .grid-mapel { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .card-bab { flex-wrap: wrap; gap: 0.5rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ===== LAPISAN BINTANG BERKELIP ===== -->
+  <div class="stars" id="starfield"></div>
 
   <div class="container">
 
     <!-- ===== LAYAR 1 : DAFTAR MAPEL ===== -->
     <div id="screen-mapel" class="screen active">
       <header>
-        <h1>📚 Pilih Mata Pelajaran</h1>
+        <h1>🚀 Pilih Mata Pelajaran</h1>
         <p>Halo! Pilih mapel yang ingin kamu pelajari hari ini.</p>
       </header>
 
       <div class="grid-mapel">
-        <!-- Pancasila -->
         <div class="card-mapel c-pancasila" onclick="bukaDaftarBabPancasila()">
           <span class="emoji">🦅</span>
           <div class="name">Pancasila</div>
         </div>
 
-        <!-- Matematika -->
         <div class="card-mapel c-matematika" onclick="bukaDaftarBabMatematika()">
           <span class="emoji">➕</span>
           <div class="name">Matematika</div>
         </div>
 
-        <!-- Bahasa Indonesia -->
         <div class="card-mapel c-bindo" onclick="bukaDaftarBabBindo()">
           <span class="emoji">📖</span>
           <div class="name">Bahasa Indonesia</div>
         </div>
 
-        <!-- IPAS -->
         <div class="card-mapel c-ipas" onclick="bukaDaftarBabIPAS()">
           <span class="emoji">🔬</span>
           <div class="name">IPAS</div>
         </div>
 
-        <!-- Bahasa Inggris - SEKARANG MEMBUKA BAB BING -->
         <div class="card-mapel c-bing" onclick="bukaDaftarBabBing()">
           <span class="emoji">🌍</span>
           <div class="name">Bahasa Inggris</div>
@@ -373,7 +395,7 @@
       </div>
     </div>
 
-    <!-- ===== LAYAR 6 : DAFTAR BAB BAHASA INGGRIS (BARU) ===== -->
+    <!-- ===== LAYAR 6 : DAFTAR BAB BAHASA INGGRIS ===== -->
     <div id="screen-bab-bing" class="screen">
       <div class="topbar">
         <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
@@ -416,7 +438,72 @@
   <!-- ===== END .container ===== -->
 
   <script>
-    // ---------- Navigasi antar layar ----------
+    // ============================================
+    // 1. AMBIL GAMBAR LUAR ANGKASA DARI NASA
+    // ============================================
+    function ambilGambarNASA() {
+      // Pakai gambar statis NASA sebagai fallback awal (galaksi)
+      document.body.style.backgroundImage = "url('https://images-assets.nasa.gov/image/PIA23418/PIA23418~orig.jpg')";
+
+      // Coba ambil APOD (Astronomy Picture of the Day) - gratis tanpa API key
+      fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=true')
+        .then(res => {
+          if (!res.ok) throw new Error('Gagal ambil APOD');
+          return res.json();
+        })
+        .then(data => {
+          // APOD kadang berupa video, maka kita pakai thumbnail-nya
+          const imgUrl = data.url && data.url.includes('youtube')
+            ? data.thumbnail_url
+            : data.url;
+
+          if (imgUrl && imgUrl.includes('http')) {
+            // Buat elemen img untuk preload dulu biar transfer halus
+            const preload = new Image();
+            preload.onload = function () {
+              document.body.style.backgroundImage = "url('" + imgUrl + "')";
+            };
+            preload.src = imgUrl;
+          }
+        })
+        .catch(() => {
+          // Tetap pakai fallback galaksi
+          console.log('Fallback ke gambar galaksi NASA');
+        });
+    }
+
+    // ============================================
+    // 2. BUAT BINTANG BERKELAP-KELIP
+    // ============================================
+    function buatBintang() {
+      const starContainer = document.getElementById('starfield');
+      starContainer.innerHTML = ''; // bersihkan dulu
+      const jumlahBintang = 80;
+
+      for (let i = 0; i < jumlahBintang; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.width = (Math.random() * 2 + 1) + 'px';
+        star.style.height = star.style.width;
+        star.style.animationDelay = (Math.random() * 3) + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        starContainer.appendChild(star);
+      }
+    }
+
+    // ============================================
+    // 3. JALANKAN SAAT HALAMAN DIMUAT
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function () {
+      ambilGambarNASA();
+      buatBintang();
+    });
+
+    // ============================================
+    // 4. NAVIGASI LAYAR (TIDAK DIUBAH)
+    // ============================================
     function gantiScreen(id) {
       document.querySelectorAll('.screen').forEach(function (s) {
         s.classList.remove('active');
@@ -424,62 +511,31 @@
       document.getElementById(id).classList.add('active');
     }
 
-    // Dari mapel ke daftar bab IPAS
-    function bukaDaftarBabIPAS() {
-      gantiScreen('screen-bab-ipas');
-    }
+    function bukaDaftarBabIPAS() { gantiScreen('screen-bab-ipas'); }
+    function bukaDaftarBabPancasila() { gantiScreen('screen-bab-pancasila'); }
+    function bukaDaftarBabMatematika() { gantiScreen('screen-bab-matematika'); }
+    function bukaDaftarBabBindo() { gantiScreen('screen-bab-bindo'); }
+    function bukaDaftarBabBing() { gantiScreen('screen-bab-bing'); }
 
-    // Dari mapel ke daftar bab Pancasila
-    function bukaDaftarBabPancasila() {
-      gantiScreen('screen-bab-pancasila');
-    }
+    function kembaliKeMapel() { gantiScreen('screen-mapel'); }
 
-    // Dari mapel ke daftar bab Matematika
-    function bukaDaftarBabMatematika() {
-      gantiScreen('screen-bab-matematika');
-    }
-
-    // Dari mapel ke daftar bab Bahasa Indonesia
-    function bukaDaftarBabBindo() {
-      gantiScreen('screen-bab-bindo');
-    }
-
-    // Dari mapel ke daftar bab Bahasa Inggris
-    function bukaDaftarBabBing() {
-      gantiScreen('screen-bab-bing');
-    }
-
-    // Kembali dari bab ke daftar mapel
-    function kembaliKeMapel() {
-      gantiScreen('screen-mapel');
-    }
-
-    // Mapel yang belum punya daftar bab (sekarang semua sudah lengkap)
-    function bukaMapel(mapel) {
-      alert('Peta bab untuk "' + mapel + '" belum tersedia.');
-    }
-
-    // IPAS: panggil halaman latihan (TIDAK DIUBAH - tetap 1 parameter)
+    // IPAS - TIDAK DIUBAH
     function pilihBab(babNo) {
       window.location.href = 'latihan.html?mapel=IPAS&bab=' + babNo;
     }
 
-    // Pancasila
     function pilihBabPancasila(babNo) {
       window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo;
     }
 
-    // Matematika
     function pilihBabMatematika(babNo) {
       window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo;
     }
 
-    // Bahasa Indonesia
     function pilihBabBindo(babNo) {
       window.location.href = 'latihan.html?mapel=Bahasa Indonesia&bab=' + babNo;
     }
 
-    // Bahasa Inggris
     function pilihBabBing(babNo) {
       window.location.href = 'latihan.html?mapel=Bahasa Inggris&bab=' + babNo;
     }
