@@ -124,64 +124,30 @@
       gap: 0.7rem;
     }
 
-.card-bab {
-  background: #fff;
-  border-radius: 10px;
-  padding: 0.9rem 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  cursor: pointer;
-  border-left: 6px solid #93c5fd;   /* biru pastel */
-  transition: 0.15s;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    .card-bab {
+      background: #fff;
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      cursor: pointer;
+      border-left: 6px solid #93c5fd;   /* biru pastel */
+      transition: 0.15s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
-  width: 480px;        /* lebar tetap */
-  max-width: 100%;     /* di HP menyesuaikan */
-  margin: 0 auto;      /* rata tengah */
-}
-
-  .card-bab:hover {
-  background: #dbeafe;   /* biru pastel lebih muda */
-  transform: translateX(5px);
-  }
-
-  .bab-num {
-  background: #60a5fa;   /* biru pastel sedikit lebih tua */
-  color: #fff;
-  font-weight: 700;
-  padding: 0.3rem 0.7rem;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  min-width: 60px;
-  text-align: center;
-  }
-
-  .bab-title {
-  font-weight: 600;
-  color: #1f2937;
-  }
-    
-    /* Aksen bab IPAS (oranye - default) */
-    .bab-ipas .card-bab,
-    .card-bab.bab-ipas {
-      border-left-color: #d97706;
-    }
-    .bab-ipas .bab-num {
-      background: #d97706;
+      width: 480px;        /* lebar tetap */
+      max-width: 100%;     /* di HP menyesuaikan */
+      margin: 0 auto;      /* rata tengah */
     }
 
-    /* Aksen bab Pancasila (merah) */
-    .card-bab.bab-pancasila,
-    .bab-pancasila .card-bab {
-      border-left-color: #dc2626;
-    }
-    .card-bab.bab-pancasila .bab-num,
-    .bab-pancasila .bab-num {
-      background: #dc2626;
+    .card-bab:hover {
+      background: #dbeafe;   /* biru pastel lebih muda */
+      transform: translateX(5px);
     }
 
     .bab-num {
+      background: #60a5fa;   /* biru pastel sedikit lebih tua */
       color: #fff;
       font-weight: 700;
       padding: 0.3rem 0.7rem;
@@ -190,9 +156,28 @@
       min-width: 60px;
       text-align: center;
     }
+
     .bab-title {
       font-weight: 600;
       color: #1f2937;
+    }
+
+    /* Hilangkan aksen lama yang berbenturan (opsional, biarkan saja) */
+    .bab-ipas .card-bab,
+    .card-bab.bab-ipas {
+      border-left-color: #93c5fd;
+    }
+    .bab-ipas .bab-num {
+      background: #60a5fa;
+    }
+
+    .card-bab.bab-pancasila,
+    .bab-pancasila .card-bab {
+      border-left-color: #93c5fd;
+    }
+    .card-bab.bab-pancasila .bab-num,
+    .bab-pancasila .bab-num {
+      background: #60a5fa;
     }
 
     @media (max-width: 700px) {
@@ -214,14 +199,14 @@
       </header>
 
       <div class="grid-mapel">
-        <!-- Pancasila - sekarang membuka bab Pancasila -->
+        <!-- Pancasila -->
         <div class="card-mapel c-pancasila" onclick="bukaDaftarBabPancasila()">
           <span class="emoji">🦅</span>
           <div class="name">Pancasila</div>
         </div>
 
-        <!-- Matematika -->
-        <div class="card-mapel c-matematika" onclick="bukaMapel('Matematika')">
+        <!-- Matematika - SEKARANG MEMBUKA BAB MATEMATIKA -->
+        <div class="card-mapel c-matematika" onclick="bukaDaftarBabMatematika()">
           <span class="emoji">➕</span>
           <div class="name">Matematika</div>
         </div>
@@ -232,7 +217,7 @@
           <div class="name">Bahasa Indonesia</div>
         </div>
 
-        <!-- IPAS (tidak diubah) -->
+        <!-- IPAS -->
         <div class="card-mapel c-ipas" onclick="bukaDaftarBabIPAS()">
           <span class="emoji">🔬</span>
           <div class="name">IPAS</div>
@@ -246,7 +231,7 @@
       </div>
     </div>
 
-    <!-- ===== LAYAR 2 : DAFTAR BAB IPAS (TIDAK DIUBAH) ===== -->
+    <!-- ===== LAYAR 2 : DAFTAR BAB IPAS ===== -->
     <div id="screen-bab-ipas" class="screen">
       <div class="topbar">
         <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
@@ -293,7 +278,7 @@
       </div>
     </div>
 
-    <!-- ===== LAYAR 3 : DAFTAR BAB PANCASILA (BARU) ===== -->
+    <!-- ===== LAYAR 3 : DAFTAR BAB PANCASILA ===== -->
     <div id="screen-bab-pancasila" class="screen">
       <div class="topbar">
         <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
@@ -324,6 +309,41 @@
       </div>
     </div>
 
+    <!-- ===== LAYAR 4 : DAFTAR BAB MATEMATIKA (BARU) ===== -->
+    <div id="screen-bab-matematika" class="screen">
+      <div class="topbar">
+        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
+      </div>
+
+      <div class="screen-header">
+        <h2>➕ Matematika</h2>
+        <p style="opacity:0.9">Pilih bab yang ingin kamu pelajari.</p>
+      </div>
+
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBabMatematika(1)">
+          <span class="bab-num">Bab 1</span>
+          <span class="bab-title">Bilangan Cacah sampai 1.000</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabMatematika(2)">
+          <span class="bab-num">Bab 2</span>
+          <span class="bab-title">Kalimat Matematika</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabMatematika(3)">
+          <span class="bab-num">Bab 3</span>
+          <span class="bab-title">Pengukuran Panjang dan Berat</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabMatematika(4)">
+          <span class="bab-num">Bab 4</span>
+          <span class="bab-title">Unsur-Unsur Bangun Datar</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabMatematika(5)">
+          <span class="bab-num">Bab 5</span>
+          <span class="bab-title">Penyajian Data dalam Tabel</span>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- ===== END .container ===== -->
 
@@ -346,6 +366,11 @@
       gantiScreen('screen-bab-pancasila');
     }
 
+    // Dari mapel ke daftar bab Matematika
+    function bukaDaftarBabMatematika() {
+      gantiScreen('screen-bab-matematika');
+    }
+
     // Kembali dari bab ke daftar mapel
     function kembaliKeMapel() {
       gantiScreen('screen-mapel');
@@ -353,7 +378,7 @@
 
     // Untuk mapel lain (belum punya daftar bab)
     function bukaMapel(mapel) {
-      alert('Peta bab untuk "' + mapel + '" belum tersedia. Khusus IPAS & Pancasila sudah dilengkapi.');
+      alert('Peta bab untuk "' + mapel + '" belum tersedia. Khusus IPAS, Pancasila & Matematika sudah dilengkapi.');
     }
 
     // IPAS: panggil halaman latihan (TIDAK DIUBAH - tetap 1 parameter)
@@ -364,6 +389,11 @@
     // Pancasila: panggil halaman latihan (fungsi terpisah)
     function pilihBabPancasila(babNo) {
       window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo;
+    }
+
+    // Matematika: panggil halaman latihan (fungsi terpisah)
+    function pilihBabMatematika(babNo) {
+      window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo;
     }
   </script>
 
