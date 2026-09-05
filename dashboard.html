@@ -124,23 +124,44 @@
       gap: 0.7rem;
     }
 
-    .card-bab {
-      background: #fff;
-      border-radius: 10px;
-      padding: 0.9rem 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      cursor: pointer;
-      border-left: 6px solid #d97706;
-      transition: 0.15s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    .card-bab:hover {
-      background: #fef9c3;
-      transform: translateX(5px);
-    }
+.card-bab {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  cursor: pointer;
+  border-left: 6px solid #93c5fd;   /* biru pastel */
+  transition: 0.15s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
+  width: 480px;        /* lebar tetap */
+  max-width: 100%;     /* di HP menyesuaikan */
+  margin: 0 auto;      /* rata tengah */
+}
+
+  .card-bab:hover {
+  background: #dbeafe;   /* biru pastel lebih muda */
+  transform: translateX(5px);
+  }
+
+  .bab-num {
+  background: #60a5fa;   /* biru pastel sedikit lebih tua */
+  color: #fff;
+  font-weight: 700;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  min-width: 60px;
+  text-align: center;
+  }
+
+  .bab-title {
+  font-weight: 600;
+  color: #1f2937;
+  }
+    
     /* Aksen bab IPAS (oranye - default) */
     .bab-ipas .card-bab,
     .card-bab.bab-ipas {
