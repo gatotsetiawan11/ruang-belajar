@@ -193,7 +193,7 @@
           <div class="name">Matematika</div>
         </div>
 
-        <!-- Bahasa Indonesia - SEKARANG MEMBUKA BAB BINDO -->
+        <!-- Bahasa Indonesia -->
         <div class="card-mapel c-bindo" onclick="bukaDaftarBabBindo()">
           <span class="emoji">📖</span>
           <div class="name">Bahasa Indonesia</div>
@@ -205,8 +205,8 @@
           <div class="name">IPAS</div>
         </div>
 
-        <!-- Bahasa Inggris -->
-        <div class="card-mapel c-bing" onclick="bukaMapel('Bahasa Inggris')">
+        <!-- Bahasa Inggris - SEKARANG MEMBUKA BAB BING -->
+        <div class="card-mapel c-bing" onclick="bukaDaftarBabBing()">
           <span class="emoji">🌍</span>
           <div class="name">Bahasa Inggris</div>
         </div>
@@ -326,7 +326,7 @@
       </div>
     </div>
 
-    <!-- ===== LAYAR 5 : DAFTAR BAB BAHASA INDONESIA (BARU) ===== -->
+    <!-- ===== LAYAR 5 : DAFTAR BAB BAHASA INDONESIA ===== -->
     <div id="screen-bab-bindo" class="screen">
       <div class="topbar">
         <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
@@ -373,6 +373,45 @@
       </div>
     </div>
 
+    <!-- ===== LAYAR 6 : DAFTAR BAB BAHASA INGGRIS (BARU) ===== -->
+    <div id="screen-bab-bing" class="screen">
+      <div class="topbar">
+        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
+      </div>
+
+      <div class="screen-header">
+        <h2>🌍 Bahasa Inggris</h2>
+        <p style="opacity:0.9">Pilih chapter yang ingin kamu pelajari.</p>
+      </div>
+
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBabBing(1)">
+          <span class="bab-num">Ch 1</span>
+          <span class="bab-title">My Self</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBing(2)">
+          <span class="bab-num">Ch 2</span>
+          <span class="bab-title">My Family</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBing(3)">
+          <span class="bab-num">Ch 3</span>
+          <span class="bab-title">My Family's Activities at Home</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBing(4)">
+          <span class="bab-num">Ch 4</span>
+          <span class="bab-title">My School</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBing(5)">
+          <span class="bab-num">Ch 5</span>
+          <span class="bab-title">My Classroom</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBing(6)">
+          <span class="bab-num">Ch 6</span>
+          <span class="bab-title">My Teacher</span>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- ===== END .container ===== -->
 
@@ -405,14 +444,19 @@
       gantiScreen('screen-bab-bindo');
     }
 
+    // Dari mapel ke daftar bab Bahasa Inggris
+    function bukaDaftarBabBing() {
+      gantiScreen('screen-bab-bing');
+    }
+
     // Kembali dari bab ke daftar mapel
     function kembaliKeMapel() {
       gantiScreen('screen-mapel');
     }
 
-    // Untuk mapel lain (belum punya daftar bab)
+    // Mapel yang belum punya daftar bab (sekarang semua sudah lengkap)
     function bukaMapel(mapel) {
-      alert('Peta bab untuk "' + mapel + '" belum tersedia. Khusus IPAS, Pancasila, Matematika & Bahasa Indonesia sudah dilengkapi.');
+      alert('Peta bab untuk "' + mapel + '" belum tersedia.');
     }
 
     // IPAS: panggil halaman latihan (TIDAK DIUBAH - tetap 1 parameter)
@@ -420,19 +464,24 @@
       window.location.href = 'latihan.html?mapel=IPAS&bab=' + babNo;
     }
 
-    // Pancasila: panggil halaman latihan
+    // Pancasila
     function pilihBabPancasila(babNo) {
       window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo;
     }
 
-    // Matematika: panggil halaman latihan
+    // Matematika
     function pilihBabMatematika(babNo) {
       window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo;
     }
 
-    // Bahasa Indonesia: panggil halaman latihan
+    // Bahasa Indonesia
     function pilihBabBindo(babNo) {
       window.location.href = 'latihan.html?mapel=Bahasa Indonesia&bab=' + babNo;
+    }
+
+    // Bahasa Inggris
+    function pilihBabBing(babNo) {
+      window.location.href = 'latihan.html?mapel=Bahasa Inggris&bab=' + babNo;
     }
   </script>
 
