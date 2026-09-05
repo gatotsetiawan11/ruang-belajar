@@ -162,24 +162,6 @@
       color: #1f2937;
     }
 
-    /* Hilangkan aksen lama yang berbenturan (opsional, biarkan saja) */
-    .bab-ipas .card-bab,
-    .card-bab.bab-ipas {
-      border-left-color: #93c5fd;
-    }
-    .bab-ipas .bab-num {
-      background: #60a5fa;
-    }
-
-    .card-bab.bab-pancasila,
-    .bab-pancasila .card-bab {
-      border-left-color: #93c5fd;
-    }
-    .card-bab.bab-pancasila .bab-num,
-    .bab-pancasila .bab-num {
-      background: #60a5fa;
-    }
-
     @media (max-width: 700px) {
       .grid-mapel {
         grid-template-columns: repeat(2, 1fr);
@@ -205,14 +187,14 @@
           <div class="name">Pancasila</div>
         </div>
 
-        <!-- Matematika - SEKARANG MEMBUKA BAB MATEMATIKA -->
+        <!-- Matematika -->
         <div class="card-mapel c-matematika" onclick="bukaDaftarBabMatematika()">
           <span class="emoji">➕</span>
           <div class="name">Matematika</div>
         </div>
 
-        <!-- Bahasa Indonesia -->
-        <div class="card-mapel c-bindo" onclick="bukaMapel('Bahasa Indonesia')">
+        <!-- Bahasa Indonesia - SEKARANG MEMBUKA BAB BINDO -->
+        <div class="card-mapel c-bindo" onclick="bukaDaftarBabBindo()">
           <span class="emoji">📖</span>
           <div class="name">Bahasa Indonesia</div>
         </div>
@@ -290,26 +272,26 @@
       </div>
 
       <div class="grid grid-bab-ipas">
-        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(1)">
+        <div class="card-bab" onclick="pilihBabPancasila(1)">
           <span class="bab-num">Bab 1</span>
           <span class="bab-title">Aku Anak Indonesia</span>
         </div>
-        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(2)">
+        <div class="card-bab" onclick="pilihBabPancasila(2)">
           <span class="bab-num">Bab 2</span>
           <span class="bab-title">Aku Patuh Aturan</span>
         </div>
-        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(3)">
+        <div class="card-bab" onclick="pilihBabPancasila(3)">
           <span class="bab-num">Bab 3</span>
           <span class="bab-title">Berbeda Itu Indah</span>
         </div>
-        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(4)">
+        <div class="card-bab" onclick="pilihBabPancasila(4)">
           <span class="bab-num">Bab 4</span>
           <span class="bab-title">Ayo Mengenal Pancasila</span>
         </div>
       </div>
     </div>
 
-    <!-- ===== LAYAR 4 : DAFTAR BAB MATEMATIKA (BARU) ===== -->
+    <!-- ===== LAYAR 4 : DAFTAR BAB MATEMATIKA ===== -->
     <div id="screen-bab-matematika" class="screen">
       <div class="topbar">
         <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
@@ -344,6 +326,53 @@
       </div>
     </div>
 
+    <!-- ===== LAYAR 5 : DAFTAR BAB BAHASA INDONESIA (BARU) ===== -->
+    <div id="screen-bab-bindo" class="screen">
+      <div class="topbar">
+        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
+      </div>
+
+      <div class="screen-header">
+        <h2>📖 Bahasa Indonesia</h2>
+        <p style="opacity:0.9">Pilih bab yang ingin kamu pelajari.</p>
+      </div>
+
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBabBindo(1)">
+          <span class="bab-num">Bab 1</span>
+          <span class="bab-title">Petualangan Ken dan Alif</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBindo(2)">
+          <span class="bab-num">Bab 2</span>
+          <span class="bab-title">Semangat Si Pantang Menyerah</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBindo(3)">
+          <span class="bab-num">Bab 3</span>
+          <span class="bab-title">Bintang Inspirasiku</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBindo(4)">
+          <span class="bab-num">Bab 4</span>
+          <span class="bab-title">Tulis Ceritamu</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBindo(5)">
+          <span class="bab-num">Bab 5</span>
+          <span class="bab-title">Sahabat Sungai Mahakam</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBindo(6)">
+          <span class="bab-num">Bab 6</span>
+          <span class="bab-title">Istana yang Membawa Bencana</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBindo(7)">
+          <span class="bab-num">Bab 7</span>
+          <span class="bab-title">Dengarkan Dongeng Seru</span>
+        </div>
+        <div class="card-bab" onclick="pilihBabBindo(8)">
+          <span class="bab-num">Bab 8</span>
+          <span class="bab-title">Dongengku, Karyaku</span>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- ===== END .container ===== -->
 
@@ -371,6 +400,11 @@
       gantiScreen('screen-bab-matematika');
     }
 
+    // Dari mapel ke daftar bab Bahasa Indonesia
+    function bukaDaftarBabBindo() {
+      gantiScreen('screen-bab-bindo');
+    }
+
     // Kembali dari bab ke daftar mapel
     function kembaliKeMapel() {
       gantiScreen('screen-mapel');
@@ -378,7 +412,7 @@
 
     // Untuk mapel lain (belum punya daftar bab)
     function bukaMapel(mapel) {
-      alert('Peta bab untuk "' + mapel + '" belum tersedia. Khusus IPAS, Pancasila & Matematika sudah dilengkapi.');
+      alert('Peta bab untuk "' + mapel + '" belum tersedia. Khusus IPAS, Pancasila, Matematika & Bahasa Indonesia sudah dilengkapi.');
     }
 
     // IPAS: panggil halaman latihan (TIDAK DIUBAH - tetap 1 parameter)
@@ -386,14 +420,19 @@
       window.location.href = 'latihan.html?mapel=IPAS&bab=' + babNo;
     }
 
-    // Pancasila: panggil halaman latihan (fungsi terpisah)
+    // Pancasila: panggil halaman latihan
     function pilihBabPancasila(babNo) {
       window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo;
     }
 
-    // Matematika: panggil halaman latihan (fungsi terpisah)
+    // Matematika: panggil halaman latihan
     function pilihBabMatematika(babNo) {
       window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo;
+    }
+
+    // Bahasa Indonesia: panggil halaman latihan
+    function pilihBabBindo(babNo) {
+      window.location.href = 'latihan.html?mapel=Bahasa Indonesia&bab=' + babNo;
     }
   </script>
 
