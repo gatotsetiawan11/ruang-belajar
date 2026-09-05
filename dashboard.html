@@ -446,7 +446,7 @@
       document.body.style.backgroundImage = "url('https://images-assets.nasa.gov/image/PIA23418/PIA23418~orig.jpg')";
 
       // Coba ambil APOD (Astronomy Picture of the Day) - gratis tanpa API key
-      fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=true')
+      fetch('https://api.nasa.gov/planetary/apod?api_key=5KVkZFoh9UxMmhBjhthSfGpP86jaO7xJFu1LcbKB&thumbs=true')
         .then(res => {
           if (!res.ok) throw new Error('Gagal ambil APOD');
           return res.json();
