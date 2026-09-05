@@ -1,26 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 
-
-    const studentId =
-    localStorage.getItem("student_id");
+    const token =
+    localStorage.getItem("student_token");
 
 
     const studentName =
     localStorage.getItem("student_name");
 
 
-    const token =
-    localStorage.getItem("student_token");
 
+    if(!token){
 
-
-    // cek login
-
-    if(!token || !studentId){
-
-        window.location.href =
-        "index.html";
+        window.location.href="index.html";
 
         return;
 
@@ -29,18 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+    // ==========================
+    // PROFIL
+    // ==========================
 
-    // tampilkan nama
 
     document.getElementById("greet")
     .textContent =
     `Halo, ${studentName}!`;
 
-
-
-
-
-    // sementara
 
     document.getElementById("kelasBadge")
     .textContent =
@@ -49,67 +38,214 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-    // statistik sementara
-
-    document.getElementById("statLulus")
-    .textContent = "0";
+    // ==========================
+    // DATA KELAS
+    // ==========================
 
 
-    document.getElementById("statActive")
-    .textContent = "0";
-
-
-    document.getElementById("statTotal")
-    .textContent = "0";
-
-
+    const classes = [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+    ];
 
 
 
-    // pesan bab kosong
-
-    document.getElementById("chapterList")
-    .innerHTML = `
-
-        <p class="empty">
-
-        Belum ada materi tersedia.
-
-        </p>
-
-    `;
+    const classList =
+    document.getElementById("classList");
 
 
 
+    classList.innerHTML = "";
 
 
 
-    // logout
+    classes.forEach(kelas=>{
+
+
+        const card =
+        document.createElement("div");
+
+
+        card.className =
+        "class-card";
+
+
+
+        card.innerHTML = `
+
+            <div class="class-icon">
+                📚
+            </div>
+
+            <h3>
+                Kelas ${kelas}
+            </h3>
+
+            <p>
+                Materi dan latihan
+            </p>
+
+        `;
+
+
+
+        card.addEventListener("click",()=>{
+
+
+            if(kelas === 3){
+
+                showMapel();
+
+            }
+
+            else{
+
+                alert(
+                "Materi kelas ini belum tersedia"
+                );
+
+            }
+
+
+        });
+
+
+
+        classList.appendChild(card);
+
+
+
+    });
+
+
+
+
+
+    // ==========================
+    // MAPEL KELAS 3
+    // ==========================
+
+
+    function showMapel(){
+
+
+        const mapelSection =
+        document.getElementById(
+            "mapelSection"
+        );
+
+
+        const mapelList =
+        document.getElementById(
+            "mapelList"
+        );
+
+
+
+        const mapel = [
+
+            "Pendidikan Pancasila",
+
+            "Bahasa Indonesia",
+
+            "Matematika",
+
+            "IPAS",
+
+            "Bahasa Inggris"
+
+        ];
+
+
+
+        mapelList.innerHTML="";
+
+
+
+        mapel.forEach(subject=>{
+
+
+            const card =
+            document.createElement("div");
+
+
+
+            card.className =
+            "mapel-card";
+
+
+
+            card.innerHTML = `
+
+                <div class="mapel-icon">
+                    📖
+                </div>
+
+                <h3>
+                    ${subject}
+                </h3>
+
+                <p>
+                    Kelas 3
+                </p>
+
+            `;
+
+
+
+            card.addEventListener("click",()=>{
+
+
+                alert(
+                    subject +
+                    " dipilih"
+                );
+
+
+            });
+
+
+
+            mapelList.appendChild(card);
+
+
+        });
+
+
+
+        mapelSection.hidden=false;
+
+
+
+        mapelSection
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+
+
+    }
+
+
+
+
+
+    // ==========================
+    // LOGOUT
+    // ==========================
+
 
     document.getElementById("logoutBtn")
-    .addEventListener("click", async()=>{
+    .addEventListener("click",()=>{
 
 
-        // hapus data login
+        localStorage.clear();
 
-        localStorage.removeItem(
-            "student_token"
-        );
-
-
-        localStorage.removeItem(
-            "student_id"
-        );
-
-
-        localStorage.removeItem(
-            "student_name"
-        );
-
-
-
-        window.location.href =
+        window.location.href=
         "index.html";
 
 
