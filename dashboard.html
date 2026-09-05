@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pilih Mapel - IPAS Kelas 3</title>
+  <title>Pilih Mapel - Kelas 3</title>
 
   <style>
-    /* ===== Reset dasar ===== */
     * {
       margin: 0;
       padding: 0;
@@ -26,7 +25,7 @@
       padding: 1.5rem;
     }
 
-    /* ===== Navigasi layar ===== */
+    /* Navigasi layar */
     .screen {
       display: none;
     }
@@ -34,7 +33,7 @@
       display: block;
     }
 
-    /* ===== Header ===== */
+    /* Header */
     header {
       text-align: center;
       margin-bottom: 2rem;
@@ -49,8 +48,8 @@
       margin-top: 0.3rem;
     }
 
-    /* ===== Grid mapel ===== */
-    .grid {
+    /* Grid mapel - 5 kolom = 1 baris */
+    .grid-mapel {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 1rem;
@@ -79,14 +78,12 @@
       font-weight: 700;
     }
 
-    /* Warna aksen mapel */
     .c-pancasila { border-top-color: #dc2626; }
     .c-matematika { border-top-color: #2563eb; }
     .c-bindo { border-top-color: #059669; }
     .c-ipas { border-top-color: #d97706; }
     .c-bing { border-top-color: #7c3aed; }
 
-    /* ===== Tombol kembali ===== */
     .topbar {
       margin-bottom: 1.2rem;
     }
@@ -103,7 +100,6 @@
       background: #4b5563;
     }
 
-    /* ===== Header layar bab ===== */
     .screen-header {
       text-align: center;
       margin-bottom: 1.8rem;
@@ -119,7 +115,15 @@
       color: #4b5563;
     }
 
-    /* ===== Daftar bab ===== */
+    /* Daftar bab - 1 kolom */
+    .grid-bab {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 680px;
+      margin: 0 auto;
+      gap: 0.7rem;
+    }
+
     .card-bab {
       background: #fff;
       border-radius: 10px;
@@ -136,8 +140,27 @@
       background: #fef9c3;
       transform: translateX(5px);
     }
-    .bab-num {
+
+    /* Aksen bab IPAS (oranye - default) */
+    .bab-ipas .card-bab,
+    .card-bab.bab-ipas {
+      border-left-color: #d97706;
+    }
+    .bab-ipas .bab-num {
       background: #d97706;
+    }
+
+    /* Aksen bab Pancasila (merah) */
+    .card-bab.bab-pancasila,
+    .bab-pancasila .card-bab {
+      border-left-color: #dc2626;
+    }
+    .card-bab.bab-pancasila .bab-num,
+    .bab-pancasila .bab-num {
+      background: #dc2626;
+    }
+
+    .bab-num {
       color: #fff;
       font-weight: 700;
       padding: 0.3rem 0.7rem;
@@ -151,17 +174,9 @@
       color: #1f2937;
     }
 
-    /* Grid bab satu kolom */
-    .grid-bab-ipas {
-      grid-template-columns: 1fr;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-
-    @media (max-width: 480px) {
-      .card-bab {
-        flex-wrap: wrap;
-        gap: 0.5rem;
+    @media (max-width: 700px) {
+      .grid-mapel {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
@@ -170,18 +185,16 @@
 
   <div class="container">
 
-    <!-- ============================================ -->
-    <!-- LAYAR 1 : DAFTAR MAPEL                       -->
-    <!-- ============================================ -->
+    <!-- ===== LAYAR 1 : DAFTAR MAPEL ===== -->
     <div id="screen-mapel" class="screen active">
       <header>
         <h1>📚 Pilih Mata Pelajaran</h1>
         <p>Halo! Pilih mapel yang ingin kamu pelajari hari ini.</p>
       </header>
 
-      <div class="grid">
-        <!-- Pancasila -->
-        <div class="card-mapel c-pancasila" onclick="bukaMapel('Pancasila')">
+      <div class="grid-mapel">
+        <!-- Pancasila - sekarang membuka bab Pancasila -->
+        <div class="card-mapel c-pancasila" onclick="bukaDaftarBabPancasila()">
           <span class="emoji">🦅</span>
           <div class="name">Pancasila</div>
         </div>
@@ -198,7 +211,7 @@
           <div class="name">Bahasa Indonesia</div>
         </div>
 
-        <!-- IPAS -->
+        <!-- IPAS (tidak diubah) -->
         <div class="card-mapel c-ipas" onclick="bukaDaftarBabIPAS()">
           <span class="emoji">🔬</span>
           <div class="name">IPAS</div>
@@ -212,9 +225,7 @@
       </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- LAYAR 2 : DAFTAR BAB IPAS                    -->
-    <!-- ============================================ -->
+    <!-- ===== LAYAR 2 : DAFTAR BAB IPAS (TIDAK DIUBAH) ===== -->
     <div id="screen-bab-ipas" class="screen">
       <div class="topbar">
         <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
@@ -261,6 +272,37 @@
       </div>
     </div>
 
+    <!-- ===== LAYAR 3 : DAFTAR BAB PANCASILA (BARU) ===== -->
+    <div id="screen-bab-pancasila" class="screen">
+      <div class="topbar">
+        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
+      </div>
+
+      <div class="screen-header">
+        <h2>🦅 Pancasila</h2>
+        <p style="opacity:0.9">Pilih bab yang ingin kamu pelajari.</p>
+      </div>
+
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(1)">
+          <span class="bab-num">Bab 1</span>
+          <span class="bab-title">Aku Anak Indonesia</span>
+        </div>
+        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(2)">
+          <span class="bab-num">Bab 2</span>
+          <span class="bab-title">Aku Patuh Aturan</span>
+        </div>
+        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(3)">
+          <span class="bab-num">Bab 3</span>
+          <span class="bab-title">Berbeda Itu Indah</span>
+        </div>
+        <div class="card-bab bab-pancasila" onclick="pilihBabPancasila(4)">
+          <span class="bab-num">Bab 4</span>
+          <span class="bab-title">Ayo Mengenal Pancasila</span>
+        </div>
+      </div>
+    </div>
+
   </div>
   <!-- ===== END .container ===== -->
 
@@ -278,20 +320,29 @@
       gantiScreen('screen-bab-ipas');
     }
 
+    // Dari mapel ke daftar bab Pancasila
+    function bukaDaftarBabPancasila() {
+      gantiScreen('screen-bab-pancasila');
+    }
+
     // Kembali dari bab ke daftar mapel
     function kembaliKeMapel() {
       gantiScreen('screen-mapel');
     }
 
-    // ---------- Placeholder aksi ----------
-    // Untuk mapel lain (belum punya daftar bab spesifik)
+    // Untuk mapel lain (belum punya daftar bab)
     function bukaMapel(mapel) {
-      alert('Peta bab untuk "' + mapel + '" belum tersedia. Khusus IPAS sudah dilengkapi.');
+      alert('Peta bab untuk "' + mapel + '" belum tersedia. Khusus IPAS & Pancasila sudah dilengkapi.');
     }
 
-    // Saat sebuah bab IPAS diklik → menuju latihan/soal bab tsb
+    // IPAS: panggil halaman latihan (TIDAK DIUBAH - tetap 1 parameter)
     function pilihBab(babNo) {
       window.location.href = 'latihan.html?mapel=IPAS&bab=' + babNo;
+    }
+
+    // Pancasila: panggil halaman latihan (fungsi terpisah)
+    function pilihBabPancasila(babNo) {
+      window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo;
     }
   </script>
 
