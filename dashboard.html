@@ -1,4 +1,4 @@
-<Artifact identifier="dashboard-final-html" type="text/html" language="html" title="Dashboard Kelas 3 (HTML Lengkap)"> <!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Dashboard Belajar - Kelas 3</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
+<Artifact identifier="dashboard-fix-error" type="text/html" language="html" title="Dashboard Kelas 3 (Fix Error bukaMapel)"> ```html <!DOCTYPE html> <html lang="id"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Dashboard Belajar - Kelas 3</title> <style> * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
 font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -12,7 +12,6 @@ margin: 0 auto;
 padding: 2rem 1rem;
 }
 
-/* Header per layar */
 .screen-header {
 text-align: center;
 color: #ffffff;
@@ -24,12 +23,8 @@ font-weight: 800;
 letter-spacing: 0.5px;
 margin-bottom: 0.3rem;
 }
-.screen-header p {
-font-size: 1rem;
-opacity: 0.9;
-}
+.screen-header p { font-size: 1rem; opacity: 0.9; }
 
-/* Tombol kembali */
 .topbar {
 display: flex;
 align-items: center;
@@ -46,11 +41,8 @@ font-weight: 600;
 font-size: 0.9rem;
 transition: background 0.15s;
 }
-.btn-back:hover {
-background: rgba(255,255,255,0.3);
-}
+.btn-back:hover { background: rgba(255,255,255,0.3); }
 
-/* Grid umum */
 .grid {
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -62,7 +54,6 @@ max-width: 720px;
 margin: 0 auto;
 }
 
-/* Kartu (kelas & mapel) */
 .card {
 background: #ffffff;
 border-radius: 1.1rem;
@@ -73,31 +64,12 @@ box-shadow: 0 8px 20px rgba(0,0,0,0.10);
 transition: transform 0.18s ease, box-shadow 0.18s ease;
 border-top: 6px solid #cbd5e1;
 }
-.card:hover {
-transform: translateY(-5px);
-box-shadow: 0 14px 28px rgba(0,0,0,0.16);
-}
-.card:active {
-transform: translateY(-2px);
-}
-.card .emoji {
-font-size: 3rem;
-line-height: 1;
-display: block;
-margin-bottom: 0.8rem;
-}
-.card .name {
-font-size: 1.25rem;
-font-weight: 700;
-color: #111827;
-}
-.card .sub {
-font-size: 0.8rem;
-color: #6b7280;
-margin-top: 0.2rem;
-}
+.card:hover { transform: translateY(-5px); box-shadow: 0 14px 28px rgba(0,0,0,0.16); }
+.card:active { transform: translateY(-2px); }
+.card .emoji { font-size: 3rem; line-height: 1; display: block; margin-bottom: 0.8rem; }
+.card .name { font-size: 1.25rem; font-weight: 700; color: #111827; }
+.card .sub { font-size: 0.8rem; color: #6b7280; margin-top: 0.2rem; }
 
-/* Baris (bab & level) */
 .baris {
 display: flex;
 align-items: center;
@@ -111,12 +83,8 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.07);
 transition: background 0.15s, transform 0.15s;
 border-left: 6px solid transparent;
 }
-.baris:hover {
-background: #f0f4ff;
-transform: translateX(5px);
-}
+.baris:hover { background: #f0f4ff; transform: translateX(5px); }
 
-/* Label bab / chapter /
 .bab-num {
 background: #6b7280;
 color: #fff;
@@ -127,14 +95,8 @@ padding: 0.35rem 0.85rem;
 flex-shrink: 0;
 white-space: nowrap;
 }
-.bab-num.berwarna {
-/ warna mengikuti aksen mapel via class tambahan */
-}
-.bab-judul {
-font-weight: 600;
-}
+.bab-judul { font-weight: 600; }
 
-/* Level badge */
 .lvl-badge {
 display: flex;
 align-items: center;
@@ -150,41 +112,28 @@ padding: 0.35rem 0.7rem;
 text-align: center;
 min-width: 2.3rem;
 }
-.lvl-badge .ket {
-font-weight: 700;
-}
-.lvl-desc {
-color: #6b7280;
-font-size: 0.82rem;
-margin-left: auto;
-white-space: nowrap;
-}
+.lvl-badge .ket { font-weight: 700; }
+.lvl-desc { color: #6b7280; font-size: 0.82rem; margin-left: auto; white-space: nowrap; }
 
-/* Aksen kelas */
 .a-kelas { border-top-color: #10b981; }
-
-/* Aksen mapel */
 .a-pancasila { border-top-color: #dc2626; }
 .a-matematika { border-top-color: #2563eb; }
 .a-bindo { border-top-color: #059669; }
 .a-ipas { border-top-color: #d97706; }
 .a-bing { border-top-color: #7c3aed; }
 
-/* Warna level (border kiri) */
 .lv-c1 { border-left-color: #ef4444; }
 .lv-c2 { border-left-color: #f59e0b; }
 .lv-c3 { border-left-color: #3b82f6; }
 .lv-c4 { border-left-color: #8b5cf6; }
 .lv-c5 { border-left-color: #10b981; }
 
-/* Warna isi badge level */
 .lv-c1 .code { background: #ef4444; }
 .lv-c2 .code { background: #f59e0b; }
 .lv-c3 .code { background: #3b82f6; }
 .lv-c4 .code { background: #8b5cf6; }
 .lv-c5 .code { background: #10b981; }
 
-/* Animasi layar */
 .screen { display: none; }
 .screen.active { display: block; animation: fade 0.25s ease; }
 @keyframes fade {
@@ -192,10 +141,9 @@ from { opacity: 0; transform: translateY(8px); }
 to { opacity: 1; transform: none; }
 }
 
-/* Responsif untuk layar kecil */
 @media (max-width: 480px) {
 .baris { flex-wrap: wrap; gap: 0.5rem; }
 .lvl-desc { margin-left: 0; white-space: normal; }
 }
 
-</style> </head> <body> <div class="container"> <!-- ========== LAYAR 1 : PILIH KELAS ========== --> <div id="screen-kelas" class="screen active"> <div class="screen-header"> <h1>🏫 Pilih Kelas</h1> <p>Pilih kelas untuk mulai belajar.</p> </div> <div class="grid"> <div class="card a-kelas" onclick="bukaMapel()"> <span class="emoji">🎒</span> <div class="name">Kelas 3</div> <div class="sub">SD / MI</div> </div> <!-- Kelas lain dapat ditambahkan di sini --> </div> </div> <!-- ========== LAYAR 2 : PILIH MAPEL ========== --> <div id="screen-mapel" class="screen"> <div class="topbar"> <button class="btn-back" onclick="tampil('screen-kelas')">&#8592; Ganti Kelas</button> </div> <div class="screen-header"> <h1>📚 Pilih Mata Pelajaran</h1> <p>Kelas 3</p> </div> <div class="grid" id="grid-mapel"></div> </div> <!-- ========== LAYAR 3 : DAFTAR BAB ========== --> <div id="screen-bab" class="screen"> <div class="topbar"> <button class="btn-back" onclick="tampil('screen-mapel')">&#8592; Pilih Mapel</button> </div> <div class="screen-header"> <h1 id="judul-mapel-bab">-</h1> <p>Pilih bab / chapter untuk belajar.</p> </div> <div class="grid list" id="grid-bab"></div> </div> <!-- ========== LAYAR 4 : PILIH LEVEL ========== --> <div id="screen-level" class="screen"> <div class="topbar"> <button class="btn-back" onclick="tampil('screen-bab')">&#8592; Pilih Bab</button> </div> <div class="screen-header"> <h1 id="judul-bab-level">-</h1> <p>Pilih level berpikir (C1 – C5).</p> </div> <div class="grid list" id="grid-level"></div> </div> </div> <script> // ================= KONFIGURASI ================= const KELAS = '3'; /* Data mapel. - 'label' menentukan penulisan: "Bab" untuk mapel umum, "Chapter" khusus Bahasa Inggris. - 'aksen' untuk warna atas kartu mapel. - 'daftar' berisi judul bab/chapter. */ const DATA_MAPEL = { 'Pancasila': { emoji: '🦅', aksen: 'a-pancasila', label: 'Bab', daftar: [ 'Aku Anak Indonesia', 'Aku Patuh Aturan', 'Berbeda Itu Indah', 'Ayo Mengenal Pancasila' ] }, 'Matematika': { emoji: '➕', aksen: 'a-matematika', label: 'Bab', daftar: [ 'Bilangan Cacah sampai 1.000', 'Kalimat Matematika', 'Pengukuran Panjang dan Berat', 'Unsur-Unsur Bangun Datar', 'Penyajian Data dalam Tabel' ] }, 'Bahasa Indonesia': { emoji: '📖', aksen: 'a-bindo', label: 'Bab', daftar: [ 'Petualangan Ken dan Alif', 'Semangat Si Pantang Menyerah', 'Bintang Inspirasiku', 'Tulis Ceritamu', 'Sahabat Sungai Mahakam', 'Istana yang Membawa Bencana', 'Dengarkan Dongeng Seru', 'Dongengku, Karyaku' ] }, 'IPAS': { emoji: '🔬', aksen: 'a-ipas', label: 'Bab', daftar: [ 'Keajaiban Tubuhku', 'Dahulu, Kini, dan Nanti', 'Peduli dan Berbagi', 'Siklus Hidup yang Menakjubkan', 'Bijak Berbelanja Kebutuhan', 'Energi, sang Pemberi Kekuatan', 'Jejak Penjelajah', 'Rahasia Tiga Wujud Zat' ] }, 'Bahasa Inggris': { emoji: '🌍', aksen: 'a-bing', label: 'Chapter', daftar: [ 'My Self', 'My Family', 'My Family’s Activities at Home', 'My School', 'My Classroom', 'My Teacher' ] } }; const DATA_LEVEL = [ { kode: 'C1', ket: 'Mengingat', desc: 'mengingat kembali materi', cls: 'lv-c1' }, { kode: 'C2', ket: 'Memahami', desc: 'memahami konsep', cls: 'lv-c2' }, { kode: 'C3', ket: 'Menerapkan', desc: 'menerapkan konsep', cls: 'lv-c3' }, { kode: 'C4', ket: 'Menganalisis', desc: 'menguraikan hubungan', cls: 'lv-c4' }, { kode: 'C5', ket: 'Mengevaluasi', desc: 'menilai / mengevaluasi', cls: 'lv-c5' } ]; let mapelAktif = null; // ================= FUNGSI NAVIGASI ================= function tampil(idLayar) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(idLayar).classList.add('active'); } // ================= RENDER: DAFTAR MAPEL ================= function renderMapel() { const wrap = document.getElementById('grid-mapel'); wrap.innerHTML = ''; for (const [nama, m] of Object.entries(DATA_MAPEL)) { const el = document.createElement('div'); el.className = 'card ' + m.aksen; el.innerHTML = ` <span class="emoji">${m.emoji}</span> <div class="name">${nama}</div>`; el.addEventListener('click', () => bukaBab(nama)); wrap.appendChild(el); } } // ================= RENDER: DAFTAR BAB ================= function renderBab(mapel) { mapelAktif = mapel; const m = DATA_MAPEL[mapel]; document.getElementById('judul-mapel-bab').textContent = m.emoji + ' ' + mapel; const wrap = document.getElementById('grid-bab'); wrap.innerHTML = ''; m.daftar.forEach((judul, idx) => { const el = document.createElement('div'); el.className = 'baris ' + m.aksen; el.innerHTML = ` <span class="bab-num">${m.label} ${idx + 1}</span> <span class="bab-judul">${judul}</span>`; el.addEventListener('click', () => renderLevel(mapel, idx + 1, judul)); wrap.appendChild(el); }); } // ================= RENDER: LEVEL C1-C5 ================= function renderLevel(mapel, noBab, judulBab) { const m = DATA_MAPEL[mapel]; document.getElementById('judul-bab-level').textContent = `${m.emoji} ${mapel} — ${m.label} ${noBab}: ${judulBab}`; const wrap = document.getElementById('grid-level'); wrap.innerHTML = ''; DATA_LEVEL.forEach(lv => { const el = document.createElement('div'); el.className = 'baris ' + lv.cls; el.innerHTML = ` <div class="lvl-badge"> <span class="code">${lv.kode}</span> <span class="ket">${lv.ket}</span> </div> <span class="lvl-desc">${lv.desc}</span>`; el.addEventListener('click', () => pilihLevel(mapel, noBab, lv.kode)); wrap.appendChild(el); }); } // ================= AKSI ================= function bukaMapel() { renderMapel(); tampil('screen-mapel'); } function bukaBab(mapel) { renderBab(mapel); tampil('screen-bab'); } // Fungsi ini dipanggil saat user memilih level C1-C5 function pilihLevel(mapel, bab, level) { // TODO: Ganti dengan halaman latihan/soal yang sesuai aplikasi Anda window.location.href = 'latihan.html?kelas=' + KELAS + '&mapel=' + encodeURIComponent(mapel) + '&bab=' + bab + '&level=' + level; } </script> </body> </html> ``` </Artifact>
+</style> </head> <body> <div class="container"> <!-- ========== LAYAR 1 : PILIH KELAS ========== --> <div id="screen-kelas" class="screen active"> <div class="screen-header"> <h1>🏫 Pilih Kelas</h1> <p>Pilih kelas untuk mulai belajar.</p> </div> <div class="grid"> <!-- Gunakan id dan data attribute, tanpa onclick inline --> <div class="card a-kelas" id="btn-kelas-3"> <span class="emoji">🎒</span> <div class="name">Kelas 3</div> <div class="sub">SD / MI</div> </div> </div> </div> <!-- ========== LAYAR 2 : PILIH MAPEL ========== --> <div id="screen-mapel" class="screen"> <div class="topbar"> <button class="btn-back" id="btn-back-mapel">&#8592; Ganti Kelas</button> </div> <div class="screen-header"> <h1>📚 Pilih Mata Pelajaran</h1> <p>Kelas 3</p> </div> <div class="grid" id="grid-mapel"></div> </div> <!-- ========== LAYAR 3 : DAFTAR BAB ========== --> <div id="screen-bab" class="screen"> <div class="topbar"> <button class="btn-back" id="btn-back-bab">&#8592; Pilih Mapel</button> </div> <div class="screen-header"> <h1 id="judul-mapel-bab">-</h1> <p>Pilih bab / chapter untuk belajar.</p> </div> <div class="grid list" id="grid-bab"></div> </div> <!-- ========== LAYAR 4 : PILIH LEVEL ========== --> <div id="screen-level" class="screen"> <div class="topbar"> <button class="btn-back" id="btn-back-level">&#8592; Pilih Bab</button> </div> <div class="screen-header"> <h1 id="judul-bab-level">-</h1> <p>Pilih level berpikir (C1 – C5).</p> </div> <div class="grid list" id="grid-level"></div> </div> </div> <script> // ================= DATA ================= const DATA_MAPEL = { 'Pancasila': { emoji: '🦅', aksen: 'a-pancasila', label: 'Bab', daftar: [ 'Aku Anak Indonesia', 'Aku Patuh Aturan', 'Berbeda Itu Indah', 'Ayo Mengenal Pancasila' ] }, 'Matematika': { emoji: '➕', aksen: 'a-matematika', label: 'Bab', daftar: [ 'Bilangan Cacah sampai 1.000', 'Kalimat Matematika', 'Pengukuran Panjang dan Berat', 'Unsur-Unsur Bangun Datar', 'Penyajian Data dalam Tabel' ] }, 'Bahasa Indonesia': { emoji: '📖', aksen: 'a-bindo', label: 'Bab', daftar: [ 'Petualangan Ken dan Alif', 'Semangat Si Pantang Menyerah', 'Bintang Inspirasiku', 'Tulis Ceritamu', 'Sahabat Sungai Mahakam', 'Istana yang Membawa Bencana', 'Dengarkan Dongeng Seru', 'Dongengku, Karyaku' ] }, 'IPAS': { emoji: '🔬', aksen: 'a-ipas', label: 'Bab', daftar: [ 'Keajaiban Tubuhku', 'Dahulu, Kini, dan Nanti', 'Peduli dan Berbagi', 'Siklus Hidup yang Menakjubkan', 'Bijak Berbelanja Kebutuhan', 'Energi, sang Pemberi Kekuatan', 'Jejak Penjelajah', 'Rahasia Tiga Wujud Zat' ] }, 'Bahasa Inggris': { emoji: '🌍', aksen: 'a-bing', label: 'Chapter', daftar: [ 'My Self', 'My Family', "My Family's Activities at Home", // ← pakai apostrof biasa, bukan ’ 'My School', 'My Classroom', 'My Teacher' ] } }; const DATA_LEVEL = [ { kode: 'C1', ket: 'Mengingat', desc: 'mengingat kembali materi', cls: 'lv-c1' }, { kode: 'C2', ket: 'Memahami', desc: 'memahami konsep', cls: 'lv-c2' }, { kode: 'C3', ket: 'Menerapkan', desc: 'menerapkan konsep', cls: 'lv-c3' }, { kode: 'C4', ket: 'Menganalisis', desc: 'menguraikan hubungan', cls: 'lv-c4' }, { kode: 'C5', ket: 'Mengevaluasi', desc: 'menilai / mengevaluasi', cls: 'lv-c5' } ]; let mapelAktif = null; // ================= NAVIGASI ================= function tampil(idLayar) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(idLayar).classList.add('active'); } function bukaMapel() { renderMapel(); tampil('screen-mapel'); } // ================= RENDER MAPEL ================= function renderMapel() { const wrap = document.getElementById('grid-mapel'); wrap.innerHTML = ''; for (const [nama, m] of Object.entries(DATA_MAPEL)) { const el = document.createElement('div'); el.className = 'card ' + m.aksen; el.innerHTML = ` <span class="emoji">${m.emoji}</span> <div class="name">${nama}</div>`; // Tambah event listener, bukan onclick inline el.addEventListener('click', function () { bukaBab(nama); }); wrap.appendChild(el); } } // ================= RENDER BAB ================= function renderBab(mapel) { mapelAktif = mapel; const m = DATA_MAPEL[mapel]; document.getElementById('judul-mapel-bab').textContent = m.emoji + ' ' + mapel; const wrap = document.getElementById('grid-bab'); wrap.innerHTML = ''; m.daftar.forEach(function (judul, idx) { const el = document.createElement('div'); el.className = 'baris ' + m.aksen; el.innerHTML = ` <span class="bab-num">${m.label} ${idx + 1}</span> <span class="bab-judul">${judul}</span>`; el.addEventListener('click', function () { renderLevel(mapel, idx + 1, judul); }); wrap.appendChild(el); }); } // ================= RENDER LEVEL ================= function renderLevel(mapel, noBab, judulBab) { const m = DATA_MAPEL[mapel]; document.getElementById('judul-bab-level').textContent = m.emoji + ' ' + mapel + ' — ' + m.label + ' ' + noBab + ': ' + judulBab; const wrap = document.getElementById('grid-level'); wrap.innerHTML = ''; DATA_LEVEL.forEach(function (lv) { const el = document.createElement('div'); el.className = 'baris ' + lv.cls; el.innerHTML = ` <div class="lvl-badge"> <span class="code">${lv.kode}</span> <span class="ket">${lv.ket}</span> </div> <span class="lvl-desc">${lv.desc}</span>`; el.addEventListener('click', function () { pilihLevel(mapel, noBab, lv.kode); }); wrap.appendChild(el); }); } // ================= AKSI FINAL ================= function pilihLevel(mapel, bab, level) { window.location.href = 'latihan.html?kelas=3&mapel=' + encodeURIComponent(mapel) + '&bab=' + bab + '&level=' + level; } // ================= INITIALISASI EVENT ================= document.addEventListener('DOMContentLoaded', function () { // Tombol "Kelas 3" → buka mapel document.getElementById('btn-kelas-3').addEventListener('click', bukaMapel); // Tombol kembali document.getElementById('btn-back-mapel').addEventListener('click', function () { tampil('screen-kelas'); }); document.getElementById('btn-back-bab').addEventListener('click', function () { tampil('screen-mapel'); }); document.getElementById('btn-back-level').addEventListener('click', function () { tampil('screen-bab'); }); }); </script> </body> </html> ``` </Artifact>
