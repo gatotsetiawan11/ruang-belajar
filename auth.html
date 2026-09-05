@@ -83,16 +83,17 @@
   //  const SUPABASE_ANON = 'sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3';
     // ====================================================
 
-   const supabase = (typeof SUPABASE_ANON !== 'undefined' && SUPABASE_ANON.includes('sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3'))
-        ? null
-        : createClient(SUPABASE_URL, SUPABASE_ANON);
+// Pastikan library supabase-js sudah dimuat
+if (typeof createClient !== 'function') {
+    document.getElementById('pesan').innerHTML =
+        '⚠️ Library supabase-js belum dimuat. Periksa tag <script> @supabase/supabase-js.';
+}
 
-    // Tampilkan peringatan jika belum dikonfigurasi
-    if (!supabase) {
-        document.getElementById('pesan').innerHTML =
-           '⚠️ <b>Konfigurasi belum diisi.</b> Isi SUPABASE_ANON dengan anon key dari Supabase.';
-    }
+const SUPABASE_URL = 'https://rvstyakujwbthjkadiwk.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3';
 
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
+// ---------------------------------------------------
     const modeLabel = { NISN:'Nomor NISN', WhatsApp:'Nomor WhatsApp', Email:'Alamat Email' };
     const inisial = { NISN:'NISN', WhatsApp:'WA', Email:'Email' };
 
