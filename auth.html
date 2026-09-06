@@ -81,18 +81,11 @@
     // ====== KONFIGURASI SUPABASE ======
     const SUPABASE_URL = 'https://rvstyakujwbthjkadiwk.supabase.co';
     const SUPABASE_ANON = 'sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3';
-
-    // Pastikan createClient tersedia dari window
-    const _createClient = window.createClient;
-    const sb = (typeof _createClient === 'function')
-    ? _createClient(SUPABASE_URL, SUPABASE_ANON)
+    const sb = (typeof window.createClient === 'function')
+    ? window.createClient(SUPABASE_URL, SUPABASE_ANON)
     : null;
+    console.log('sb terbentuk?', !!sb, '| createClient global?', typeof window.createClient);
 
-console.log('sb terkoneksi?', !!sb);
-
-    // Pakai nama 'sb' agar tidak bentrok dengan global 'supabase' lain
-    const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
-    console.log('sb.rpc tersedia?', typeof (sb && sb.rpc));
 
     const modeLabel = { NISN:'Nomor NISN', WhatsApp:'Nomor WhatsApp', Email:'Alamat Email' };
     const inisial = { NISN:'NISN', WhatsApp:'WA', Email:'Email' };
