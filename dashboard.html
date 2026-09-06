@@ -1,625 +1,119 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pilih Mapel - Kelas 3</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',system-ui,sans-serif; }
+    body { color:#e2e8f0; min-height:100vh;
+        background: radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
+    }
+    .container { max-width:1100px; margin:0 auto; padding:1.5rem; }
+    header { text-align:center; margin-bottom:2rem; }
+    header h1 { font-size:1.8rem; }
+    header p { margin-top:0.4rem; color:#a5b4fc; }
+    .card { background:rgba(30,41,59,0.7); border:1px solid rgba(148,163,184,0.2); border-radius:16px; padding:1.5rem; }
+    .user-info { background:rgba(51,65,85,0.5); display:inline-block; padding:6px 16px; border-radius:20px; margin-top:10px; font-size:14px; }
+    .user-info .out { margin-left:10px; color:#fca5a5; cursor:pointer; text-decoration:underline; }
+    .grid-mapel { display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-top:1.2rem; }
+    .card-mapel { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:1.3rem 0.5rem; text-align:center; cursor:pointer; border-top:5px solid #60a5fa; transition:0.2s; }
+    .card-mapel:hover{ transform:translateY(-3px); background:rgba(255,255,255,0.15); }
+    .card-mapel .emoji{ font-size:2rem; display:block; margin-bottom:0.4rem; }
+    .card-mapel .name{ font-weight:700; color:#fff; }
+    .c-ipas{ border-top-color:#fbbf24; }
+    .link-admin { margin-top:1.2rem; text-align:center; }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      color: #ffffff;
-      min-height: 100vh;
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      transition: background 1.5s ease;
-    }
-
-    /* ===== OVERLAY GELAP AGAR TEKS TERBACA ===== */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(10, 10, 30, 0.55); /* gelap transparan */
-      z-index: -1;
-    }
-
-    /* ===== ANIMASI BINTANG ===== */
-    .stars {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      background: transparent;
-    }
-
-    .star {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.5;
-      animation: twinkle 3s infinite ease-in-out;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.9; }
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Navigasi layar */
-    .screen { display: none; }
-    .screen.active { display: block; }
-
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    }
-    header h1 { font-size: 1.8rem; font-weight: 800; }
-    header p { margin-top: 0.3rem; opacity: 0.8; color: #e0e0ff; }
-
-    /* Grid mapel - 5 kolom = 1 baris */
-    .grid-mapel {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1rem;
-    }
-
-    .card-mapel {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      padding: 1.5rem 0.8rem;
-      text-align: center;
-      cursor: pointer;
-      border-top: 5px solid #c7d2fe;
-      transition: 0.2s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .card-mapel:hover {
-      transform: translateY(-4px) scale(1.02);
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-    .card-mapel .emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
-    .card-mapel .name { font-weight: 700; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-
-    .c-pancasila { border-top-color: #f87171; }
-    .c-matematika { border-top-color: #60a5fa; }
-    .c-bindo { border-top-color: #34d399; }
-    .c-ipas { border-top-color: #fbbf24; }
-    .c-bing { border-top-color: #a78bfa; }
-
-    /* ===== TOMBOL KEMBALI ===== */
-    .topbar { margin-bottom: 1.2rem; }
-    .btn-back {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-      padding: 0.5rem 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s;
-    }
-    .btn-back:hover { background: rgba(255, 255, 255, 0.35); }
-
-    .screen-header { text-align: center; margin-bottom: 1.8rem; }
-    .screen-header h2 {
-      font-size: 1.5rem;
-      color: #ffffff;
-      font-weight: 800;
-      text-shadow: 0 0 15px rgba(147, 197, 253, 0.6);
-    }
-    .screen-header p { font-size: 0.9rem; opacity: 0.8; color: #dbeafe; }
-
-    /* ===== DAFTAR BAB ===== */
-    .grid-bab {
-      display: grid;
-      grid-template-columns: 1fr;
-      max-width: 680px;
-      margin: 0 auto;
-      gap: 0.7rem;
-    }
-
-    .card-bab {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
-      padding: 0.9rem 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      cursor: pointer;
-      border-left: 6px solid #93c5fd;
-      transition: 0.15s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-
-      width: 480px;
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .card-bab:hover {
-      background: rgba(147, 197, 253, 0.25);
-      border-left-color: #60a5fa;
-      transform: translateX(5px);
-    }
-
-    .bab-num {
-      background: rgba(96, 165, 250, 0.3);
-      backdrop-filter: blur(2px);
-      border: 1px solid rgba(147, 197, 253, 0.5);
-      color: #fff;
-      font-weight: 700;
-      padding: 0.3rem 0.7rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      min-width: 60px;
-      text-align: center;
-    }
-
-    .bab-title { font-weight: 600; color: #eef2ff; }
-
-    /* ⚠️ TAMBAHAN CSS (TANPA MENGUBAH GAYA YANG ADA)
-       Gaya khusus kartu bab yang terkunci. */
-    .card-bab.locked {
-      opacity: 0.6;
-      cursor: not-allowed;
-      border-left-color: #475569 !important;
-      background: rgba(100, 116, 139, 0.15);
-      filter: grayscale(0.5);
-      transform: none !important;
-      box-shadow: none;
-    }
-    .card-bab.locked:hover {
-      background: rgba(100, 116, 139, 0.15);
-      transform: none;
-    }
-    .card-bab.locked .bab-title { color: #94a3b8; }
-    .card-bab .lock-note {
-      margin-left: auto;
-      font-size: 0.8rem;
-      color: #fca5a5;
-      white-space: nowrap;
-      font-weight: 600;
-    }
-    .card-bab .lock-ico { margin-left: auto; font-size: 1rem; }
-
-    @media (max-width: 700px) {
-      .grid-mapel { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 500px) {
-      .card-bab { flex-wrap: wrap; gap: 0.5rem; }
-      .card-bab .lock-note { width: 100%; text-align: right; }
-    }
-  </style>
+    /* panel admin */
+    .admin-wrap { text-align:center; }
+    .admin-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.5rem; max-width:760px; margin-left:auto; margin-right:auto; }
+    .admin-card { background:linear-gradient(135deg, rgba(124,58,237,0.25), rgba(59,130,246,0.25)); border:1px solid rgba(167,139,250,0.5); border-radius:14px; padding:1.6rem; cursor:pointer; transition:0.2s; }
+    .admin-card:hover{ transform:translateY(-4px); background:linear-gradient(135deg, rgba(124,58,237,0.4), rgba(59,130,246,0.4)); }
+    .admin-card .emoji{ font-size:2.2rem; display:block; margin-bottom:0.5rem; }
+    .admin-card .t{ font-size:1.05rem; font-weight:800; color:#fff; }
+    .admin-card .d{ font-size:0.85rem; color:#ddd6fe; margin-top:0.4rem; line-height:1.4; }
+    .logout { background:transparent; border:1px solid #475569; color:#cbd5e1; padding:8px 18px; border-radius:20px; cursor:pointer; margin-top:1rem; }
+    .logout:hover{ background:#475569; }
+    @media (max-width:700px){ .grid-mapel{grid-template-columns:repeat(2,1fr);} .admin-grid{grid-template-columns:1fr;} }
+</style>
 </head>
 <body>
+<div class="container">
+    <header>
+        <h1 id="judul">🚀 Dashboard</h1>
+        <div class="user-info" id="userInfo">Menghubungkan...</div>
+        <div><button class="logout" id="btnLogout">🚪 Keluar</button></div>
+    </header>
 
-  <!-- ===== LAPISAN BINTANG BERKELIP ===== -->
-  <div class="stars" id="starfield"></div>
+    <!-- Konten diisi lewat JS berdasarkan role -->
+    <div id="content"></div>
+</div>
 
-  <div class="container">
+<script>
+    function keluar(){ localStorage.removeItem('user'); location.href='auth.html'; }
 
-    <!-- ===== LAYAR 1 : DAFTAR MAPEL ===== -->
-    <div id="screen-mapel" class="screen active">
-      <header>
-        <h1>🚀 Pilih Mata Pelajaran</h1>
-        <p>Halo! Pilih mapel yang ingin kamu pelajari hari ini.</p>
-      </header>
+    function bacaUser(){ try{ return JSON.parse(localStorage.getItem('user')); }catch(e){ return null; } }
 
-      <div class="grid-mapel">
-        <div class="card-mapel c-pancasila" onclick="bukaDaftarBabPancasila()">
-          <span class="emoji">🦅</span>
-          <div class="name">Pancasila</div>
-        </div>
+    document.addEventListener('DOMContentLoaded', function(){
+        const u = bacaUser();
+        if (!u || !u.id) { location.href='auth.html'; return; }
+        document.getElementById('userInfo').innerHTML = '👤 <b>'+(u.nama||'')+'</b>' + (u.isAdmin || u.developer ? ' <span style="color:#a78bfa;font-size:12px;">(Admin)</span>' : '');
+        document.getElementById('btnLogout').onclick = keluar;
 
-        <div class="card-mapel c-matematika" onclick="bukaDaftarBabMatematika()">
-          <span class="emoji">➕</span>
-          <div class="name">Matematika</div>
-        </div>
+        const konten = document.getElementById('content');
 
-        <div class="card-mapel c-bindo" onclick="bukaDaftarBabBindo()">
-          <span class="emoji">📖</span>
-          <div class="name">Bahasa Indonesia</div>
-        </div>
-
-        <div class="card-mapel c-ipas" onclick="bukaDaftarBabIPAS()">
-          <span class="emoji">🔬</span>
-          <div class="name">IPAS</div>
-        </div>
-
-        <div class="card-mapel c-bing" onclick="bukaDaftarBabBing()">
-          <span class="emoji">🌍</span>
-          <div class="name">Bahasa Inggris</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== LAYAR 2 : DAFTAR BAB IPAS ===== -->
-    <!-- ⚠️ Card Bab 2 diberi id="ipasBab2Card" untuk bisa diatur status gembok -->
-    <div id="screen-bab-ipas" class="screen">
-      <div class="topbar">
-        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
-      </div>
-
-      <div class="screen-header">
-        <h2>🔬 IPAS</h2>
-        <p style="opacity:0.9">Pilih bab yang ingin kamu pelajari.</p>
-      </div>
-
-      <div class="grid grid-bab-ipas">
-        <div class="card-bab" onclick="pilihBab(1)">
-          <span class="bab-num">Bab 1</span>
-          <span class="bab-title">Keajaiban Tubuhku</span>
-        </div>
-        <div class="card-bab" id="ipasBab2Card" onclick="cobaMasukBab2()">
-          <span class="bab-num">Bab 2</span>
-          <span class="bab-title">Dahulu, Kini, dan Nanti</span>
-          <span class="lock-note" id="ipasBab2Note" style="display:none;">🔒 Selesaikan Bab 1 minimal C3</span>
-        </div>
-        <div class="card-bab" onclick="pilihBab(3)">
-          <span class="bab-num">Bab 3</span>
-          <span class="bab-title">Peduli dan Berbagi</span>
-        </div>
-        <div class="card-bab" onclick="pilihBab(4)">
-          <span class="bab-num">Bab 4</span>
-          <span class="bab-title">Siklus Hidup yang Menakjubkan</span>
-        </div>
-        <div class="card-bab" onclick="pilihBab(5)">
-          <span class="bab-num">Bab 5</span>
-          <span class="bab-title">Bijak Berbelanja Kebutuhan</span>
-        </div>
-        <div class="card-bab" onclick="pilihBab(6)">
-          <span class="bab-num">Bab 6</span>
-          <span class="bab-title">Energi, sang Pemberi Kekuatan</span>
-        </div>
-        <div class="card-bab" onclick="pilihBab(7)">
-          <span class="bab-num">Bab 7</span>
-          <span class="bab-title">Jejak Penjelajah</span>
-        </div>
-        <div class="card-bab" onclick="pilihBab(8)">
-          <span class="bab-num">Bab 8</span>
-          <span class="bab-title">Rahasia Tiga Wujud Zat</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== LAYAR 3 : DAFTAR BAB PANCASILA ===== -->
-    <div id="screen-bab-pancasila" class="screen">
-      <div class="topbar">
-        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
-      </div>
-
-      <div class="screen-header">
-        <h2>🦅 Pancasila</h2>
-        <p style="opacity:0.9">Pilih bab yang ingin kamu pelajari.</p>
-      </div>
-
-      <div class="grid grid-bab-ipas">
-        <div class="card-bab" onclick="pilihBabPancasila(1)">
-          <span class="bab-num">Bab 1</span>
-          <span class="bab-title">Aku Anak Indonesia</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabPancasila(2)">
-          <span class="bab-num">Bab 2</span>
-          <span class="bab-title">Aku Patuh Aturan</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabPancasila(3)">
-          <span class="bab-num">Bab 3</span>
-          <span class="bab-title">Berbeda Itu Indah</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabPancasila(4)">
-          <span class="bab-num">Bab 4</span>
-          <span class="bab-title">Ayo Mengenal Pancasila</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== LAYAR 4 : DAFTAR BAB MATEMATIKA ===== -->
-    <div id="screen-bab-matematika" class="screen">
-      <div class="topbar">
-        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
-      </div>
-
-      <div class="screen-header">
-        <h2>➕ Matematika</h2>
-        <p style="opacity:0.9">Pilih bab yang ingin kamu pelajari.</p>
-      </div>
-
-      <div class="grid grid-bab-ipas">
-        <div class="card-bab" onclick="pilihBabMatematika(1)">
-          <span class="bab-num">Bab 1</span>
-          <span class="bab-title">Bilangan Cacah sampai 1.000</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabMatematika(2)">
-          <span class="bab-num">Bab 2</span>
-          <span class="bab-title">Kalimat Matematika</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabMatematika(3)">
-          <span class="bab-num">Bab 3</span>
-          <span class="bab-title">Pengukuran Panjang dan Berat</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabMatematika(4)">
-          <span class="bab-num">Bab 4</span>
-          <span class="bab-title">Unsur-Unsur Bangun Datar</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabMatematika(5)">
-          <span class="bab-num">Bab 5</span>
-          <span class="bab-title">Penyajian Data dalam Tabel</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== LAYAR 5 : DAFTAR BAB BAHASA INDONESIA ===== -->
-    <div id="screen-bab-bindo" class="screen">
-      <div class="topbar">
-        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
-      </div>
-
-      <div class="screen-header">
-        <h2>📖 Bahasa Indonesia</h2>
-        <p style="opacity:0.9">Pilih bab yang ingin kamu pelajari.</p>
-      </div>
-
-      <div class="grid grid-bab-ipas">
-        <div class="card-bab" onclick="pilihBabBindo(1)">
-          <span class="bab-num">Bab 1</span>
-          <span class="bab-title">Petualangan Ken dan Alif</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBindo(2)">
-          <span class="bab-num">Bab 2</span>
-          <span class="bab-title">Semangat Si Pantang Menyerah</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBindo(3)">
-          <span class="bab-num">Bab 3</span>
-          <span class="bab-title">Bintang Inspirasiku</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBindo(4)">
-          <span class="bab-num">Bab 4</span>
-          <span class="bab-title">Tulis Ceritamu</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBindo(5)">
-          <span class="bab-num">Bab 5</span>
-          <span class="bab-title">Sahabat Sungai Mahakam</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBindo(6)">
-          <span class="bab-num">Bab 6</span>
-          <span class="bab-title">Istana yang Membawa Bencana</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBindo(7)">
-          <span class="bab-num">Bab 7</span>
-          <span class="bab-title">Dengarkan Dongeng Seru</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBindo(8)">
-          <span class="bab-num">Bab 8</span>
-          <span class="bab-title">Dongengku, Karyaku</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== LAYAR 6 : DAFTAR BAB BAHASA INGGRIS ===== -->
-    <div id="screen-bab-bing" class="screen">
-      <div class="topbar">
-        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
-      </div>
-
-      <div class="screen-header">
-        <h2>🌍 Bahasa Inggris</h2>
-        <p style="opacity:0.9">Pilih chapter yang ingin kamu pelajari.</p>
-      </div>
-
-      <div class="grid grid-bab-ipas">
-        <div class="card-bab" onclick="pilihBabBing(1)">
-          <span class="bab-num">Ch 1</span>
-          <span class="bab-title">My Self</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBing(2)">
-          <span class="bab-num">Ch 2</span>
-          <span class="bab-title">My Family</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBing(3)">
-          <span class="bab-num">Ch 3</span>
-          <span class="bab-title">My Family's Activities at Home</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBing(4)">
-          <span class="bab-num">Ch 4</span>
-          <span class="bab-title">My School</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBing(5)">
-          <span class="bab-num">Ch 5</span>
-          <span class="bab-title">My Classroom</span>
-        </div>
-        <div class="card-bab" onclick="pilihBabBing(6)">
-          <span class="bab-num">Ch 6</span>
-          <span class="bab-title">My Teacher</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <!-- ===== END .container ===== -->
-
-  <script>
-    // ============================================
-    // 1. AMBIL GAMBAR LUAR ANGKASA DARI NASA
-    // ============================================
-    function ambilGambarNASA() {
-      document.body.style.backgroundImage = "url('https://images-assets.nasa.gov/image/PIA23418/PIA23418~orig.jpg')";
-
-      fetch('https://api.nasa.gov/planetary/apod?api_key=5KVkZFoh9UxMmhBjhthSfGpP86jaO7xJFu1LcbKB&thumbs=true')
-        .then(res => {
-          if (!res.ok) throw new Error('Gagal ambil APOD');
-          return res.json();
-        })
-        .then(data => {
-          const imgUrl = data.url && data.url.includes('youtube')
-            ? data.thumbnail_url
-            : data.url;
-
-          if (imgUrl && imgUrl.includes('http')) {
-            const preload = new Image();
-            preload.onload = function () {
-              document.body.style.backgroundImage = "url('" + imgUrl + "')";
-            };
-            preload.src = imgUrl;
-          }
-        })
-        .catch(() => {
-          console.log('Fallback ke gambar galaksi NASA');
-        });
-    }
-
-    // ============================================
-    // 2. BUAT BINTANG BERKELAP-KELIP
-    // ============================================
-    function buatBintang() {
-      const starContainer = document.getElementById('starfield');
-      starContainer.innerHTML = '';
-      const jumlahBintang = 80;
-
-      for (let i = 0; i < jumlahBintang; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.width = (Math.random() * 2 + 1) + 'px';
-        star.style.height = star.style.width;
-        star.style.animationDelay = (Math.random() * 3) + 's';
-        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        starContainer.appendChild(star);
-      }
-    }
-
-    // ============================================
-    // 2b. ⚠️ LOGIKA GEMBOK BAB 2 IPAS (DITAMBAHKAN)
-    // ============================================
-    function bacaPengguna() {
-      try { return JSON.parse(localStorage.getItem('user')); }
-      catch(e) { return null; }
-    }
-
-    // Progres Bab 1 IPAS disimpan dgn key lama: levelLulus_IPAS_<id>
-    function ambilStatusLulusBab1(userId) {
-      try {
-        return JSON.parse(localStorage.getItem('levelLulus_IPAS_' + userId)) || {};
-      } catch(e) { return {}; }
-    }
-
-    var IPAS_BAB1_UNLOCK_C3 = true; // Bab 2 terbuka bila C3 Bab 1 lulus
-
-    function cekBab2Terbuka() {
-      var user = bacaPengguna();
-      if (!user || !user.id) return false;   // tidak login => anggap terkunci
-      var st = ambilStatusLulusBab1(user.id);
-      return (st.C3 === true);
-    }
-
-    // Dipanggil saat halaman dimuat (karena card Bab2 default terkunci)
-    function aturStatusBab2() {
-      var card = document.getElementById('ipasBab2Card');
-      var note = document.getElementById('ipasBab2Note');
-      if (!card) return;
-
-      if (cekBab2Terbuka()) {
-        // Aktif: biarkan tampilan normal, ganti onclick pindah ke latihan
-        card.classList.remove('locked');
-        card.style.cursor = 'pointer';
-        card.onclick = function () { pilihBab(2); };
-        if (note) note.style.display = 'none';
-      } else {
-        // Terkunci
-        card.classList.add('locked');
-        card.style.cursor = 'not-allowed';
-        card.onclick = function () {
-          alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
-        };
-        if (note) note.style.display = '';
-      }
-    }
-
-    // Fungsi klik (fallback) bila dipanggil langsung lewat atribut onclick lama
-    function cobaMasukBab2() {
-      if (cekBab2Terbuka()) {
-        pilihBab(2);   // lanjut ke latihan bab 2
-      } else {
-        alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
-      }
-    }
-
-    // ============================================
-    // 3. JALANKAN SAAT HALAMAN DIMUAT
-    // ============================================
-    document.addEventListener('DOMContentLoaded', function () {
-      ambilGambarNASA();
-      buatBintang();
-      aturStatusBab2();   // ⚠️ tambahan: atur gembok bab 2 saat halaman dibuka
+        if (u.developer===true || u.isAdmin===true) {
+            // ====== DASHBOARD ADMIN ======
+            document.title = 'Dashboard Admin';
+            document.getElementById('judul').textContent = '🛠️ Dashboard Admin';
+            konten.innerHTML =
+                '<div class="admin-wrap card">'+
+                    '<p style="color:#c7d2fe;font-size:1.05rem;">Selamat datang di <b style="color:#fff;">Panel Admin</b>.</p>'+
+                    '<div class="admin-grid">'+
+                        '<div class="admin-card" onclick="goAdminKelola()">'+
+                            '<span class="emoji">👥</span><div class="t">Kelola Akun Siswa</div>'+
+                            '<div class="d">Tambah & hapus akun siswa, ubah PIN.</div>'+
+                        '</div>'+
+                        '<div class="admin-card" onclick="goAdminLaporan()">'+
+                            '<span class="emoji">📊</span><div class="t">Laporan Perkembangan</div>'+
+                            '<div class="d">Lihat perkembangan belajar tiap siswa.</div>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>';
+            // Simpan ke localStorage agar admin.html tahu modus
+            window.goAdminKelola = function(){ location.href='admin.html?tab=kelola'; };
+            window.goAdminLaporan = function(){ location.href='admin.html?tab=laporan'; };
+        } else {
+            // ====== DASHBOARD SISWA ======
+            document.title = 'Pilih Mata Pelajaran';
+            konten.innerHTML = renderMapelSiswa();
+        }
     });
 
-    // ============================================
-    // 4. NAVIGASI LAYAR (TIDAK DIUBAH)
-    // ============================================
-    function gantiScreen(id) {
-      document.querySelectorAll('.screen').forEach(function (s) {
-        s.classList.remove('active');
-      });
-      document.getElementById(id).classList.add('active');
+    function renderMapelSiswa(){
+        const mapel = [
+            {emoji:'🔬', nama:'IPAS', bab:'bukaIPAS', kelas:'c-ipas'},
+            {emoji:'🦅', nama:'Pancasila', opsiPesan:'belum' },
+            {emoji:'➕', nama:'Matematika', opsiPesan:'belum' },
+            {emoji:'📖', nama:'Bahasa Indonesia', opsiPesan:'belum' },
+            {emoji:'🌍', nama:'Bahasa Inggris', opsiPesan:'belum' }
+        ];
+        let h='<h2 style="text-align:center;color:#e0e7ff;margin-bottom:0.5rem;">Pilih Mata Pelajaran</h2>';
+        h+='<p style="text-align:center;color:#94a3b8;margin-bottom:1rem;">Selesaikan level untuk membuka level berikutnya.</p>';
+        h+='<div class="grid-mapel">';
+        mapel.forEach(m=>{
+            if(m.nama==='IPAS'){
+                h+='<div class="card-mapel c-ipas" onclick="pilihBab(1)"><span class="emoji">'+m.emoji+'</span><div class="name">'+m.nama+'</div></div>';
+            } else {
+                h+='<div class="card-mapel" onclick="belumTersedia(\''+m.nama+'\')"><span class="emoji">'+m.emoji+'</span><div class="name">'+m.nama+'</div></div>';
+            }
+        });
+        h+='</div>';
+        return h;
     }
 
-    function bukaDaftarBabIPAS() { gantiScreen('screen-bab-ipas'); }
-    function bukaDaftarBabPancasila() { gantiScreen('screen-bab-pancasila'); }
-    function bukaDaftarBabMatematika() { gantiScreen('screen-bab-matematika'); }
-    function bukaDaftarBabBindo() { gantiScreen('screen-bab-bindo'); }
-    function bukaDaftarBabBing() { gantiScreen('screen-bab-bing'); }
-
-    function kembaliKeMapel() { gantiScreen('screen-mapel'); }
-
-    // IPAS - TIDAK DIUBAH
-    function pilihBab(babNo) {
-      window.location.href = 'latihan.html?mapel=IPAS&bab=' + babNo;
-    }
-
-    function pilihBabPancasila(babNo) {
-      window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo;
-    }
-
-    function pilihBabMatematika(babNo) {
-      window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo;
-    }
-
-    function pilihBabBindo(babNo) {
-      window.location.href = 'latihan.html?mapel=Bahasa Indonesia&bab=' + babNo;
-    }
-
-    function pilihBabBing(babNo) {
-      window.location.href = 'latihan.html?mapel=Bahasa Inggris&bab=' + babNo;
-    }
-  </script>
-
+    window.belumTersedia = function(n){ alert('👷 '+n+' belum tersedia pada versi ini. Saat ini hanya IPAS yang aktif.'); };
+    window.pilihBab = function(b){ location.href='latihan.html?mapel=IPAS&bab='+b; };
+</script>
 </body>
 </html>
