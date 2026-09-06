@@ -928,7 +928,7 @@ const bankSoalIPASBab2 = {
       kunci: 0
     },
     {
-      soal: "Perhatikan pasangan berikut: nama daerah "Gandaria" — banyak pohon gandaria dulu. Hubungan keduanya menunjukkan bahwa nama daerah …",
+      soal: "Perhatikan pasangan berikut: nama daerah GANDARIA — banyak pohon gandaria dulu. Hubungan keduanya menunjukkan bahwa nama daerah …",
       pilihan: ["sering lahir dari kondisi alam masa lampau", "tidak ada artinya", "berasal dari teknologi", "dibuat secara asal"],
       kunci: 0
     },
