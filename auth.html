@@ -82,6 +82,14 @@
     const SUPABASE_URL = 'https://rvstyakujwbthjkadiwk.supabase.co';
     const SUPABASE_ANON = 'sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3';
 
+    // Pastikan createClient tersedia dari window
+    const _createClient = window.createClient;
+    const sb = (typeof _createClient === 'function')
+    ? _createClient(SUPABASE_URL, SUPABASE_ANON)
+    : null;
+
+console.log('sb terkoneksi?', !!sb);
+
     // Pakai nama 'sb' agar tidak bentrok dengan global 'supabase' lain
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
     console.log('sb.rpc tersedia?', typeof (sb && sb.rpc));
