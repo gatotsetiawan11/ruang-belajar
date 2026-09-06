@@ -1,119 +1,643 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard</title>
-<style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',system-ui,sans-serif; }
-    body { color:#e2e8f0; min-height:100vh;
-        background: radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
-    }
-    .container { max-width:1100px; margin:0 auto; padding:1.5rem; }
-    header { text-align:center; margin-bottom:2rem; }
-    header h1 { font-size:1.8rem; }
-    header p { margin-top:0.4rem; color:#a5b4fc; }
-    .card { background:rgba(30,41,59,0.7); border:1px solid rgba(148,163,184,0.2); border-radius:16px; padding:1.5rem; }
-    .user-info { background:rgba(51,65,85,0.5); display:inline-block; padding:6px 16px; border-radius:20px; margin-top:10px; font-size:14px; }
-    .user-info .out { margin-left:10px; color:#fca5a5; cursor:pointer; text-decoration:underline; }
-    .grid-mapel { display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-top:1.2rem; }
-    .card-mapel { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:12px; padding:1.3rem 0.5rem; text-align:center; cursor:pointer; border-top:5px solid #60a5fa; transition:0.2s; }
-    .card-mapel:hover{ transform:translateY(-3px); background:rgba(255,255,255,0.15); }
-    .card-mapel .emoji{ font-size:2rem; display:block; margin-bottom:0.4rem; }
-    .card-mapel .name{ font-weight:700; color:#fff; }
-    .c-ipas{ border-top-color:#fbbf24; }
-    .link-admin { margin-top:1.2rem; text-align:center; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Mapel - Kelas 3</title>
 
-    /* panel admin */
-    .admin-wrap { text-align:center; }
-    .admin-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.5rem; max-width:760px; margin-left:auto; margin-right:auto; }
-    .admin-card { background:linear-gradient(135deg, rgba(124,58,237,0.25), rgba(59,130,246,0.25)); border:1px solid rgba(167,139,250,0.5); border-radius:14px; padding:1.6rem; cursor:pointer; transition:0.2s; }
-    .admin-card:hover{ transform:translateY(-4px); background:linear-gradient(135deg, rgba(124,58,237,0.4), rgba(59,130,246,0.4)); }
-    .admin-card .emoji{ font-size:2.2rem; display:block; margin-bottom:0.5rem; }
-    .admin-card .t{ font-size:1.05rem; font-weight:800; color:#fff; }
-    .admin-card .d{ font-size:0.85rem; color:#ddd6fe; margin-top:0.4rem; line-height:1.4; }
-    .logout { background:transparent; border:1px solid #475569; color:#cbd5e1; padding:8px 18px; border-radius:20px; cursor:pointer; margin-top:1rem; }
-    .logout:hover{ background:#475569; }
-    @media (max-width:700px){ .grid-mapel{grid-template-columns:repeat(2,1fr);} .admin-grid{grid-template-columns:1fr;} }
-</style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #ffffff;
+      min-height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: background 1.5s ease;
+    }
+
+    /* ===== OVERLAY GELAP AGAR TEKS TERBACA ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(10, 10, 30, 0.55); /* gelap transparan */
+      z-index: -1;
+    }
+
+    /* ===== ANIMASI BINTANG ===== */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background: transparent;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.9; }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigasi layar */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    header {
+      text-align: center;
+      margin-bottom: 0.6rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    header h1 { font-size: 1.8rem; font-weight: 800; }
+    header p { margin-top: 0.3rem; opacity: 0.8; color: #e0e0ff; }
+
+    /* ===== TOPBAR LOGIN + LOGOUT ===== */
+    .topbar-user {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1.2rem;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 0.65rem 1rem;
+    }
+    .user-who { font-size: 0.95rem; color: #e0e0ff; font-weight: 600; }
+    .user-who .tag-admin {
+      display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.4px;
+      background: linear-gradient(135deg,#8b5cf6,#6366f1);
+      color:#fff; padding: 2px 10px; border-radius: 20px; margin-left: 8px; vertical-align: middle;
+    }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(248,113,113,0.6);
+      color: #fca5a5;
+      padding: 0.45rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+    .btn-logout:hover { background: rgba(239,68,68,0.2); }
+
+    /* Grid mapel - 5 kolom = 1 baris */
+    .grid-mapel {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+
+    .card-mapel {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem 0.8rem;
+      text-align: center;
+      cursor: pointer;
+      border-top: 5px solid #c7d2fe;
+      transition: 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .card-mapel:hover {
+      transform: translateY(-4px) scale(1.02);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .card-mapel .emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+    .card-mapel .name { font-weight: 700; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+
+    .c-pancasila { border-top-color: #f87171; }
+    .c-matematika { border-top-color: #60a5fa; }
+    .c-bindo { border-top-color: #34d399; }
+    .c-ipas { border-top-color: #fbbf24; }
+    .c-bing { border-top-color: #a78bfa; }
+
+    /* ✅ Kartu admin (khusus terlihat untuk developer)
+       Gaya beda warna agar menonjol tapi tetap satu baris dgn mapel */
+    .card-admin {
+      border-top-color: #e879f9;
+      background: linear-gradient(140deg, rgba(168,85,247,0.25), rgba(99,102,241,0.25));
+    }
+    .card-admin:hover { background: linear-gradient(140deg, rgba(168,85,247,0.4), rgba(99,102,241,0.4)); }
+
+    /* ===== GRID FITUR ADMIN (muncul setelah klik kartu admin) ===== */
+    .admin-panel {
+      display: none;
+      margin-top: 1.6rem;
+      padding: 1.4rem;
+      background: rgba(15, 15, 35, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 18px;
+    }
+    .admin-panel.active { display: block; }
+    .admin-panel .admin-title { text-align: center; margin-bottom: 1rem; }
+    .admin-panel .admin-title h3 { color:#fff; font-weight: 800; font-size: 1.3rem; }
+    .admin-panel .admin-title p { color:#c4b5fd; font-size: 0.85rem; margin-top: 3px; }
+    .admin-close {
+      float: right; background: transparent; border:1px solid #475569;
+      color:#cbd5e1; border-radius: 20px; padding:4px 12px; font-weight:700; cursor:pointer;
+    }
+    .admin-close:hover{ background:#334155; }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 0.8rem;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .admin-feat {
+      background: linear-gradient(140deg, rgba(124,58,237,0.2), rgba(59,130,246,0.2));
+      border: 1px solid rgba(167,139,250,0.5);
+      border-radius: 14px;
+      padding: 1.6rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .admin-feat:hover { transform: translateY(-3px); background: linear-gradient(140deg, rgba(124,58,237,0.38), rgba(59,130,246,0.38)); }
+    .admin-feat .icon { font-size: 2rem; display:block; margin-bottom: 0.4rem; }
+    .admin-feat .ftitle { font-weight: 800; color:#fff; font-size: 1.05rem; }
+    .admin-feat .fdesc { color:#ddd6fe; font-size: 0.82rem; margin-top: 0.4rem; line-height:1.4; }
+
+    .btn-back {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.35); }
+
+    .topbar { margin-bottom: 1.2rem; }
+
+    .screen-header { text-align: center; margin-bottom: 1.8rem; }
+    .screen-header h2 {
+      font-size: 1.5rem;
+      color: #ffffff;
+      font-weight: 800;
+      text-shadow: 0 0 15px rgba(147, 197, 253, 0.6);
+    }
+    .screen-header p { font-size: 0.9rem; opacity: 0.8; color: #dbeafe; }
+
+    .grid-bab {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 680px;
+      margin: 0 auto;
+      gap: 0.7rem;
+    }
+
+    .card-bab {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      cursor: pointer;
+      border-left: 6px solid #93c5fd;
+      transition: 0.15s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+      width: 480px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .card-bab:hover {
+      background: rgba(147, 197, 253, 0.25);
+      border-left-color: #60a5fa;
+      transform: translateX(5px);
+    }
+
+    .bab-num {
+      background: rgba(96, 165, 250, 0.3);
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(147, 197, 253, 0.5);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .bab-title { font-weight: 600; color: #eef2ff; }
+
+    .card-bab.locked {
+      opacity: 0.6;
+      cursor: not-allowed;
+      border-left-color: #475569 !important;
+      background: rgba(100, 116, 139, 0.15);
+      filter: grayscale(0.5);
+      transform: none !important;
+      box-shadow: none;
+    }
+    .card-bab.locked:hover {
+      background: rgba(100, 116, 139, 0.15);
+      transform: none;
+    }
+    .card-bab.locked .bab-title { color: #94a3b8; }
+    .card-bab .lock-note {
+      margin-left: auto;
+      font-size: 0.8rem;
+      color: #fca5a5;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .card-bab .lock-ico { margin-left: auto; font-size: 1rem; }
+
+    @media (max-width: 700px) {
+      .grid-mapel { grid-template-columns: repeat(2, 1fr); }
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 500px) {
+      .card-bab { flex-wrap: wrap; gap: 0.5rem; }
+      .card-bab .lock-note { width: 100%; text-align: right; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <h1 id="judul">🚀 Dashboard</h1>
-        <div class="user-info" id="userInfo">Menghubungkan...</div>
-        <div><button class="logout" id="btnLogout">🚪 Keluar</button></div>
-    </header>
 
-    <!-- Konten diisi lewat JS berdasarkan role -->
-    <div id="content"></div>
-</div>
+  <!-- ===== LAPISAN BINTANG BERKELIP ===== -->
+  <div class="stars" id="starfield"></div>
 
-<script>
-    function keluar(){ localStorage.removeItem('user'); location.href='auth.html'; }
+  <div class="container">
 
-    function bacaUser(){ try{ return JSON.parse(localStorage.getItem('user')); }catch(e){ return null; } }
+    <!-- ===== TOPBAR: NAMA + LOGOUT (untuk semua pengguna) ===== -->
+    <div class="topbar-user">
+      <div class="user-who" id="userDisplay">Memuat...</div>
+      <button class="btn-logout" onclick="keluar()">🚪 Keluar</button>
+    </div>
 
-    document.addEventListener('DOMContentLoaded', function(){
-        const u = bacaUser();
-        if (!u || !u.id) { location.href='auth.html'; return; }
-        document.getElementById('userInfo').innerHTML = '👤 <b>'+(u.nama||'')+'</b>' + (u.isAdmin || u.developer ? ' <span style="color:#a78bfa;font-size:12px;">(Admin)</span>' : '');
-        document.getElementById('btnLogout').onclick = keluar;
+    <!-- ===== LAYAR 1 : DAFTAR MAPEL & KARTU ADMIN ===== -->
+    <div id="screen-mapel" class="screen active">
+      <header>
+        <h1>🚀 Pilih Mata Pelajaran</h1>
+        <p id="sapaanHeader">Halo! Pilih mapel yang ingin kamu pelajari hari ini.</p>
+      </header>
 
-        const konten = document.getElementById('content');
+      <div class="grid-mapel" id="gridMapel">
+        <!-- Kartu mapel standar -->
+        <div class="card-mapel c-pancasila" onclick="bukaDaftarBabPancasila()">
+          <span class="emoji">🦅</span>
+          <div class="name">Pancasila</div>
+        </div>
+        <div class="card-mapel c-matematika" onclick="bukaDaftarBabMatematika()">
+          <span class="emoji">➕</span>
+          <div class="name">Matematika</div>
+        </div>
+        <div class="card-mapel c-bindo" onclick="bukaDaftarBabBindo()">
+          <span class="emoji">📖</span>
+          <div class="name">Bahasa Indonesia</div>
+        </div>
+        <div class="card-mapel c-ipas" onclick="bukaDaftarBabIPAS()">
+          <span class="emoji">🔬</span>
+          <div class="name">IPAS</div>
+        </div>
+        <div class="card-mapel c-bing" onclick="bukaDaftarBabBing()">
+          <span class="emoji">🌍</span>
+          <div class="name">Bahasa Inggris</div>
+        </div>
+        <!-- 👑 Kartu Admin - dibangkitkan lewat JS bila user = developer -->
+      </div>
 
-        if (u.developer===true || u.isAdmin===true) {
-            // ====== DASHBOARD ADMIN ======
-            document.title = 'Dashboard Admin';
-            document.getElementById('judul').textContent = '🛠️ Dashboard Admin';
-            konten.innerHTML =
-                '<div class="admin-wrap card">'+
-                    '<p style="color:#c7d2fe;font-size:1.05rem;">Selamat datang di <b style="color:#fff;">Panel Admin</b>.</p>'+
-                    '<div class="admin-grid">'+
-                        '<div class="admin-card" onclick="goAdminKelola()">'+
-                            '<span class="emoji">👥</span><div class="t">Kelola Akun Siswa</div>'+
-                            '<div class="d">Tambah & hapus akun siswa, ubah PIN.</div>'+
-                        '</div>'+
-                        '<div class="admin-card" onclick="goAdminLaporan()">'+
-                            '<span class="emoji">📊</span><div class="t">Laporan Perkembangan</div>'+
-                            '<div class="d">Lihat perkembangan belajar tiap siswa.</div>'+
-                        '</div>'+
-                    '</div>'+
-                '</div>';
-            // Simpan ke localStorage agar admin.html tahu modus
-            window.goAdminKelola = function(){ location.href='admin.html?tab=kelola'; };
-            window.goAdminLaporan = function(){ location.href='admin.html?tab=laporan'; };
-        } else {
-            // ====== DASHBOARD SISWA ======
-            document.title = 'Pilih Mata Pelajaran';
-            konten.innerHTML = renderMapelSiswa();
-        }
-    });
+      <!-- Panel 2 fitur admin (muncul saat klik kartu Admin) -->
+      <div class="admin-panel" id="adminPanel">
+        <div class="admin-title">
+          <button class="admin-close" onclick="tutupAdminPanel()">✖ Tutup</button>
+          <h3>🛠️ Panel Admin</h3>
+          <p>Pilih salah satu fitur pengelolaan di bawah.</p>
+        </div>
+        <div class="admin-grid">
+          <div class="admin-feat" onclick="goAdmin('kelola')">
+            <span class="icon">👥</span>
+            <div class="ftitle">Kelola Akun Siswa</div>
+            <div class="fdesc">Tambah, hapus akun siswa, dan ubah PIN.</div>
+          </div>
+          <div class="admin-feat" onclick="goAdmin('laporan')">
+            <span class="icon">📊</span>
+            <div class="ftitle">Laporan Perkembangan</div>
+            <div class="fdesc">Lihat perkembangan belajar tiap siswa.</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    function renderMapelSiswa(){
-        const mapel = [
-            {emoji:'🔬', nama:'IPAS', bab:'bukaIPAS', kelas:'c-ipas'},
-            {emoji:'🦅', nama:'Pancasila', opsiPesan:'belum' },
-            {emoji:'➕', nama:'Matematika', opsiPesan:'belum' },
-            {emoji:'📖', nama:'Bahasa Indonesia', opsiPesan:'belum' },
-            {emoji:'🌍', nama:'Bahasa Inggris', opsiPesan:'belum' }
-        ];
-        let h='<h2 style="text-align:center;color:#e0e7ff;margin-bottom:0.5rem;">Pilih Mata Pelajaran</h2>';
-        h+='<p style="text-align:center;color:#94a3b8;margin-bottom:1rem;">Selesaikan level untuk membuka level berikutnya.</p>';
-        h+='<div class="grid-mapel">';
-        mapel.forEach(m=>{
-            if(m.nama==='IPAS'){
-                h+='<div class="card-mapel c-ipas" onclick="pilihBab(1)"><span class="emoji">'+m.emoji+'</span><div class="name">'+m.nama+'</div></div>';
-            } else {
-                h+='<div class="card-mapel" onclick="belumTersedia(\''+m.nama+'\')"><span class="emoji">'+m.emoji+'</span><div class="name">'+m.nama+'</div></div>';
-            }
-        });
-        h+='</div>';
-        return h;
+    <!-- ===== LAYAR DAFTAR BAB (tetap seperti di file Anda) ===== -->
+
+    <!-- IPAS -->
+    <div id="screen-bab-ipas" class="screen">
+      <div class="topbar">
+        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
+      </div>
+      <div class="screen-header"><h2>🔬 IPAS</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBab(1)"><span class="bab-num">Bab 1</span><span class="bab-title">Keajaiban Tubuhku</span></div>
+        <div class="card-bab" id="ipasBab2Card" onclick="cobaMasukBab2()">
+          <span class="bab-num">Bab 2</span><span class="bab-title">Dahulu, Kini, dan Nanti</span>
+          <span class="lock-note" id="ipasBab2Note" style="display:none;">🔒 Selesaikan Bab 1 minimal C3</span>
+        </div>
+        <div class="card-bab" onclick="pilihBab(3)"><span class="bab-num">Bab 3</span><span class="bab-title">Peduli dan Berbagi</span></div>
+        <div class="card-bab" onclick="pilihBab(4)"><span class="bab-num">Bab 4</span><span class="bab-title">Siklus Hidup yang Menakjubkan</span></div>
+        <div class="card-bab" onclick="pilihBab(5)"><span class="bab-num">Bab 5</span><span class="bab-title">Bijak Berbelanja Kebutuhan</span></div>
+        <div class="card-bab" onclick="pilihBab(6)"><span class="bab-num">Bab 6</span><span class="bab-title">Energi, sang Pemberi Kekuatan</span></div>
+        <div class="card-bab" onclick="pilihBab(7)"><span class="bab-num">Bab 7</span><span class="bab-title">Jejak Penjelajah</span></div>
+        <div class="card-bab" onclick="pilihBab(8)"><span class="bab-num">Bab 8</span><span class="bab-title">Rahasia Tiga Wujud Zat</span></div>
+      </div>
+    </div>
+
+    <!-- PANCASILA -->
+    <div id="screen-bab-pancasila" class="screen">
+      <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
+      <div class="screen-header"><h2>🦅 Pancasila</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBabPancasila(1)"><span class="bab-num">Bab 1</span><span class="bab-title">Aku Anak Indonesia</span></div>
+        <div class="card-bab" onclick="pilihBabPancasila(2)"><span class="bab-num">Bab 2</span><span class="bab-title">Aku Patuh Aturan</span></div>
+        <div class="card-bab" onclick="pilihBabPancasila(3)"><span class="bab-num">Bab 3</span><span class="bab-title">Berbeda Itu Indah</span></div>
+        <div class="card-bab" onclick="pilihBabPancasila(4)"><span class="bab-num">Bab 4</span><span class="bab-title">Ayo Mengenal Pancasila</span></div>
+      </div>
+    </div>
+
+    <!-- MATEMATIKA -->
+    <div id="screen-bab-matematika" class="screen">
+      <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
+      <div class="screen-header"><h2>➕ Matematika</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBabMatematika(1)"><span class="bab-num">Bab 1</span><span class="bab-title">Bilangan Cacah sampai 1.000</span></div>
+        <div class="card-bab" onclick="pilihBabMatematika(2)"><span class="bab-num">Bab 2</span><span class="bab-title">Kalimat Matematika</span></div>
+        <div class="card-bab" onclick="pilihBabMatematika(3)"><span class="bab-num">Bab 3</span><span class="bab-title">Pengukuran Panjang dan Berat</span></div>
+        <div class="card-bab" onclick="pilihBabMatematika(4)"><span class="bab-num">Bab 4</span><span class="bab-title">Unsur-Unsur Bangun Datar</span></div>
+        <div class="card-bab" onclick="pilihBabMatematika(5)"><span class="bab-num">Bab 5</span><span class="bab-title">Penyajian Data dalam Tabel</span></div>
+      </div>
+    </div>
+
+    <!-- BAHASA INDONESIA -->
+    <div id="screen-bab-bindo" class="screen">
+      <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
+      <div class="screen-header"><h2>📖 Bahasa Indonesia</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBabBindo(1)"><span class="bab-num">Bab 1</span><span class="bab-title">Petualangan Ken dan Alif</span></div>
+        <div class="card-bab" onclick="pilihBabBindo(2)"><span class="bab-num">Bab 2</span><span class="bab-title">Semangat Si Pantang Menyerah</span></div>
+        <div class="card-bab" onclick="pilihBabBindo(3)"><span class="bab-num">Bab 3</span><span class="bab-title">Bintang Inspirasiku</span></div>
+        <div class="card-bab" onclick="pilihBabBindo(4)"><span class="bab-num">Bab 4</span><span class="bab-title">Tulis Ceritamu</span></div>
+        <div class="card-bab" onclick="pilihBabBindo(5)"><span class="bab-num">Bab 5</span><span class="bab-title">Sahabat Sungai Mahakam</span></div>
+        <div class="card-bab" onclick="pilihBabBindo(6)"><span class="bab-num">Bab 6</span><span class="bab-title">Istana yang Membawa Bencana</span></div>
+        <div class="card-bab" onclick="pilihBabBindo(7)"><span class="bab-num">Bab 7</span><span class="bab-title">Dengarkan Dongeng Seru</span></div>
+        <div class="card-bab" onclick="pilihBabBindo(8)"><span class="bab-num">Bab 8</span><span class="bab-title">Dongengku, Karyaku</span></div>
+      </div>
+    </div>
+
+    <!-- BAHASA INGGRIS -->
+    <div id="screen-bab-bing" class="screen">
+      <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
+      <div class="screen-header"><h2>🌍 Bahasa Inggris</h2><p>Pilih chapter yang ingin kamu pelajari.</p></div>
+      <div class="grid grid-bab-ipas">
+        <div class="card-bab" onclick="pilihBabBing(1)"><span class="bab-num">Ch 1</span><span class="bab-title">My Self</span></div>
+        <div class="card-bab" onclick="pilihBabBing(2)"><span class="bab-num">Ch 2</span><span class="bab-title">My Family</span></div>
+        <div class="card-bab" onclick="pilihBabBing(3)"><span class="bab-num">Ch 3</span><span class="bab-title">My Family's Activities at Home</span></div>
+        <div class="card-bab" onclick="pilihBabBing(4)"><span class="bab-num">Ch 4</span><span class="bab-title">My School</span></div>
+        <div class="card-bab" onclick="pilihBabBing(5)"><span class="bab-num">Ch 5</span><span class="bab-title">My Classroom</span></div>
+        <div class="card-bab" onclick="pilihBabBing(6)"><span class="bab-num">Ch 6</span><span class="bab-title">My Teacher</span></div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ===== END .container ===== -->
+
+  <script>
+    // ============================================
+    // 0. CEK LOGIN + LOGOUT
+    // ============================================
+    var currentUser = null;
+    try { currentUser = JSON.parse(localStorage.getItem('user')); }
+    catch (e) { currentUser = null; }
+
+    function isLoginValid() { return currentUser && currentUser.id; }
+    function isDev() { return currentUser && (currentUser.developer === true || currentUser.isAdmin === true); }
+
+    // Kalau belum login, lempar ke halaman auth
+    if (!isLoginValid()) { location.href = 'auth.html'; }
+
+    function keluar() {
+      localStorage.removeItem('user');
+      location.href = 'auth.html';
     }
 
-    window.belumTersedia = function(n){ alert('👷 '+n+' belum tersedia pada versi ini. Saat ini hanya IPAS yang aktif.'); };
-    window.pilihBab = function(b){ location.href='latihan.html?mapel=IPAS&bab='+b; };
-</script>
+    // ============================================
+    // 1. AMBIL GAMBAR LUAR ANGKASA DARI NASA
+    // ============================================
+    function ambilGambarNASA() {
+      document.body.style.backgroundImage = "url('https://images-assets.nasa.gov/image/PIA23418/PIA23418~orig.jpg')";
+
+      fetch('https://api.nasa.gov/planetary/apod?api_key=5KVkZFoh9UxMmhBjhthSfGpP86jaO7xJFu1LcbKB&thumbs=true')
+        .then(function (res) {
+          if (!res.ok) throw new Error('Gagal ambil APOD');
+          return res.json();
+        })
+        .then(function (data) {
+          var imgUrl = data.url && data.url.includes('youtube') ? data.thumbnail_url : data.url;
+          if (imgUrl && imgUrl.indexOf('http') === 0) {
+            var preload = new Image();
+            preload.onload = function () { document.body.style.backgroundImage = "url('" + imgUrl + "')"; };
+            preload.src = imgUrl;
+          }
+        })
+        .catch(function () { console.log('Fallback ke gambar galaksi NASA'); });
+    }
+
+    // ============================================
+    // 2. BUAT BINTANG BERKELAP-KELIP
+    // ============================================
+    function buatBintang() {
+      var starContainer = document.getElementById('starfield');
+      starContainer.innerHTML = '';
+      for (var i = 0; i < 80; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.width = (Math.random() * 2 + 1) + 'px';
+        star.style.height = star.style.width;
+        star.style.animationDelay = (Math.random() * 3) + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        starContainer.appendChild(star);
+      }
+    }
+
+    // ============================================
+    // 3. TAMPILKAN NAMA USER DI TOPBAR + KARTU ADMIN
+    // ============================================
+    function aturTopDanKartuAdmin() {
+      var disp = document.getElementById('userDisplay');
+
+      if (isDev()) {
+        // Admin: tampilkan sapaan dengan tag Admin + sediakan kartu Admin
+        disp.innerHTML = '👑 Halo, <b>' + (currentUser.nama || 'Admin') + '</b>' +
+                         '<span class="tag-admin">ADMIN</span>';
+        tambahKartuAdmin();
+        document.getElementById('sapaanHeader').textContent =
+          'Halo, ' + (currentUser.nama || 'Admin') + '! Dashboard sama seperti siswa. Gunakan kartu 👑 Admin untuk mengelola.';
+      } else {
+        disp.innerHTML = '👤 Halo, <b>' + (currentUser.nama || '') + '</b>';
+        document.getElementById('sapaanHeader').textContent =
+          'Halo! Pilih mapel yang ingin kamu pelajari hari ini.';
+      }
+    }
+
+    // Sisipkan kartu Admin sebagai elemen ke-6 di grid mapel
+    function tambahKartuAdmin() {
+      var grid = document.getElementById('gridMapel');
+      if (!grid) return;
+
+      var card = document.createElement('div');
+      card.className = 'card-mapel card-admin';
+      card.onclick = function () { bukaAdminPanel(); };
+      card.innerHTML = '<span class="emoji">👑</span><div class="name">Admin</div>';
+      grid.appendChild(card);
+    }
+
+    // Tampilkan / sembunyikan panel 2 fitur admin
+    function bukaAdminPanel() {
+      document.getElementById('adminPanel').classList.add('active');
+    }
+    function tutupAdminPanel() {
+      document.getElementById('adminPanel').classList.remove('active');
+    }
+
+    // Arahkan ke halaman admin.html dengan tab tertentu
+    function goAdmin(tab) {
+      window.location.href = 'admin.html?tab=' + tab;
+    }
+
+    // ============================================
+    // 4. LOGIKA GEMBOK BAB 2 IPAS
+    //    (developer SELALU dianggap terbuka agar bisa testing)
+    // ============================================
+    function ambilStatusLulusBab1(userId) {
+      try { return JSON.parse(localStorage.getItem('levelLulus_IPAS_' + userId)) || {}; }
+      catch (e) { return {}; }
+    }
+
+    function cekBab2Terbuka() {
+      // Developer/Admin selalu bisa membuka Bab 2 (untuk keperluan testing)
+      if (isDev()) return true;
+
+      var user = bacaPengguna();
+      if (!user || !user.id) return false;
+      var st = ambilStatusLulusBab1(user.id);
+      return (st.C3 === true);
+    }
+
+    function bacaPengguna() {
+      try { return JSON.parse(localStorage.getItem('user')); }
+      catch (e) { return null; }
+    }
+
+    function aturStatusBab2() {
+      var card = document.getElementById('ipasBab2Card');
+      var note = document.getElementById('ipasBab2Note');
+      if (!card) return;
+
+      if (cekBab2Terbuka()) {
+        card.classList.remove('locked');
+        card.style.cursor = 'pointer';
+        card.onclick = function () { pilihBab(2); };
+        if (note) note.style.display = 'none';
+      } else {
+        card.classList.add('locked');
+        card.style.cursor = 'not-allowed';
+        card.onclick = function () {
+          alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
+        };
+        if (note) note.style.display = '';
+      }
+    }
+
+    function cobaMasukBab2() {
+      if (cekBab2Terbuka()) {
+        pilihBab(2);
+      } else {
+        alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
+      }
+    }
+
+    // ============================================
+    // 5. JALANKAN SAAT HALAMAN DIMUAT
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!isLoginValid()) return; // sudah redirect di atas
+
+      ambilGambarNASA();
+      buatBintang();
+      aturTopDanKartuAdmin();
+      aturStatusBab2();
+    });
+
+    // ============================================
+    // 6. NAVIGASI LAYAR
+    // ============================================
+    function gantiScreen(id) {
+      document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+      document.getElementById(id).classList.add('active');
+    }
+
+    function bukaDaftarBabIPAS()     { gantiScreen('screen-bab-ipas'); }
+    function bukaDaftarBabPancasila(){ gantiScreen('screen-bab-pancasila'); }
+    function bukaDaftarBabMatematika(){ gantiScreen('screen-bab-matematika'); }
+    function bukaDaftarBabBindo()    { gantiScreen('screen-bab-bindo'); }
+    function bukaDaftarBabBing()     { gantiScreen('screen-bab-bing'); }
+
+    function kembaliKeMapel() { gantiScreen('screen-mapel'); }
+
+    function pilihBab(babNo) { window.location.href = 'latihan.html?mapel=IPAS&bab=' + babNo; }
+    function pilihBabPancasila(babNo)   { window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo; }
+    function pilihBabMatematika(babNo)  { window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo; }
+    function pilihBabBindo(babNo)       { window.location.href = 'latihan.html?mapel=Bahasa Indonesia&bab=' + babNo; }
+    function pilihBabBing(babNo)        { window.location.href = 'latihan.html?mapel=Bahasa Inggris&bab=' + babNo; }
+  </script>
+
 </body>
 </html>
