@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latihan Soal IPAS - Bab 1: Keajaiban Tubuhku</title>
+    <title>Latihan Soal IPAS</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
-        
+
         /* ===== BACKGROUND GELAP ===== */
         body {
             background: radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
@@ -18,7 +18,6 @@
             border-bottom:1px solid rgba(148,163,184,0.2);
         }
         .header h1 { font-size:22px; }
-        /* Info user login */
         .user-info {
             color:#c7d2fe; font-size:13px; margin-top:8px;
             background: rgba(15,23,42,0.4); display:inline-block;
@@ -31,9 +30,9 @@
             text-decoration:none;
         }
         .user-info .btn-logout:hover { background:#dc2626; }
-        
+
         .container { max-width:800px; margin:25px auto; padding:0 15px; }
-        
+
         .card {
             background: rgba(30,41,59,0.75); backdrop-filter:blur(12px);
             border:1px solid rgba(148,163,184,0.22); border-radius:18px;
@@ -41,7 +40,7 @@
         }
         .level-select { text-align:center; margin-bottom:20px; }
         .level-select h2 { color:#e0e7ff; margin-bottom:15px; font-size:22px; }
-        
+
         .level-btn {
             display:inline-block; padding:12px 22px; margin:5px;
             background: rgba(51,65,85,0.5); color:#c7d2fe;
@@ -61,7 +60,7 @@
         .level-btn.lulus {
             background: rgba(34,197,94,0.15); color:#86efac; border-color:#22c55e;
         }
-        
+
         .info-bank {
             background: rgba(15,23,42,0.4); border-left:4px solid #8b5cf6;
             padding:10px 15px; border-radius:8px; margin-bottom:20px;
@@ -75,7 +74,7 @@
         }
         .btn-mulai:hover { transform:translateY(-2px); }
         .btn-mulai:disabled { background:#334155; cursor:not-allowed; transform:none; opacity:0.5; }
-        
+
         .question-area { display:none; }
         .question-area.show { display:block; }
         .top-bar {
@@ -97,7 +96,6 @@
             color:#fff; padding:6px 16px; border-radius:20px; font-size:15px;
             margin-bottom:12px; font-weight:700;
         }
-        /* FONT PERTANYAAN BESAR */
         .question-card h3 { color:#f1f5f9; font-size:24px; line-height:1.6;
             margin-bottom:22px; font-weight:600; }
         .option-btn {
@@ -111,7 +109,7 @@
         .option-btn.wrong { border-color:#ef4444; background:rgba(239,68,68,0.15); color:#fecaca; }
         .option-btn:disabled { cursor:not-allowed; }
         .option-letter { font-weight:bold; color:#a5b4fc; margin-right:10px; }
-        
+
         .result-area { display:none; text-align:center; padding:25px 0; }
         .result-area.show { display:block; }
         .result-area h2 { color:#e0e7ff; }
@@ -119,7 +117,7 @@
         .result-msg { font-size:19px; color:#e2e8f0; margin-bottom:8px; white-space:pre-line; }
         .result-level { font-size:15px; color:#fff; padding:8px 20px; display:inline-block;
             border-radius:20px; margin-top:8px; font-weight:bold; }
-        
+
         .review-list { text-align:left; margin-top:22px; }
         .review-list h3 { color:#e0e7ff; }
         .review-item { background:rgba(15,23,42,0.5); border:1px solid #334155;
@@ -128,7 +126,7 @@
         .review-item .r-answer { font-size:15px; margin:5px 0; color:#cbd5e1; }
         .kunci { background:rgba(34,197,94,0.1); border-left:4px solid #22c55e;
             padding:10px 15px; border-radius:8px; font-size:14px; margin-top:5px; color:#bbf7d0; }
-        
+
         .btn-kembali {
             background:rgba(51,65,85,0.5); color:#c7d2fe; padding:11px 24px;
             border:2px solid #4f46e5; border-radius:25px; text-decoration:none;
@@ -142,7 +140,7 @@
         }
         .btn-selesai:hover { background:#16a34a; }
         .footer { text-align:center; padding:20px; color:#64748b; font-size:12px; }
-        
+
         .notif-open {
             position:fixed; top:20px; left:50%; transform:translateX(-50%);
             background:#065f46; color:#d1fae5; padding:14px 22px; border-radius:12px;
@@ -151,7 +149,7 @@
             text-align:center; opacity:0; pointer-events:none; transition:opacity 0.3s;
         }
         .notif-open.show { opacity:1; }
-        
+
         @media (max-width:600px) {
             .container { margin:12px auto; }
             .level-btn { padding:9px 14px; font-size:13px; }
@@ -165,14 +163,15 @@
     <!-- Notifikasi level terbuka -->
     <div class="notif-open" id="notifOpen"></div>
 
+    <!-- id dinamis supaya judul otomatis berubah sesuai bab -->
     <div class="header">
-        <h1>✏️ Latihan Soal IPAS</h1>
-        <p>Bab 1: Keajaiban Tubuhku - Kelas 3</p>
-        <!-- Info user yang login -->
+        <h1 id="judulMapel">✏️ Latihan Soal</h1>
+        <p id="subJudul">...</p>
         <div class="user-info" id="userInfo"></div>
     </div>
-    
+
     <div class="container">
+
         <!-- Pilihan Level -->
         <div class="card" id="levelSelectCard">
             <div class="level-select">
@@ -182,7 +181,7 @@
             <div id="infoTersedia" class="info-bank">
                 📚 Silakan pilih level untuk melihat jumlah soal yang tersedia.
             </div>
-            <button class="btn-mulai" id="btnMulai" disabled onclick="mulaiLatihan()">
+            <button class="btn-mulai" id="btnMulai" disabled>
                 ▶️ Mulai Latihan (10 Soal)
             </button>
         </div>
@@ -195,7 +194,7 @@
                 <div class="timer-display">⏱️ <span id="timer">00:00</span></div>
             </div>
             <div id="questionContainer"></div>
-            <button class="btn-mulai" id="btnSelesai" onclick="selesaiLatihan()">
+            <button class="btn-mulai" id="btnSelesai">
                 ✅ Selesai & Lihat Hasil
             </button>
         </div>
@@ -207,293 +206,417 @@
             <div class="result-msg" id="resultMsg"></div>
             <div id="levelBadge" class="result-level"></div>
             <div class="review-list" id="reviewList"></div>
-            <a href="#" class="btn-kembali" onclick="kembaliPilihLevel(event)">← Pilih Level Lagi</a><br>
+            <a href="dashboard.html" class="btn-kembali" onclick="ulangiLatihan()">← Kembali ke Level</a><br>
             <button class="btn-selesai" onclick="ulangiLatihan()">🔄 Ulangi Latihan</button>
         </div>
 
-        <div class="footer">
-            📖 Bank Soal IPAS Kelas 3 • Bab 1: Keajaiban Tubuhku • Tiap siswa punya progres sendiri
-        </div>
+        <div class="footer" id="footerInfo">📖 Bank Soal IPAS Kelas 3</div>
     </div>
 
+    <!-- Bank soal dipilih via parameter; kedua file dimuat -->
     <script src="soal-IPAS-Bab1.js"></script>
+    <script src="soal-IPAS-Bab2.js"></script>
+
     <script>
-        // ============ AMBIL USER LOGIN ============
-        const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+    /* =========================================================
+       LOGIKA DINAMIS latihan.html
+       Dibaca dari URL ?mapel=&bab=
+       - Hanya mendukung IPAS (Bab 1 & Bab 2)
+       - Bab 1 menyimpan progres di key LAMA (backward-compat)
+       - Bab 2 menyimpan progres di key baru & syarat buka = Bab1 C3
+       ========================================================= */
 
-        // === PENJAGA LOGIN: jika tidak ada user, kembali ke auth.html ===
-        if (!currentUser || !currentUser.id) {
-            alert('Anda harus masuk terlebih dahulu!');
-            location.href = 'auth.html';
-        }
+    // ---------- 1. Parameter URL ----------
+    function ambilParam(nama) {
+        var p = new URLSearchParams(window.location.search);
+        return p.get(nama);
+    }
+    var PARAM_MAPEL = (ambilParam('mapel') || 'IPAS').trim();
+    var PARAM_BAB   = parseInt(ambilParam('bab'), 10) || 1;
 
-        // ============ KUNCI PER-USER ============
-        // Setiap user punya progres sendiri
-        const userId = currentUser ? currentUser.id : 'guest';
-        const KUNCI_LULUS = 'levelLulus_IPAS_' + userId;
+    // ---------- 2. Login ----------
+    var currentUser = null;
+    try { currentUser = JSON.parse(localStorage.getItem('user')); } catch(e){ currentUser = null; }
 
-        // Tampilkan identitas user di header
-        if (currentUser) {
-            const labelJenis = { NISN:'NISN', WhatsApp:'WA', Email:'Email' };
-            const singkat = (currentUser.no_identitas || '').length > 14
-                ? currentUser.no_identitas.slice(0,14)+'…'
-                : currentUser.no_identitas;
-            document.getElementById('userInfo').innerHTML =
-                `👤 ${labelJenis[currentUser.jenis_identitas]||'User'}: <b>${singkat}</b>` +
-                ` <a class="btn-logout" href="#" onclick="keluar(event)">Keluar</a>`;
-        }
+    if (!currentUser || !currentUser.id) {
+        alert('Anda harus masuk terlebih dahulu!');
+        window.location.href = 'auth.html';
+    }
+    var userId = (currentUser && currentUser.id) ? currentUser.id : 'guest';
+    var namaUser = (currentUser && currentUser.nama) ? currentUser.nama : '';
+    document.getElementById('userInfo').innerHTML =
+        '👤 <b>' + namaUser + '</b>' +
+        ' <a href="#" class="btn-logout" onclick="keluar(event)">Keluar</a>';
 
-        // ============ URUTAN & LABEL LEVEL ============
-        const urutanLevel = ['C1', 'C2', 'C3', 'C4', 'C5'];
-        const NILAI_MIN_LULUS = 70;  // persen
-        const labelLevel = {
-            C1:'Mengingat', C2:'Memahami', C3:'Mengaplikasi',
-            C4:'Menganalisis', C5:'Mengevaluasi'
+    // ---------- 3. Konfigurasi (mapel & bab yang didukung) ----------
+    // Cek key lama untuk syarat membuka bab 2
+    var KONFIG_BAB = null;
+
+    if (PARAM_MAPEL === 'IPAS' && PARAM_BAB === 1) {
+        KONFIG_BAB = {
+            babLabel     : 'Bab 1: Keajaiban Tubuhku',
+            namaGlobal   : 'bankSoalIPASBab1',
+            progressKey  : 'levelLulus_IPAS_' + userId,          // key lama, backward-compat
+            syaratBab2Key: null
         };
+    } else if (PARAM_MAPEL === 'IPAS' && PARAM_BAB === 2) {
+        KONFIG_BAB = {
+            babLabel     : 'Bab 2: Dahulu, Kini, dan Nanti',
+            namaGlobal   : 'bankSoalIPASBab2',
+            progressKey  : 'levelLulus_IPAS_bab2_' + userId,     // key baru per bab2
+            // syarat: C3 bab1 (key lama) harus true
+            syaratBab2Key: { key: 'levelLulus_IPAS_' + userId, level: 'C3' }
+        };
+    }
 
-        // ============ STATUS LULUS (per user) ============
-        function bacaStatusLulus() {
-            try { return JSON.parse(localStorage.getItem(KUNCI_LULUS)) || {}; }
-            catch(e) { return {}; }
+    // ---------- 4. Update judul & footer ----------
+    var judulMapel = document.getElementById('judulMapel');
+    var subJudul   = document.getElementById('subJudul');
+    var footerInfo = document.getElementById('footerInfo');
+
+    function fungsikanHalaman() {
+        if (KONFIG_BAB) {
+            judulMapel.textContent = '✏️ Latihan Soal IPAS';
+            subJudul.textContent = 'Bab ' + PARAM_BAB + ' - Kelas 3';
+            subJudul.textContent = (PARAM_BAB === 1)
+                ? 'Bab 1: Keajaiban Tubuhku - Kelas 3'
+                : (PARAM_BAB === 2)
+                    ? 'Bab 2: Dahulu, Kini, dan Nanti - Kelas 3'
+                    : 'Bab ' + PARAM_BAB + ' - Kelas 3';
+            document.title = 'Latihan IPAS Bab ' + PARAM_BAB;
+            footerInfo.textContent = '📖 Bank Soal IPAS Kelas 3 • Bab ' + (PARAM_BAB === 1 ? 'Keajaiban Tubuhku' : PARAM_BAB === 2 ? 'Dahulu, Kini, dan Nanti' : PARAM_BAB);
+        } else {
+            // Mapel / bab tidak didukung
+            document.getElementById('levelSelectCard').innerHTML =
+                '<div style="text-align:center;">' +
+                '<h2 style="color:#fca5a5;">🚧 Belum Tersedia</h2>' +
+                '<p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">' +
+                'Mapel <b>' + PARAM_MAPEL + '</b> (Bab ' + PARAM_BAB +
+                ') belum didukung latihan ini.<br>' +
+                'Saat ini hanya tersedia <b>IPAS Bab 1 &amp; Bab 2</b>.</p><br>' +
+                '<a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+            document.getElementById('questionArea').style.display = 'none';
+            document.getElementById('resultArea').style.display = 'none';
+            return false;
         }
-        function simpanStatusLulus(level) {
-            const st = bacaStatusLulus();
-            st[level] = true;
-            localStorage.setItem(KUNCI_LULUS, JSON.stringify(st));
-        }
-        function sudahLulus(level) { return bacaStatusLulus()[level] === true; }
-        function bisaDibuka(level) {
-            const idx = urutanLevel.indexOf(level);
-            if (idx <= 0) return true;
-            return sudahLulus(urutanLevel[idx - 1]);
-        }
+        return true;
+    }
+    if (!fungsikanHalaman()) throw new Error('unsupported');
+    if (!KONFIG_BAB) throw new Error('unsupported2');
 
-        // ============ RENDER TOMBOL LEVEL ============
-        function renderLevelButtons() {
-            const container = document.getElementById('levelButtons');
-            container.innerHTML = '';
-            urutanLevel.forEach((level) => {
-                const jml = (bankSoalIPASBab1[level] || []).length;
-                const terbuka = bisaDibuka(level);
-                const lulus = sudahLulus(level);
-                let ikon='', kelas='';
-                if (lulus) { ikon=' ✅'; kelas=' lulus'; }
-                else if (terbuka) { ikon=' ▶️'; }
-                else { ikon=' 🔒'; kelas=' terkunci'; }
+    // ---------- 5. Cek syarat unlock bab 2 (anti langsung) ----------
+    function syaratBab2Lulus() {
+        if (!KONFIG_BAB.syaratBab2Key) return true;
+        try {
+            var st = JSON.parse(localStorage.getItem(KONFIG_BAB.syaratBab2Key.key)) || {};
+            return st[KONFIG_BAB.syaratBab2Key.level] === true;
+        } catch(e){ return false; }
+    }
+    if (KONFIG_BAB.syaratBab2Key && !syaratBab2Lulus()) {
+        document.getElementById('levelSelectCard').innerHTML =
+            '<div style="text-align:center;">' +
+            '<h2 style="color:#fca5a5;">🔒 Bab 2 Terkunci</h2>' +
+            '<p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">' +
+            'Untuk membuka <b>Bab 2: Dahulu, Kini, dan Nanti</b>, ' +
+            'kamu harus menyelesaikan <b>Bab 1 IPAS level C3</b> terlebih dahulu.</p><br>' +
+            '<a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+        document.getElementById('questionArea').style.display = 'none';
+        document.getElementById('resultArea').style.display = 'none';
+        throw new Error('locked');
+    }
 
-                const btn = document.createElement('button');
-                btn.className='level-btn'+kelas;
-                btn.textContent = `${level} - ${labelLevel[level]} (${jml})${ikon}`;
-                if (terbuka) {
-                    btn.onclick = () => pilihLevel(level, btn);
-                } else {
-                    btn.onclick = () => {
-                        const prev = urutanLevel[urutanLevel.indexOf(level)-1];
-                        alert(`🔒 Level ${level} masih terkunci!\nLuluskan Level ${prev} (nilai ≥ ${NILAI_MIN_LULUS}) dulu.`);
-                    };
-                }
-                container.appendChild(btn);
-            });
-        }
+    // ============ AMBIL BANK SOAL ============
+    // Akses variabel global (dinamis)
+    var bankLevel = null;
+    if (KONFIG_BAB.namaGlobal === 'bankSoalIPASBab1') bankLevel = (typeof bankSoalIPASBab1 !== 'undefined') ? bankSoalIPASBab1 : null;
+    if (KONFIG_BAB.namaGlobal === 'bankSoalIPASBab2') bankLevel = (typeof bankSoalIPASBab2 !== 'undefined') ? bankSoalIPASBab2 : null;
 
-        // ============ STATE GLOBAL ============
-        let currentLevel = null;
-        let soalLatihan = [];
-        let nomorSaatIni = 0;
-        let jawabanUser = [];
-        let skor = 0;
-        let timerInterval;
-        let detikBerjalan = 0;
+    // Jika kosong / tak ada → tampilkan pesan
+    var PETA_LEVEL = ['C1','C2','C3','C4','C5'];
+    var totalAda = 0;
+    if (bankLevel) {
+        PETA_LEVEL.forEach(function(lv){ totalAda += (bankLevel[lv] || []).length; });
+    }
+    if (!bankLevel || totalAda === 0) {
+        var fileTujuan = 'soal-IPAS-Bab' + PARAM_BAB + '.js';
+        document.getElementById('levelSelectCard').innerHTML =
+            '<div style="text-align:center;">' +
+            '<h2 style="color:#fbbf24;">⚠️ Bank Soal Belum Ada</h2>' +
+            '<p style="color:#e2e8f0;margin-top:10px;">' +
+            'File <b>' + fileTujuan + '</b> belum ditemukan, atau belum berisi <b>' +
+            KONFIG_BAB.namaGlobal + '</b>.</p><br>' +
+            '<a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+        document.getElementById('questionArea').style.display = 'none';
+        document.getElementById('resultArea').style.display = 'none';
+        throw new Error('no-bank');
+    }
 
-        // ============ UTILITAS ============
-        function shuffle(array) {
-            const arr=[...array];
-            for (let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
-            return arr;
-        }
-        function formatWaktu(d) {
-            const m=Math.floor(d/60), s=d%60;
-            return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-        }
+    // ============ KUNCI PER-USER (bab ini, terpisah per bab) ============
+    var PROGRES_KEY = KONFIG_BAB.progressKey;
+    var urutanLevel = ['C1','C2','C3','C4','C5'];
+    var NILAI_MIN_LULUS = 70;
+    var labelLevel = { C1:'Mengingat', C2:'Memahami', C3:'Mengaplikasi',
+                       C4:'Menganalisis', C5:'Mengevaluasi' };
 
-        // ============ PILIH LEVEL (cegah terkunci) ============
-        function pilihLevel(level, btn) {
-            if (!bisaDibuka(level)) {
-                const prev = urutanLevel[urutanLevel.indexOf(level)-1];
-                alert(`🔒 Level ${level} terkunci!\nLuluskan Level ${prev} (nilai ≥ ${NILAI_MIN_LULUS}) dulu.`);
-                return;
-            }
-            currentLevel = level;
-            document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
-            btn.classList.add('active');
+    function bacaStatusLulus() {
+        try { return JSON.parse(localStorage.getItem(PROGRES_KEY)) || {}; }
+        catch(e) { return {}; }
+    }
+    function simpanStatusLulus(level) {
+        var st = bacaStatusLulus();
+        st[level] = true;
+        localStorage.setItem(PROGRES_KEY, JSON.stringify(st));
+    }
+    function sudahLulus(level) { return bacaStatusLulus()[level] === true; }
+    function bisaDibuka(level) {
+        var idx = urutanLevel.indexOf(level);
+        if (idx <= 0) return true;
+        return sudahLulus(urutanLevel[idx-1]);
+    }
 
-            const total = (bankSoalIPASBab1[level]||[]).length;
-            document.getElementById('infoTersedia').innerHTML =
-                `📚 Level <b>${level} (${labelLevel[level]})</b>: tersedia <b>${total} soal</b>. ` +
-                `Selesaikan 10 soal, raih nilai ≥ ${NILAI_MIN_LULUS} untuk buka level berikutnya.`;
-            document.getElementById('btnMulai').disabled = false;
-        }
+    // ============ STATE GLOBAL ============
+    var currentLevel = null;
+    var soalLatihan = [];
+    var nomorSaatIni = 0;
+    var jawabanUser = [];
+    var skor = 0;
+    var timerInterval = null;
+    var detikBerjalan = 0;
 
-        // ============ MULAI LATIHAN ============
-        function mulaiLatihan() {
-            if (!currentLevel) { alert('Pilih level dulu!'); return; }
-            const bankLevel = bankSoalIPASBab1[currentLevel];
-            soalLatihan = shuffle(bankLevel).slice(0,10);
-            nomorSaatIni=0; jawabanUser=[]; skor=0; detikBerjalan=0;
-            if (timerInterval) clearInterval(timerInterval);
-            timerInterval = setInterval(()=>{ detikBerjalan++;
-                document.getElementById('timer').textContent=formatWaktu(detikBerjalan); },1000);
+    // ============ UTILITAS ============
+    function shuffle(array) {
+        var arr = array.slice();
+        for (var i=arr.length-1;i>0;i--) { var j=Math.floor(Math.random()*(i+1)); var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; }
+        return arr;
+    }
+    function formatWaktu(d) {
+        var m = Math.floor(d/60), s = d % 60;
+        return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    }
 
-            document.getElementById('levelSelectCard').style.display='none';
-            document.getElementById('questionArea').classList.add('show');
-            document.getElementById('resultArea').classList.remove('show');
-            tampilkanSoal();
-        }
-
-        // ============ TAMPILKAN SOAL ============
-        function tampilkanSoal() {
-            const soal=soalLatihan[nomorSaatIni];
-            const container=document.getElementById('questionContainer');
-            const total=soalLatihan.length;
-            const pct=(nomorSaatIni/total)*100;
-            document.getElementById('progressBar').style.width=pct+'%';
-            document.getElementById('skorLive').textContent=skor;
-            const huruf=['A','B','C','D','E'];
-            let html=`<div class="question-card">
-                <span class="q-number">Soal ${nomorSaatIni+1} / ${total}</span>
-                <h3>${soal.soal}</h3><div id="optionsList">`;
-            soal.pilihan.forEach((pil,idx)=>{ html+=`
-                <button class="option-btn" onclick="pilihJawaban(${idx})">
-                    <span class="option-letter">${huruf[idx]}.</span> ${pil}</button>`; });
-            html+=`</div></div>`;
-            container.innerHTML=html;
-        }
-
-        // ============ PILIH JAWABAN ============
-        function pilihJawaban(idx) {
-            const soal=soalLatihan[nomorSaatIni];
-            const semuaBtn=document.querySelectorAll('.option-btn');
-            const benar=(idx===soal.kunci);
-            if (benar) skor++;
-            jawabanUser.push({ soal:soal.soal, pilihan:soal.pilihan, pilihanUser:idx,
-                kunci:soal.kunci, benar });
-            semuaBtn.forEach((btn,i)=>{
-                btn.disabled=true;
-                if (i===soal.kunci) btn.classList.add('correct');
-                if (i===idx && idx!==soal.kunci) btn.classList.add('wrong');
-            });
-            document.getElementById('skorLive').textContent=skor;
-            const bs=document.getElementById('btnSelesai');
-            if (nomorSaatIni < soalLatihan.length-1) {
-                bs.innerHTML='➡️ Soal Berikutnya';
-                bs.onclick=()=>{ nomorSaatIni++; tampilkanSoal();
-                    bs.innerHTML='✅ Selesai & Lihat Hasil'; bs.onclick=selesaiLatihan; };
+    // ============ RENDER TOMBOL LEVEL ============
+    function renderLevelButtons() {
+        var box = document.getElementById('levelButtons');
+        box.innerHTML = '';
+        urutanLevel.forEach(function(level){
+            var jml = (bankLevel[level] || []).length;
+            var buka = bisaDibuka(level);
+            var lulus = sudahLulus(level);
+            var ikon='', kelas='';
+            if (lulus) { ikon=' ✅'; kelas=' lulus'; }
+            else if (buka) { ikon=' ▶️'; }
+            else { ikon=' 🔒'; kelas=' terkunci'; }
+            var b = document.createElement('button');
+            b.className = 'level-btn' + kelas;
+            b.textContent = level + ' - ' + labelLevel[level] + ' (' + jml + ')' + ikon;
+            if (buka) {
+                b.onclick = (function(lv, btn){ return function(){ pilihLevel(lv, btn); }; })(level, b);
             } else {
-                bs.innerHTML='✅ Selesai & Lihat Hasil'; bs.onclick=selesaiLatihan;
+                b.onclick = (function(lv){
+                    return function(){
+                        var prev = urutanLevel[urutanLevel.indexOf(lv)-1];
+                        alert('🔒 Level ' + lv + ' masih terkunci!\nLuluskan Level ' + prev + ' (nilai ≥ ' + NILAI_MIN_LULUS + ') dulu.');
+                    };
+                })(level);
+            }
+            box.appendChild(b);
+        });
+    }
+
+    // ============ PILIH LEVEL ============
+    function pilihLevel(level, btn) {
+        if (!bisaDibuka(level)) {
+            var prev = urutanLevel[urutanLevel.indexOf(level)-1];
+            alert('🔒 Level ' + level + ' terkunci!\nLuluskan Level ' + prev + ' (nilai ≥ ' + NILAI_MIN_LULUS + ') dulu.');
+            return;
+        }
+        currentLevel = level;
+        document.querySelectorAll('.level-btn').forEach(function(x){ x.classList.remove('active'); });
+        btn.classList.add('active');
+        var total = (bankLevel[level] || []).length;
+        document.getElementById('infoTersedia').innerHTML =
+            '📚 Level <b>' + level + ' (' + labelLevel[level] + ')</b>: tersedia <b>' + total + ' soal</b>. ' +
+            'Selesaikan 10 soal, raih nilai ≥ ' + NILAI_MIN_LULUS + ' untuk buka level berikutnya.';
+        document.getElementById('btnMulai').disabled = false;
+    }
+
+    // ============ MULAI LATIHAN ============
+    function mulaiLatihan() {
+        if (!currentLevel) { alert('Pilih level dulu!'); return; }
+        var bankLv = (bankLevel[currentLevel] || []);
+        if (bankLv.length === 0) { alert('Bank soal di level ini kosong.'); return; }
+        soalLatihan = shuffle(bankLv).slice(0,10);
+        nomorSaatIni = 0; jawabanUser = []; skor = 0; detikBerjalan = 0;
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(function(){
+            detikBerjalan++;
+            document.getElementById('timer').textContent = formatWaktu(detikBerjalan);
+        }, 1000);
+
+        document.getElementById('levelSelectCard').style.display = 'none';
+        document.getElementById('questionArea').classList.add('show');
+        document.getElementById('resultArea').classList.remove('show');
+        tampilkanSoal();
+    }
+
+    // ============ TAMPILKAN SOAL ============
+    function tampilkanSoal() {
+        var soal = soalLatihan[nomorSaatIni];
+        var box = document.getElementById('questionContainer');
+        var total = soalLatihan.length;
+        document.getElementById('progressBar').style.width = ((nomorSaatIni/total)*100) + '%';
+        document.getElementById('skorLive').textContent = skor;
+        var huruf = ['A','B','C','D','E'];
+        var h = '<div class="question-card">' +
+                '<span class="q-number">Soal ' + (nomorSaatIni+1) + ' / ' + total + '</span>' +
+                '<h3>' + soal.soal + '</h3><div id="optionsList">';
+        soal.pilihan.forEach(function(pil, idx){
+            h += '<button class="option-btn" onclick="pilihJawaban(' + idx + ')">' +
+                 '<span class="option-letter">' + huruf[idx] + '.</span> ' + pil + '</button>';
+        });
+        h += '</div></div>';
+        box.innerHTML = h;
+        document.getElementById('btnSelesai').innerHTML = '✅ Selesai & Lihat Hasil';
+        document.getElementById('btnSelesai').onclick = function(){ selesaiLatihan(); };
+    }
+
+    // ============ PILIH JAWABAN ============
+    window.pilihJawaban = function(idx) {
+        var soal = soalLatihan[nomorSaatIni];
+        var semuaBtn = document.querySelectorAll('.option-btn');
+        var benar = (idx === soal.kunci);
+        if (benar) skor++;
+        jawabanUser.push({ soal: soal.soal, pilihan: soal.pilihan, pilihanUser: idx,
+                           kunci: soal.kunci, benar: benar });
+        semuaBtn.forEach(function(btn, i){
+            btn.disabled = true;
+            if (i === soal.kunci) btn.classList.add('correct');
+            if (i === idx && idx !== soal.kunci) btn.classList.add('wrong');
+        });
+        document.getElementById('skorLive').textContent = skor;
+        var bs = document.getElementById('btnSelesai');
+        if (nomorSaatIni < soalLatihan.length - 1) {
+            bs.innerHTML = '➡️ Soal Berikutnya';
+            bs.onclick = function(){
+                nomorSaatIni++;
+                tampilkanSoal();
+            };
+        } else {
+            bs.innerHTML = '✅ Selesai & Lihat Hasil';
+            bs.onclick = function(){ selesaiLatihan(); };
+        }
+    };
+
+    // ============ SELESAI LATIHAN ============
+    function selesaiLatihan() {
+        clearInterval(timerInterval);
+        if (jawabanUser.length < soalLatihan.length) {
+            for (var i=jawabanUser.length; i<soalLatihan.length; i++) {
+                var s = soalLatihan[i];
+                jawabanUser.push({ soal: s.soal, pilihan: s.pilihan, pilihanUser: -1,
+                                   kunci: s.kunci, benar: false });
             }
         }
+        document.getElementById('questionArea').classList.remove('show');
+        document.getElementById('resultArea').classList.add('show');
 
-        // ============ SELESAI LATIHAN ============
-        function selesaiLatihan() {
-            clearInterval(timerInterval);
-            if (jawabanUser.length < soalLatihan.length) {
-                for (let i=jawabanUser.length;i<soalLatihan.length;i++){
-                    jawabanUser.push({ soal:soalLatihan[i].soal, pilihan:soalLatihan[i].pilihan,
-                        pilihanUser:-1, kunci:soalLatihan[i].kunci, benar:false });
-                }
-            }
-            document.getElementById('questionArea').classList.remove('show');
-            document.getElementById('resultArea').classList.add('show');
+        var benarJml = jawabanUser.filter(function(j){ return j.benar; }).length;
+        var total = soalLatihan.length;
+        document.getElementById('scoreAkhir').textContent = benarJml + '/' + total;
+        var pct = (benarJml / total) * 100;
+        var lulusLevelIni = (pct >= NILAI_MIN_LULUS);
+        var levelBerikutnya = urutanLevel[urutanLevel.indexOf(currentLevel)+1];
 
-            const scoreAkhir = jawabanUser.filter(j=>j.benar).length;
-            const total = soalLatihan.length;
-            document.getElementById('scoreAkhir').textContent=`${scoreAkhir}/${total}`;
+        var msg, badgeText, badgeColor;
+        if (pct>=90){ msg='🌟 Luar biasa! Kamu sangat paham!'; badgeText='🏅 SANGAT BAIK'; badgeColor='#f59e0b'; }
+        else if (pct>=75){ msg='👍 Bagus sekali!'; badgeText='🎖️ BAGUS'; badgeColor='#22c55e'; }
+        else if (pct>=60){ msg='😊 Cukup baik.'; badgeText='📈 CUKUP'; badgeColor='#3b82f6'; }
+        else if (pct>=40){ msg='💪 Ayo coba lagi!'; badgeText='📚 PERLU BELAJAR'; badgeColor='#f97316'; }
+        else { msg='📖 Baca lagi materinya ya!'; badgeText='💡 MULAI ULANG'; badgeColor='#ef4444'; }
 
-            const pct=(scoreAkhir/total)*100;
-            const lulusLevelIni = (pct >= NILAI_MIN_LULUS);
-            const levelBerikutnya = urutanLevel[urutanLevel.indexOf(currentLevel)+1];
-
-            let msg, badgeColor, badgeText;
-            if (pct>=90){ msg='🌟 Luar biasa! Kamu sangat paham!'; badgeText='🏅 SANGAT BAIK'; badgeColor='#f59e0b'; }
-            else if (pct>=75){ msg='👍 Bagus sekali!'; badgeText='🎖️ BAGUS'; badgeColor='#22c55e'; }
-            else if (pct>=60){ msg='😊 Cukup baik.'; badgeText='📈 CUKUP'; badgeColor='#3b82f6'; }
-            else if (pct>=40){ msg='💪 Ayo coba lagi!'; badgeText='📚 PERLU BELAJAR'; badgeColor='#f97316'; }
-            else { msg='📖 Baca lagi materinya ya!'; badgeText='💡 MULAI ULANG'; badgeColor='#ef4444'; }
-
-            if (lulusLevelIni) {
-                msg += '\n✅ Lulus! Level berikutnya terbuka.';
-                simpanStatusLulus(currentLevel);   // simpan per user
-            }
-
-            document.getElementById('resultMsg').textContent=msg;
-            const badge=document.getElementById('levelBadge');
-            badge.textContent=`${badgeText} • Level ${currentLevel}`;
-            badge.style.background=badgeColor;
-
-            tampilkanReview();
-            if (lulusLevelIni && levelBerikutnya) {
-                tampilkanNotifikasi(`🎉 Level ${currentLevel} lulus!\nLevel ${levelBerikutnya} (${labelLevel[levelBerikutnya]}) terbuka!`);
-            }
-            renderLevelButtons();
+        if (lulusLevelIni) {
+            msg += '\n✅ Lulus! Level berikutnya terbuka.';
+            simpanStatusLulus(currentLevel);
         }
+        document.getElementById('resultMsg').textContent = msg;
+        var badge = document.getElementById('levelBadge');
+        badge.textContent = badgeText + ' • Level ' + currentLevel;
+        badge.style.background = badgeColor;
 
-        // ============ REVIEW ============
-        function tampilkanReview() {
-            const list=document.getElementById('reviewList');
-            const huruf=['A','B','C','D','E'];
-            let html='<h3 style="margin:15px 0;">📋 Pembahasan:</h3>';
-            jawabanUser.forEach((j,i)=>{
-                html+=`<div class="review-item"><div class="r-question">${i+1}. ${j.soal}</div>`;
-                j.pilihan.forEach((pil,idx)=>{
-                    let style='';
-                    if (idx===j.kunci) style='border-left:4px solid #22c55e; padding-left:8px;';
-                    if (idx===j.pilihanUser && !j.benar) style='border-left:4px solid #ef4444; padding-left:8px;';
-                    const mark=(idx===j.kunci)?' ✔':((idx===j.pilihanUser&&!j.benar)?' ✘':'');
-                    html+=`<div class="r-answer" style="${style}">${huruf[idx]}. ${pil}${mark}</div>`;
-                });
-                if (!j.benar) html+=`<div class="kunci">💡 Jawaban benar: <b>${huruf[j.kunci]}. ${j.pilihan[j.kunci]}</b></div>`;
-                html+='</div>';
-            });
-            list.innerHTML=html;
+        // Sertakan keterangan bab untuk konteks review
+        document.getElementById('scoreAkhir').textContent = benarJml + '/' + total;
+        tampilkanReview();
+        if (lulusLevelIni && levelBerikutnya) {
+            tampilkanNotifikasi('🎉 Level ' + currentLevel + ' lulus!\nLevel ' + levelBerikutnya + ' (' + labelLevel[levelBerikutnya] + ') terbuka!');
         }
-
-        // ============ ULANGI / KEMBALI ============
-        function ulangiLatihan() {
-            document.getElementById('resultArea').classList.remove('show');
-            document.getElementById('levelSelectCard').style.display='block';
-            resetQ();
-            renderLevelButtons();
-        }
-        function kembaliPilihLevel(e) {
-            if (e) e.preventDefault();
-            ulangiLatihan();
-        }
-        function resetQ() {
-            nomorSaatIni=0; jawabanUser=[]; skor=0; detikBerjalan=0;
-            document.getElementById('timer').textContent='00:00';
-            document.getElementById('skorLive').textContent='0';
-            document.getElementById('btnMulai').disabled=true;
-            document.querySelectorAll('.level-btn').forEach(b=>b.classList.remove('active'));
-            currentLevel=null;
-            document.getElementById('infoTersedia').innerHTML='📚 Silakan pilih level.';
-            document.getElementById('questionArea').classList.remove('show');
-        }
-
-        // ============ NOTIFIKASI & LOGOUT ============
-        function tampilkanNotifikasi(pesan) {
-            const el=document.getElementById('notifOpen');
-            el.textContent=pesan; el.classList.add('show');
-            setTimeout(()=>el.classList.remove('show'),4500);
-        }
-        function keluar(e) {
-            if (e) e.preventDefault();
-            localStorage.removeItem('user');   // hapus sesi
-            // (opsional hapus progres? biarkan agar tersimpan per user ketika login kembali)
-            location.href='auth.html';
-        }
-
-        // ============ INISIALISASI ============
         renderLevelButtons();
+    }
+
+    // ============ REVIEW ============
+    function tampilkanReview() {
+        var list = document.getElementById('reviewList');
+        var huruf = ['A','B','C','D','E'];
+        var h = '<h3 style="margin:15px 0;">📋 Pembahasan:</h3>';
+        jawabanUser.forEach(function(j, i){
+            h += '<div class="review-item"><div class="r-question">' + (i+1) + '. ' + j.soal + '</div>';
+            j.pilihan.forEach(function(pil, idx){
+                var st = '';
+                if (idx === j.kunci) st = 'border-left:4px solid #22c55e; padding-left:8px;';
+                if (idx === j.pilihanUser && !j.benar) st = 'border-left:4px solid #ef4444; padding-left:8px;';
+                var mark = (idx === j.kunci) ? ' ✔' : ((idx === j.pilihanUser && !j.benar) ? ' ✘' : '');
+                h += '<div class="r-answer" style="' + st + '">' + huruf[idx] + '. ' + pil + mark + '</div>';
+            });
+            if (!j.benar) h += '<div class="kunci">💡 Jawaban benar: <b>' + huruf[j.kunci] + '. ' + j.pilihan[j.kunci] + '</b></div>';
+            h += '</div>';
+        });
+        list.innerHTML = h;
+    }
+
+    // ============ ULANGI / KEMBALI ============
+    function ulangiLatihan() {
+        document.getElementById('resultArea').classList.remove('show');
+        document.getElementById('levelSelectCard').style.display = 'block';
+        resetQ();
+        renderLevelButtons();
+    }
+    function resetQ() {
+        nomorSaatIni = 0; jawabanUser = []; skor = 0; detikBerjalan = 0;
+        if (timerInterval) clearInterval(timerInterval);
+        document.getElementById('timer').textContent = '00:00';
+        document.getElementById('skorLive').textContent = '0';
+        document.getElementById('btnMulai').disabled = true;
+        document.querySelectorAll('.level-btn').forEach(function(b){ b.classList.remove('active'); });
+        currentLevel = null;
+        document.getElementById('infoTersedia').innerHTML = '📚 Silakan pilih level.';
+        document.getElementById('questionArea').classList.remove('show');
+    }
+
+    // ============ NOTIFIKASI & LOGOUT ============
+    function tampilkanNotifikasi(pesan) {
+        var el = document.getElementById('notifOpen');
+        el.textContent = pesan;
+        el.classList.add('show');
+        setTimeout(function(){ el.classList.remove('show'); }, 4500);
+    }
+    function keluar(e) {
+        if (e) e.preventDefault();
+        localStorage.removeItem('user');
+        window.location.href = 'auth.html';
+    }
+    window.keluar = keluar;
+    window.ulangiLatihan = ulangiLatihan;
+
+    // ============ EKSPOSE & INISIALISASI ============
+    window.renderLevelButtons = renderLevelButtons;
+    window.mulaiLatihan = mulaiLatihan;
+
+    // tombol mulai awalnya gunakan handler (agar tombol HTML tanpa onclick tetap jalan)
+    document.getElementById('btnMulai').addEventListener('click', function(){
+        if (currentLevel) mulaiLatihan(); else alert('Pilih level dulu!');
+    });
+
+    // Jalankan inisialisasi
+    renderLevelButtons();
     </script>
 </body>
 </html>
