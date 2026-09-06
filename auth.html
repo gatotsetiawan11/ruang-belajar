@@ -78,22 +78,14 @@
 </div>
 
 <script>
-    // ====== GANTI DENGAN KONFIGURASI SUPABASE ANDA ======
-  //  const SUPABASE_URL = 'https://rvstyakujwbthjkadiwk.supabase.co';
-  //  const SUPABASE_ANON = 'sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3';
-    // ====================================================
+    // ====== KONFIGURASI SUPABASE ======
+    const SUPABASE_URL = 'https://rvstyakujwbthjkadiwk.supabase.co';
+    const SUPABASE_ANON = 'sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3';
 
-// Pastikan library supabase-js sudah dimuat
-if (typeof createClient !== 'function') {
-    document.getElementById('pesan').innerHTML =
-        '⚠️ Library supabase-js belum dimuat. Periksa tag <script> @supabase/supabase-js.';
-}
+    // Pakai nama 'sb' agar tidak bentrok dengan global 'supabase' lain
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+    console.log('sb.rpc tersedia?', typeof (sb && sb.rpc));
 
-const SUPABASE_URL = 'https://rvstyakujwbthjkadiwk.supabase.co';
-const SUPABASE_ANON = 'sb_publishable_HR6BBVA64HvmRvDaq68RJQ_ma2VgEW3';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
-// ---------------------------------------------------
     const modeLabel = { NISN:'Nomor NISN', WhatsApp:'Nomor WhatsApp', Email:'Alamat Email' };
     const inisial = { NISN:'NISN', WhatsApp:'WA', Email:'Email' };
 
@@ -130,31 +122,31 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
         if (!no) { elMsg.innerHTML='<span class="err">Isi nomor identitas</span>'; return; }
         if (!pin) { elMsg.innerHTML='<span class="err">Masukkan PIN</span>'; return; }
 
+        if (!sb || typeof sb.rpc !== 'function') {
+            elMsg.innerHTML='<span class="err">⚠️ sb belum terkoneksi dengan benar.</span>';
+            return;
+        }
+
         const hash = await sha256(pin);
 
-        if (supabase) {
-            const { data, error } = await supabase.rpc('get_user_by_identity', {
-                p_jenis: j, p_no: no
-            });
-            if (error) { elMsg.innerHTML='<span class="err">Error: '+error.message+'</span>'; return; }
+        const { data, error } = await sb.rpc('get_user_by_identity', {
+            p_jenis: j, p_no: no
+        });
+        if (error) { elMsg.innerHTML='<span class="err">Error: '+error.message+'</span>'; return; }
 
-            if (data.found) {
-                if (data.user.pin_hash === hash) {
-                    // login sukses
-                    elMsg.innerHTML='<span class="ok">✅ Berhasil masuk! Mengarahkan...</span>';
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    setTimeout(()=> location.href='dashboard.html', 1200);
-                } else {
-                    elMsg.innerHTML='<span class="err">❌ PIN salah</span>';
-                }
+        if (data.found) {
+            if (data.user.pin_hash === hash) {
+                // login sukses
+                elMsg.innerHTML='<span class="ok">✅ Berhasil masuk! Mengarahkan...</span>';
+                localStorage.setItem('user', JSON.stringify(data.user));
+                setTimeout(()=> location.href='dashboard.html', 1200);
             } else {
-                // belum terdaftar -> tampilkan tombol daftar
-                elMsg.innerHTML='<span class="err">No belum terdaftar</span>';
-                document.getElementById('btnDaftar').classList.remove('off');
-                simpanDrafTunggu();
+                elMsg.innerHTML='<span class="err">❌ PIN salah</span>';
             }
         } else {
-            elMsg.innerHTML='<span class="err">Konfigurasi supabase belum diisi.</span>';
+            // belum terdaftar -> tampilkan tombol daftar
+            elMsg.innerHTML='<span class="err">No belum terdaftar</span>';
+            document.getElementById('btnDaftar').classList.remove('off');
         }
     }
 
@@ -174,28 +166,31 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
         if (!no) { elMsg.innerHTML='<span class="err">Isi nomor identitas</span>'; return; }
         if (!pin) { elMsg.innerHTML='<span class="err">Buat PIN</span>'; return; }
 
+        if (!sb || typeof sb.rpc !== 'function') {
+            elMsg.innerHTML='<span class="err">⚠️ sb belum terkoneksi dengan benar.</span>';
+            return;
+        }
+
         const hash = await sha256(pin);
 
-        if (supabase) {
-            const { data, error } = await supabase.rpc('create_user', {
-                p_jenis: j,
-                p_no: no,
-                p_pin_hash: hash
-            });
-            if (error) { elMsg.innerHTML='<span class="err">Error: '+error.message+'</span>'; return; }
+        const { data, error } = await sb.rpc('create_user', {
+            p_jenis: j,
+            p_no: no,
+            p_pin_hash: hash
+        });
+        if (error) { elMsg.innerHTML='<span class="err">Error: '+error.message+'</span>'; return; }
 
-            if (data.success) {
-                elMsg.innerHTML='<span class="ok">🎉 Berhasil terdaftar! Silakan masuk.</span>';
-                // kembali ke mode cek
-                mode='cek';
-                elMode.textContent='🔎 Periksa Keanggotaan';
-                elBtn.textContent='Periksa / Masuk';
-                document.getElementById('btnDaftar').classList.remove('off');
-                elBtn.disabled = !elJenis.value;
-                elNo.value=''; elPin.value='';
-            } else {
-                elMsg.innerHTML='<span class="err">'+(data.message||'Gagal daftar')+'</span>';
-            }
+        if (data.success) {
+            elMsg.innerHTML='<span class="ok">🎉 Berhasil terdaftar! Silakan masuk.</span>';
+            // kembali ke mode cek
+            mode='cek';
+            elMode.textContent='🔎 Periksa Keanggotaan';
+            elBtn.textContent='Periksa / Masuk';
+            document.getElementById('btnDaftar').classList.remove('off');
+            elBtn.disabled = !elJenis.value;
+            elNo.value=''; elPin.value='';
+        } else {
+            elMsg.innerHTML='<span class="err">'+(data.message||'Gagal daftar')+'</span>';
         }
     }
 
