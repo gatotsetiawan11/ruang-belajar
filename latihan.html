@@ -469,6 +469,15 @@
         });
     }
 
+        // ============ VARIABEL GLOBAL KUIS ============
+    var soalLatihan = [];
+    var nomorSaatIni = 0;
+    var jawabanUser = [];
+    var skor = 0;
+    var detikBerjalan = 0;
+    var timerInterval = null;
+    var currentLevel = null;
+        
     // ============ PILIH LEVEL ============
     function pilihLevel(level, btn) {
         if (!bisaDibuka(level)) return;
