@@ -25,50 +25,31 @@
             color:#fff; outline:none;
         }
         input:focus { border-color:#818cf8; }
-        button {
-            width:100%; background: linear-gradient(135deg,#6366f1,#8b5cf6);
+        .btn {
+            display:block; width:100%; background: linear-gradient(135deg,#6366f1,#8b5cf6);
             color:#fff; padding:14px; border:none; border-radius:12px;
-            font-size:17px; font-weight:bold; cursor:pointer; margin-top:20px;
+            font-size:17px; font-weight:bold; cursor:pointer; margin-top:20px; text-align:center;
         }
-        button:hover { opacity:0.9; }
-
-        /* Wrapper posisi relatif agar dropdown sejajar dengan input */
+        .btn:hover { opacity:0.9; }
         .field-wrap { position:relative; }
-        /* Dropdown saran: pasif, tidak bisa diklik */
         .saran-box {
             position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:50;
-            background: rgba(15,23,42,0.97); border:1px solid #3b4a63;
-            border-radius:10px; max-height:180px; overflow-y:auto;
-            box-shadow:0 10px 24px rgba(0,0,0,0.5); display:none;
+            background: rgba(15,23,42,0.97); border:1px solid #3b4a63; border-radius:10px;
+            max-height:180px; overflow-y:auto; box-shadow:0 10px 24px rgba(0,0,0,0.5); display:none;
         }
-        .saran-item {
-            padding:10px 14px; cursor:default; user-select:none;
-            border-bottom:1px solid rgba(148,163,184,0.08);
-        }
+        .saran-item { padding:10px 14px; cursor:default; user-select:none; border-bottom:1px solid rgba(148,163,184,0.08); }
         .saran-item:last-child { border-bottom:none; }
         .saran-item .s-nama { color:#e2e8f0; font-size:14px; }
-        .saran-item .s-info { color:#fca5a5; font-size:12px; margin-top:2px; }
-        .saran-tip { color:#94a3b8; font-size:12px; padding-top:6px; }
+        .saran-tip { color:#94a3b8; font-size:12px; padding:8px 14px; }
         .saran-empty { color:#94a3b8; padding:10px 14px; font-size:13px; font-style:italic; }
-
+        .panel { display:none; }
+        .panel.active { display:block; }
         .msg { margin-top:15px; text-align:center; font-size:14px; min-height:20px; }
         .msg .err { color:#f87171; }
         .msg .ok  { color:#4ade80; }
         .switch-link { text-align:center; margin-top:15px; font-size:14px; }
         .switch-link a { color:#a5b4fc; text-decoration:none; }
         .switch-link a:hover { text-decoration:underline; }
-
-        .panel { display:none; }
-        .panel.active { display:block; }
-
-        /* Tombol developer siluman */
-        .dev-link {
-            position:fixed; bottom:6px; right:6px; z-index:9999;
-            background:transparent; border:1px solid rgba(148,163,184,0.25);
-            color:#94a3b8; font-size:10px; padding:2px 7px; border-radius:5px;
-            cursor:pointer; opacity:0.25; line-height:1.2;
-        }
-        .dev-link:hover { opacity:0.6; }
     </style>
 </head>
 <body>
@@ -77,17 +58,14 @@
     <h1>✏️ SOAL SOAL LATIHAN</h1>
     <div class="sub">TINGKAT SEKOLAH DASAR</div>
 
-    <!-- ====== HALAMAN LOGIN (tampil pertama) ====== -->
+    <!-- ====== LOGIN ====== -->
     <div class="panel active" id="loginArea">
-        <div style="text-align:center; margin-bottom:8px;">
-            <strong style="color:#a78bfa;">🔎 Masuk</strong>
-        </div>
+        <div style="text-align:center; margin-bottom:8px;"><strong style="color:#a78bfa;">🔎 Masuk</strong></div>
 
         <label>Nama Lengkap</label>
         <div class="field-wrap">
             <input id="namaLogin" type="text" maxlength="50" autocomplete="off"
-                   oninput="cariSaran(this.value,'saranLogin')"
-                   onfocus="cariSaran(this.value,'saranLogin')"
+                   oninput="cariSaran(this.value,'saranLogin')" onfocus="cariSaran(this.value,'saranLogin')"
                    onblur="tutupSaran('saranLogin')">
             <div class="saran-box" id="saranLogin"></div>
         </div>
@@ -95,27 +73,21 @@
         <label>PIN (6 digit)</label>
         <input id="pinLogin" type="password" inputmode="numeric" maxlength="6" placeholder="••••••">
 
-        <button onclick="login()">🚪 Masuk</button>
-
+        <button class="btn" onclick="login()">🚪 Masuk</button>
         <div class="msg" id="pesanLogin"></div>
 
-        <div class="switch-link">
-            Belum punya akun? <a href="#" onclick="keDaftar(event)">Daftar di sini</a>
-        </div>
+        <div class="switch-link">Belum punya akun? <a href="#" onclick="keDaftar(event)">Daftar di sini</a></div>
     </div>
 
-    <!-- ====== HALAMAN DAFTAR ====== -->
+    <!-- ====== DAFTAR ====== -->
     <div class="panel" id="daftarArea">
-        <div style="text-align:center; margin-bottom:8px;">
-            <strong style="color:#a78bfa;">📝 Daftar Akun Baru</strong>
-        </div>
+        <div style="text-align:center; margin-bottom:8px;"><strong style="color:#a78bfa;">📝 Daftar Akun Baru</strong></div>
 
         <label>Nama Lengkap</label>
         <div class="field-wrap">
             <input id="namaBaru" type="text" maxlength="50" autocomplete="off"
                    placeholder="Ketik nama lengkap kamu..."
-                   oninput="cariSaran(this.value,'saranDaftar',true)"
-                   onfocus="cariSaran(this.value,'saranDaftar',true)"
+                   oninput="cariSaran(this.value,'saranDaftar',true)" onfocus="cariSaran(this.value,'saranDaftar',true)"
                    onblur="tutupSaran('saranDaftar')">
             <div class="saran-box" id="saranDaftar"></div>
         </div>
@@ -123,119 +95,74 @@
         <label>Buat PIN (6 digit)</label>
         <input id="pinBaru" type="password" inputmode="numeric" maxlength="6" placeholder="••••••">
 
-        <button onclick="daftar()">✅ Daftar & Masuk</button>
-
+        <button class="btn" onclick="daftar()">✅ Daftar & Masuk</button>
         <div class="msg" id="pesanDaftar"></div>
 
-        <div class="switch-link">
-            Sudah punya akun? <a href="#" onclick="keLogin(event)">Masuk</a>
-        </div>
+        <div class="switch-link">Sudah punya akun? <a href="#" onclick="keLogin(event)">Masuk</a></div>
     </div>
 </div>
 
-<!-- 🔑 Tombol developer siluman -->
-<button type="button" class="dev-link" onclick="masukDeveloper(event)">dev</button>
-
 <script>
-    // ================= UTILITAS =================
+    // ============ KREDENSIAL ADMIN ============
+    // (nilai PIN admin juga dipakai vendor init / bisa diganti)
+    const ADMIN_NAMA = 'Gatot Setiawan';
+    const ADMIN_PIN  = '428687';
+
+    // ============ UTILITAS ============
     async function sha256(str) {
         const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
         return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
     }
-
     function normalisasiNama(nama) {
-        return nama.toLowerCase().split(/\s+/).filter(function(k){ return k.length>0; })
-            .map(function(k){ return k.charAt(0).toUpperCase()+k.slice(1); }).join(' ');
+        return nama.toLowerCase().split(/\s+/).filter(k=>k.length).map(k=>k.charAt(0).toUpperCase()+k.slice(1)).join(' ');
     }
-
     function daftarPengguna() {
         try { return JSON.parse(localStorage.getItem('pengguna'))||[]; }
         catch(e) { return []; }
     }
 
-    // ============ SARAN NAMA (hanya saran, PASIF/tidak bisa diklik) ============
+    // ============ SARAN NAMA (pasif) ============
     function cariSaran(ketik, boxId, modeDaftar) {
         const box = document.getElementById(boxId);
         if (!box) return;
         if (!ketik || ketik.trim().length < 1) { box.style.display='none'; box.innerHTML=''; return; }
-
         const k = ketik.trim().toLowerCase();
         const semua = daftarPengguna();
-        const cocok = semua.filter(function(u){
-            return u.nama && u.nama.toLowerCase().indexOf(k) !== -1;
-        });
-
-        if (cocok.length === 0) {
-            box.innerHTML = '<div class="saran-empty">Tidak ada nama yang cocok.</div>';
-        } else {
-            let h = '';
-            // Batasi tampil 5 saran agar tidak panjang
-            cocok.slice(0,5).forEach(function(u){
+        const cocok = semua.filter(u=> u.nama && u.nama.toLowerCase().indexOf(k)!==-1 );
+        if (cocok.length===0) { box.innerHTML='<div class="saran-empty">Tidak ada nama yang cocok.</div>'; }
+        else {
+            let h='';
+            cocok.slice(0,5).forEach(u=>{
                 if (modeDaftar) {
-                    // di daftar: beri tahu bahwa nama sudah terdaftar
-                    h += '<div class="saran-item"><div class="s-nama">👤 '+u.nama+'</div>'+
-                         '<div class="s-info">⚠ Nama ini sudah terdaftar — silakan gunakan menu Masuk.</div></div>';
+                    h += '<div class="saran-item"><div class="s-nama">👤 '+u.nama+'</div><div style="color:#fca5a5;font-size:12px;margin-top:2px;">⚠ Sudah terdaftar — gunakan menu Masuk.</div></div>';
                 } else {
-                    // di login: saran nama biasa (tidak menyebut status PIN apapun)
                     h += '<div class="saran-item"><div class="s-nama">🔸 '+u.nama+'</div></div>';
                 }
             });
-            if (cocok.length > 5) {
-                h += '<div class="saran-tip" style="padding:8px 14px;">…dan '+(cocok.length-5)+' nama lainnya.</div>';
-            }
-            if (!modeDaftar) {
-                h += '<div class="saran-tip" style="padding:8px 14px;">✍️ Ketik nama kamu lengkap, lalu masukkan PIN kamu.</div>';
-            }
+            if (!modeDaftar) h += '<div class="saran-tip">✍️ Ketik nama lengkap dan masukkan PIN Anda.</div>';
             box.innerHTML = h;
         }
-        box.style.display = 'block';
+        box.style.display='block';
     }
-
-    function tutupSaran(boxId) {
-        // kecil, agar pengguna bisa klik field lain. Dropdown bersifat saran pasif.
-        setTimeout(function(){
-            const box = document.getElementById(boxId);
-            if (box) { box.style.display='none'; }
-        }, 200);
-    }
-
-    // ============ MASUK SEBAGAI PENGEMBANG ============
-    function masukDeveloper(e) {
-        if (e) e.preventDefault();
-        const devUser = {
-            id        : 'DEV-428687',
-            nama      : 'Gatot Setiawan',
-            pinHash   : '',
-            developer : true
-        };
-        localStorage.setItem('user', JSON.stringify(devUser));
-        location.href = 'dashboard.html';
-    }
+    function tutupSaran(boxId){ setTimeout(()=>{ const b=document.getElementById(boxId); if(b){b.style.display='none';} },200); }
 
     // ============ DAFTAR ============
     async function daftar() {
         const nama  = document.getElementById('namaBaru').value.trim();
         const pin   = document.getElementById('pinBaru').value.trim();
         const pesan = document.getElementById('pesanDaftar');
-        pesan.innerHTML = '';
-
+        pesan.innerHTML='';
         if (!nama) { pesan.innerHTML='<span class="err">Nama tidak boleh kosong</span>'; return; }
         if (!/^\d{6}$/.test(pin)) { pesan.innerHTML='<span class="err">PIN harus 6 digit angka</span>'; return; }
-
-        if (nama.toLowerCase() === 'gatot setiawan') {
+        if (nama.toLowerCase() === ADMIN_NAMA.toLowerCase()) {
             pesan.innerHTML='<span class="err">Nama tersebut tidak dapat didaftarkan. Silakan masuk.</span>';
             keLogin(null); return;
         }
-
         const pinHash = await sha256(pin);
         const user = { id:'U'+Date.now(), nama: normalisasiNama(nama), pinHash: pinHash };
-
-        const pengguna = JSON.parse(localStorage.getItem('pengguna') || '[]');
-        const ada = pengguna.find(u => u.nama.toLowerCase() === nama.toLowerCase());
-        if (ada) {
-            pesan.innerHTML='<span class="err">Nama sudah terdaftar. Silakan Masuk.</span>';
-            keLogin(null); return;
-        }
+        const pengguna = JSON.parse(localStorage.getItem('pengguna')||'[]');
+        const ada = pengguna.find(u=>u.nama.toLowerCase()===nama.toLowerCase());
+        if (ada) { pesan.innerHTML='<span class="err">Nama sudah terdaftar. Silakan Masuk.</span>'; keLogin(null); return; }
         pengguna.push(user);
         localStorage.setItem('pengguna', JSON.stringify(pengguna));
         localStorage.setItem('user', JSON.stringify(user));
@@ -248,55 +175,38 @@
         const nama  = document.getElementById('namaLogin').value.trim();
         const pin   = document.getElementById('pinLogin').value.trim();
         const pesan = document.getElementById('pesanLogin');
-        pesan.innerHTML = '';
-
+        pesan.innerHTML='';
         if (!nama) { pesan.innerHTML='<span class="err">Masukkan nama</span>'; return; }
         if (!/^\d{6}$/.test(pin)) { pesan.innerHTML='<span class="err">PIN harus 6 digit angka</span>'; return; }
 
-        if (nama.toLowerCase() === 'gatot setiawan' && pin === '428687') {
-            const devUser = { id:'DEV-428687', nama:'Gatot Setiawan', pinHash:'', developer:true };
-            localStorage.setItem('user', JSON.stringify(devUser));
-            pesan.innerHTML='<span class="ok">✅ Masuk sebagai Pengembang!</span>';
+        // Deteksi otomatis: kredensial admin
+        if (nama.toLowerCase()===ADMIN_NAMA.toLowerCase() && pin===ADMIN_PIN) {
+            const adminUser = { id:'ADMIN', nama: ADMIN_NAMA, pinHash:'', developer:true, isAdmin:true };
+            localStorage.setItem('user', JSON.stringify(adminUser));
+            pesan.innerHTML='<span class="ok">✅ Selamat datang, Admin!</span>';
             setTimeout(()=> location.href='dashboard.html', 800);
             return;
         }
 
-        const pengguna = JSON.parse(localStorage.getItem('pengguna') || '[]');
-        const user = pengguna.find(u => u.nama.toLowerCase() === nama.toLowerCase());
-        if (!user) {
-            pesan.innerHTML='<span class="err">Nama tidak ditemukan. Silakan Daftar.</span>';
-            return;
-        }
+        // Login siswa biasa
+        const pengguna = JSON.parse(localStorage.getItem('pengguna')||'[]');
+        const user = pengguna.find(u=>u.nama.toLowerCase()===nama.toLowerCase());
+        if (!user) { pesan.innerHTML='<span class="err">Nama tidak ditemukan. Silakan Daftar.</span>'; return; }
         const pinHash = await sha256(pin);
-        if (user.pinHash !== pinHash) {
-            pesan.innerHTML='<span class="err">❌ PIN salah</span>';
-            return;
-        }
+        if (user.pinHash !== pinHash) { pesan.innerHTML='<span class="err">❌ PIN salah</span>'; return; }
         localStorage.setItem('user', JSON.stringify(user));
         pesan.innerHTML='<span class="ok">✅ Berhasil masuk! Mengarahkan...</span>';
         setTimeout(()=> location.href='dashboard.html', 1000);
     }
 
     // ============ NAVIGASI ============
-    function keLogin(e) {
-        if (e) e.preventDefault();
-        kosongkanSemua();
-        document.getElementById('loginArea').classList.add('active');
-        document.getElementById('daftarArea').classList.remove('active');
-    }
-    function keDaftar(e) {
-        if (e) e.preventDefault();
-        kosongkanSemua();
-        document.getElementById('daftarArea').classList.add('active');
-        document.getElementById('loginArea').classList.remove('active');
-    }
-    function kosongkanSemua() {
-        document.getElementById('namaLogin').value='';
-        document.getElementById('pinLogin').value='';
-        document.getElementById('namaBaru').value='';
-        document.getElementById('pinBaru').value='';
-        document.getElementById('saranLogin').style.display='none';
-        document.getElementById('saranDaftar').style.display='none';
+    function keLogin(e){ if(e)e.preventDefault(); kosongkanSemua(); document.getElementById('loginArea').classList.add('active'); document.getElementById('daftarArea').classList.remove('active'); }
+    function keDaftar(e){ if(e)e.preventDefault(); kosongkanSemua(); document.getElementById('daftarArea').classList.add('active'); document.getElementById('loginArea').classList.remove('active'); }
+    function kosongkanSemua(){
+        ['namaLogin','pinLogin','namaBaru','pinBaru'].forEach(id=>document.getElementById(id).value='');
+        ['saranLogin','saranDaftar'].forEach(id=>document.getElementById(id).style.display='none');
+        document.getElementById('pesanLogin').innerHTML='';
+        document.getElementById('pesanDaftar').innerHTML='';
     }
 </script>
 </body>
