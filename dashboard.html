@@ -185,11 +185,37 @@
 
     .bab-title { font-weight: 600; color: #eef2ff; }
 
+    /* ⚠️ TAMBAHAN CSS (TANPA MENGUBAH GAYA YANG ADA)
+       Gaya khusus kartu bab yang terkunci. */
+    .card-bab.locked {
+      opacity: 0.6;
+      cursor: not-allowed;
+      border-left-color: #475569 !important;
+      background: rgba(100, 116, 139, 0.15);
+      filter: grayscale(0.5);
+      transform: none !important;
+      box-shadow: none;
+    }
+    .card-bab.locked:hover {
+      background: rgba(100, 116, 139, 0.15);
+      transform: none;
+    }
+    .card-bab.locked .bab-title { color: #94a3b8; }
+    .card-bab .lock-note {
+      margin-left: auto;
+      font-size: 0.8rem;
+      color: #fca5a5;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .card-bab .lock-ico { margin-left: auto; font-size: 1rem; }
+
     @media (max-width: 700px) {
       .grid-mapel { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 500px) {
       .card-bab { flex-wrap: wrap; gap: 0.5rem; }
+      .card-bab .lock-note { width: 100%; text-align: right; }
     }
   </style>
 </head>
@@ -236,6 +262,7 @@
     </div>
 
     <!-- ===== LAYAR 2 : DAFTAR BAB IPAS ===== -->
+    <!-- ⚠️ Card Bab 2 diberi id="ipasBab2Card" untuk bisa diatur status gembok -->
     <div id="screen-bab-ipas" class="screen">
       <div class="topbar">
         <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
@@ -251,9 +278,10 @@
           <span class="bab-num">Bab 1</span>
           <span class="bab-title">Keajaiban Tubuhku</span>
         </div>
-        <div class="card-bab" onclick="pilihBab(2)">
+        <div class="card-bab" id="ipasBab2Card" onclick="cobaMasukBab2()">
           <span class="bab-num">Bab 2</span>
           <span class="bab-title">Dahulu, Kini, dan Nanti</span>
+          <span class="lock-note" id="ipasBab2Note" style="display:none;">🔒 Selesaikan Bab 1 minimal C3</span>
         </div>
         <div class="card-bab" onclick="pilihBab(3)">
           <span class="bab-num">Bab 3</span>
@@ -442,23 +470,19 @@
     // 1. AMBIL GAMBAR LUAR ANGKASA DARI NASA
     // ============================================
     function ambilGambarNASA() {
-      // Pakai gambar statis NASA sebagai fallback awal (galaksi)
       document.body.style.backgroundImage = "url('https://images-assets.nasa.gov/image/PIA23418/PIA23418~orig.jpg')";
 
-      // Coba ambil APOD (Astronomy Picture of the Day) - gratis tanpa API key
       fetch('https://api.nasa.gov/planetary/apod?api_key=5KVkZFoh9UxMmhBjhthSfGpP86jaO7xJFu1LcbKB&thumbs=true')
         .then(res => {
           if (!res.ok) throw new Error('Gagal ambil APOD');
           return res.json();
         })
         .then(data => {
-          // APOD kadang berupa video, maka kita pakai thumbnail-nya
           const imgUrl = data.url && data.url.includes('youtube')
             ? data.thumbnail_url
             : data.url;
 
           if (imgUrl && imgUrl.includes('http')) {
-            // Buat elemen img untuk preload dulu biar transfer halus
             const preload = new Image();
             preload.onload = function () {
               document.body.style.backgroundImage = "url('" + imgUrl + "')";
@@ -467,7 +491,6 @@
           }
         })
         .catch(() => {
-          // Tetap pakai fallback galaksi
           console.log('Fallback ke gambar galaksi NASA');
         });
     }
@@ -477,7 +500,7 @@
     // ============================================
     function buatBintang() {
       const starContainer = document.getElementById('starfield');
-      starContainer.innerHTML = ''; // bersihkan dulu
+      starContainer.innerHTML = '';
       const jumlahBintang = 80;
 
       for (let i = 0; i < jumlahBintang; i++) {
@@ -494,11 +517,68 @@
     }
 
     // ============================================
+    // 2b. ⚠️ LOGIKA GEMBOK BAB 2 IPAS (DITAMBAHKAN)
+    // ============================================
+    function bacaPengguna() {
+      try { return JSON.parse(localStorage.getItem('user')); }
+      catch(e) { return null; }
+    }
+
+    // Progres Bab 1 IPAS disimpan dgn key lama: levelLulus_IPAS_<id>
+    function ambilStatusLulusBab1(userId) {
+      try {
+        return JSON.parse(localStorage.getItem('levelLulus_IPAS_' + userId)) || {};
+      } catch(e) { return {}; }
+    }
+
+    var IPAS_BAB1_UNLOCK_C3 = true; // Bab 2 terbuka bila C3 Bab 1 lulus
+
+    function cekBab2Terbuka() {
+      var user = bacaPengguna();
+      if (!user || !user.id) return false;   // tidak login => anggap terkunci
+      var st = ambilStatusLulusBab1(user.id);
+      return (st.C3 === true);
+    }
+
+    // Dipanggil saat halaman dimuat (karena card Bab2 default terkunci)
+    function aturStatusBab2() {
+      var card = document.getElementById('ipasBab2Card');
+      var note = document.getElementById('ipasBab2Note');
+      if (!card) return;
+
+      if (cekBab2Terbuka()) {
+        // Aktif: biarkan tampilan normal, ganti onclick pindah ke latihan
+        card.classList.remove('locked');
+        card.style.cursor = 'pointer';
+        card.onclick = function () { pilihBab(2); };
+        if (note) note.style.display = 'none';
+      } else {
+        // Terkunci
+        card.classList.add('locked');
+        card.style.cursor = 'not-allowed';
+        card.onclick = function () {
+          alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
+        };
+        if (note) note.style.display = '';
+      }
+    }
+
+    // Fungsi klik (fallback) bila dipanggil langsung lewat atribut onclick lama
+    function cobaMasukBab2() {
+      if (cekBab2Terbuka()) {
+        pilihBab(2);   // lanjut ke latihan bab 2
+      } else {
+        alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
+      }
+    }
+
+    // ============================================
     // 3. JALANKAN SAAT HALAMAN DIMUAT
     // ============================================
     document.addEventListener('DOMContentLoaded', function () {
       ambilGambarNASA();
       buatBintang();
+      aturStatusBab2();   // ⚠️ tambahan: atur gembok bab 2 saat halaman dibuka
     });
 
     // ============================================
