@@ -316,7 +316,9 @@
         } catch(e){ return false; }
     }
     // 🔑 Developer/Admin bebas test Bab 2 tanpa menyelesaikan syarat
-    if (false && KONFIG_BAB.syaratBab2Key && !isDev && !syaratBab2Lulus()) {
+    if (false && KONFIG_BAB.syaratBab2Key && !isDev && !syaratBab2Lulus()) { 
+// if (KONFIG_BAB.syaratBab2Key && !isDev && !syaratBab2Lulus()) {         ganti ini untuk mengaktifkan kunci level
+        
         document.getElementById('levelSelectCard').innerHTML =
             '<div style="text-align:center;">' +
             '<h2 style="color:#fca5a5;">🔒 Bab 2 Terkunci</h2>' +
