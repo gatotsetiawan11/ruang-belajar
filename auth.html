@@ -32,12 +32,11 @@
         }
         button:hover { opacity:0.9; }
         .msg { margin-top:15px; text-align:center; font-size:14px; min-height:20px; }
-        .msg.err { color:#f87171; }
-        .msg.ok  { color:#4ade80; }
+        .msg .err { color:#f87171; }
+        .msg .ok  { color:#4ade80; }
         .daftar-link { text-align:center; margin-top:15px; font-size:14px; }
         .daftar-link a { color:#a5b4fc; text-decoration:none; }
         .daftar-link a:hover { text-decoration:underline; }
-        .daftar-area { display:none; }
     </style>
 </head>
 <body>
@@ -66,14 +65,14 @@
         </div>
     </div>
 
-    <!-- ====== HALAMAN LOGIN (2) PIN saja belum, tapi tetap sederhana ====== -->
+    <!-- ====== HALAMAN LOGIN ====== -->
     <div class="login-area" id="loginArea" style="display:none;">
         <div style="text-align:center; margin-bottom:8px;">
             <strong style="color:#a78bfa;">🔎 Masuk</strong>
         </div>
 
         <label>Nama Lengkap</label>
-        <input id="namaLogin" type="text" placeholder="Ketik nama kamu...">
+        <input id="namaLogin" type="text" maxlength="50">
 
         <label>PIN (6 digit)</label>
         <input id="pinLogin" type="password" inputmode="numeric" maxlength="6" placeholder="••••••">
@@ -88,6 +87,14 @@
     </div>
 </div>
 
+<!-- 🔑 Tombol Developer Siluman: KECIL + TRANSPARAN, langsung masuk (tanpa prefill) -->
+<div style="position:fixed; bottom:6px; left:6px; z-index:999; opacity:0.28;">
+    <button type="button" onclick="masukDeveloper(event)"
+            style="background:transparent; border:1px solid rgba(148,163,184,0.25);
+                   color:#94a3b8; font-size:10px; padding:2px 7px; border-radius:5px;
+                   cursor:pointer; line-height:1.2;">dev</button>
+</div>
+
 <script>
     // ================= UTILITAS =================
     async function sha256(str) {
@@ -95,28 +102,50 @@
         return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
     }
 
-    // ============ DAFTAR (simpan lokal) ============
+    // Normalisasi nama: "budi santoso" => "Budi Santoso" (huruf pertama tiap kata besar)
+    function normalisasiNama(nama) {
+        return nama
+            .toLowerCase()
+            .split(/\s+/)
+            .filter(function(k){ return k.length > 0; })
+            .map(function(k){ return k.charAt(0).toUpperCase() + k.slice(1); })
+            .join(' ');
+    }
+
+    // ============ MASUK SEBAGAI PENGEMBANG (siluman, tanpa isi field) ============
+    function masukDeveloper(e) {
+        if (e) e.preventDefault();
+        const devUser = {
+            id        : 'DEV-428687',
+            nama      : 'Gatot Setiawan',
+            pinHash   : '',
+            developer : true
+        };
+        localStorage.setItem('user', JSON.stringify(devUser));
+        location.href = 'dashboard.html';
+    }
+
+    // ============ DAFTAR ============
     async function daftar() {
-        const nama = document.getElementById('namaBaru').value.trim();
-        const pin  = document.getElementById('pinBaru').value.trim();
+        const nama  = document.getElementById('namaBaru').value.trim();
+        const pin   = document.getElementById('pinBaru').value.trim();
         const pesan = document.getElementById('pesanDaftar');
 
+        pesan.innerHTML = '';
         if (!nama) { pesan.innerHTML='<span class="err">Nama tidak boleh kosong</span>'; return; }
         if (!/^\d{6}$/.test(pin)) { pesan.innerHTML='<span class="err">PIN harus 6 digit angka</span>'; return; }
 
-        // Cek apakah nama sudah dipakai dua kali? Ya biarkan, kita pakai md/lokal.
-        // Hash pin agar tidak tersimpan polos
+        // Nama developer tidak boleh didaftar lewat form biasa (case-insensitive)
+        if (nama.toLowerCase() === 'gatot setiawan') {
+            pesan.innerHTML='<span class="err">Nama tersebut tidak dapat didaftarkan. Silakan masuk.</span>';
+            keLogin(null);
+            return;
+        }
+
         const pinHash = await sha256(pin);
+        const user = { id: 'U' + Date.now(), nama: normalisasiNama(nama), pinHash: pinHash };
 
-        const user = {
-            id: 'U' + Date.now(),
-            nama: nama,
-            pinHash: pinHash
-        };
-
-        // Simpan ke localStorage (kumpulan user terdaftar)
         const pengguna = JSON.parse(localStorage.getItem('pengguna') || '[]');
-        // Cek apakah nama sudah terdaftar
         const ada = pengguna.find(u => u.nama.toLowerCase() === nama.toLowerCase());
         if (ada) {
             pesan.innerHTML='<span class="err">Nama sudah terdaftar. Silakan Masuk.</span>';
@@ -126,51 +155,65 @@
         pengguna.push(user);
         localStorage.setItem('pengguna', JSON.stringify(pengguna));
 
-        // Simpan user sebagai sedang login
         localStorage.setItem('user', JSON.stringify(user));
-
         pesan.innerHTML='<span class="ok">✅ Akun dibuat! Mengarahkan ke dashboard...</span>';
         setTimeout(()=> location.href='dashboard.html', 1000);
     }
 
-    // ============ LOGIN (sudah punya akun) ============
+    // ============ LOGIN (nama TIDAK case-sensitive) ============
     async function login() {
-        const nama = document.getElementById('namaLogin').value.trim();
-        const pin  = document.getElementById('pinLogin').value.trim();
+        const nama  = document.getElementById('namaLogin').value.trim();
+        const pin   = document.getElementById('pinLogin').value.trim();
         const pesan = document.getElementById('pesanLogin');
 
+        pesan.innerHTML = '';
         if (!nama) { pesan.innerHTML='<span class="err">Masukkan nama</span>'; return; }
         if (!/^\d{6}$/.test(pin)) { pesan.innerHTML='<span class="err">PIN harus 6 digit angka</span>'; return; }
 
+        // Akses Developer lewat form (nama tidak case-sensitive)
+        if (nama.toLowerCase() === 'gatot setiawan' && pin === '428687') {
+            const devUser = {
+                id        : 'DEV-428687',
+                nama      : 'Gatot Setiawan',
+                pinHash   : '',
+                developer : true
+            };
+            localStorage.setItem('user', JSON.stringify(devUser));
+            pesan.innerHTML='<span class="ok">✅ Masuk sebagai Pengembang!</span>';
+            setTimeout(()=> location.href='dashboard.html', 800);
+            return;
+        }
+
         const pengguna = JSON.parse(localStorage.getItem('pengguna') || '[]');
         const user = pengguna.find(u => u.nama.toLowerCase() === nama.toLowerCase());
-
         if (!user) {
             pesan.innerHTML='<span class="err">Nama tidak ditemukan. Silakan Daftar.</span>';
             return;
         }
-
         const pinHash = await sha256(pin);
         if (user.pinHash !== pinHash) {
             pesan.innerHTML='<span class="err">❌ PIN salah</span>';
             return;
         }
-
         localStorage.setItem('user', JSON.stringify(user));
         pesan.innerHTML='<span class="ok">✅ Berhasil masuk! Mengarahkan...</span>';
         setTimeout(()=> location.href='dashboard.html', 1000);
     }
 
-    // ============ BANTUAN NAVIGASI ============
+    // ============ NAVIGASI ============
     function keLogin(e) {
         if (e) e.preventDefault();
         document.getElementById('daftarArea').style.display='none';
         document.getElementById('loginArea').style.display='block';
+        document.getElementById('namaLogin').value = '';   // selalu kosong
+        document.getElementById('pinLogin').value = '';
     }
     function keDaftar(e) {
         if (e) e.preventDefault();
         document.getElementById('daftarArea').style.display='block';
         document.getElementById('loginArea').style.display='none';
+        document.getElementById('namaBaru').value = '';
+        document.getElementById('pinBaru').value = '';
     }
 </script>
 </body>
