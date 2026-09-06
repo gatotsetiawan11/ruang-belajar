@@ -104,9 +104,11 @@
 
 <script>
     // ============ KREDENSIAL ADMIN ============
-    // (nilai PIN admin juga dipakai vendor init / bisa diganti)
     const ADMIN_NAMA = 'Gatot Setiawan';
     const ADMIN_PIN  = '428687';
+
+    // Ambang minimal karakter sebelum saran muncul (bantu mengingat)
+    const MIN_KARAKTER_SARAN = 3;
 
     // ============ UTILITAS ============
     async function sha256(str) {
@@ -121,20 +123,26 @@
         catch(e) { return []; }
     }
 
-    // ============ SARAN NAMA (pasif) ============
+    // ============ SARAN NAMA (PASIF - hanya pengingat, TIDAK bisa diklik) ============
     function cariSaran(ketik, boxId, modeDaftar) {
         const box = document.getElementById(boxId);
         if (!box) return;
-        if (!ketik || ketik.trim().length < 1) { box.style.display='none'; box.innerHTML=''; return; }
+        // Baru tampilkan saran setelah minimal 3 karakter
+        if (!ketik || ketik.trim().length < MIN_KARAKTER_SARAN) {
+            box.style.display='none'; box.innerHTML=''; return;
+        }
         const k = ketik.trim().toLowerCase();
         const semua = daftarPengguna();
         const cocok = semua.filter(u=> u.nama && u.nama.toLowerCase().indexOf(k)!==-1 );
-        if (cocok.length===0) { box.innerHTML='<div class="saran-empty">Tidak ada nama yang cocok.</div>'; }
+        if (cocok.length===0) {
+            box.innerHTML='<div class="saran-empty">Tidak ada nama yang cocok.</div>';
+        }
         else {
             let h='';
             cocok.slice(0,5).forEach(u=>{
                 if (modeDaftar) {
-                    h += '<div class="saran-item"><div class="s-nama">👤 '+u.nama+'</div><div style="color:#fca5a5;font-size:12px;margin-top:2px;">⚠ Sudah terdaftar — gunakan menu Masuk.</div></div>';
+                    h += '<div class="saran-item"><div class="s-nama">👤 '+u.nama+'</div>' +
+                         '<div style="color:#fca5a5;font-size:12px;margin-top:2px;">⚠ Nama sudah terdaftar.</div></div>';
                 } else {
                     h += '<div class="saran-item"><div class="s-nama">🔸 '+u.nama+'</div></div>';
                 }
@@ -147,8 +155,12 @@
     function tutupSaran(boxId){ setTimeout(()=>{ const b=document.getElementById(boxId); if(b){b.style.display='none';} },200); }
 
     // ============ DAFTAR ============
-    async function daftar() {
-        const nama  = document.getElementById('namaBaru').value.trim();
+    async function daftar(prefilledNama) {
+        const inpNama = document.getElementById('namaBaru');
+        // Jika dipanggil dari alih-login, isikan nama yang diketik tadi
+        if (prefilledNama && !inpNama.value.trim()) inpNama.value = normalisasiNama(prefilledNama);
+
+        const nama  = inpNama.value.trim();
         const pin   = document.getElementById('pinBaru').value.trim();
         const pesan = document.getElementById('pesanDaftar');
         pesan.innerHTML='';
@@ -175,6 +187,7 @@
         const nama  = document.getElementById('namaLogin').value.trim();
         const pin   = document.getElementById('pinLogin').value.trim();
         const pesan = document.getElementById('pesanLogin');
+        const inpDaftar = document.getElementById('namaBaru');
         pesan.innerHTML='';
         if (!nama) { pesan.innerHTML='<span class="err">Masukkan nama</span>'; return; }
         if (!/^\d{6}$/.test(pin)) { pesan.innerHTML='<span class="err">PIN harus 6 digit angka</span>'; return; }
@@ -191,7 +204,23 @@
         // Login siswa biasa
         const pengguna = JSON.parse(localStorage.getItem('pengguna')||'[]');
         const user = pengguna.find(u=>u.nama.toLowerCase()===nama.toLowerCase());
-        if (!user) { pesan.innerHTML='<span class="err">Nama tidak ditemukan. Silakan Daftar.</span>'; return; }
+
+        // ===== Jika nama tidak ditemukan -> arahkan otomatis ke panel Daftar =====
+        if (!user) {
+            // Pindah fokus ke panel daftar, nama login otomatis dibawa masuk
+            keDaftar(null);
+            inpDaftar.value = normalisasiNama(nama);
+            inpDaftar.focus();
+            // Tampilkan petunjuk pendaftaran
+            const pesanDaftar = document.getElementById('pesanDaftar');
+            pesanDaftar.innerHTML =
+                '<span style="color:#a5b4fc;">🔎 "<b>' + normalisasiNama(nama) +
+                '</b>" belum terdaftar. Lengkapi PIN untuk membuat akun baru.</span>';
+            pesanDaftar.scrollIntoView({ behavior:'smooth', block:'center' });
+            return;
+        }
+
+        // Cek PIN
         const pinHash = await sha256(pin);
         if (user.pinHash !== pinHash) { pesan.innerHTML='<span class="err">❌ PIN salah</span>'; return; }
         localStorage.setItem('user', JSON.stringify(user));
@@ -201,7 +230,18 @@
 
     // ============ NAVIGASI ============
     function keLogin(e){ if(e)e.preventDefault(); kosongkanSemua(); document.getElementById('loginArea').classList.add('active'); document.getElementById('daftarArea').classList.remove('active'); }
-    function keDaftar(e){ if(e)e.preventDefault(); kosongkanSemua(); document.getElementById('daftarArea').classList.add('active'); document.getElementById('loginArea').classList.remove('active'); }
+    function keDaftar(e){
+        if(e)e.preventDefault();
+        // Jangan kosongkan field sebelum diarahkan otomatis, biar nama tetap terbawa
+        document.getElementById('namaBaru').value = '';   // dikosongkan dulu, isi oleh pemicu alih-login
+        document.getElementById('pinBaru').value = '';
+        document.getElementById('pesanLogin').innerHTML='';
+        document.getElementById('pesanDaftar').innerHTML='';
+        document.getElementById('saranLogin').style.display='none';
+        document.getElementById('saranDaftar').style.display='none';
+        document.getElementById('daftarArea').classList.add('active');
+        document.getElementById('loginArea').classList.remove('active');
+    }
     function kosongkanSemua(){
         ['namaLogin','pinLogin','namaBaru','pinBaru'].forEach(id=>document.getElementById(id).value='');
         ['saranLogin','saranDaftar'].forEach(id=>document.getElementById(id).style.display='none');
