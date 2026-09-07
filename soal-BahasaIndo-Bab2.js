@@ -252,6 +252,3 @@ C3: [
 { soal:"Kesimpulan yang paling baik sebagai pesan untuk teman setelah belajar berpendapat adalah …", pilihan:["sampaikan pendapat dengan santun dan berikan alasan","siapa berteriak paling keras dialah yang didengar","diam saja lebih aman","paksa semua setuju denganmu"],kunci:0 }
   ]
 };
-</｜｜DSML｜｜parameter>
-</｜｜DSML｜｜invoke>
-</｜｜DSML｜｜tool_calls>
