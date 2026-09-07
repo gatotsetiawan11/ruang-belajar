@@ -150,14 +150,7 @@ C3: [
 { soal:"Untuk menilai sebuah teks argumentasi yang baik, ciri utamanya adalah …", pilihan:["berisi pendapat yang jujur dan didukung alasan masuk akal","panjang tanpa alasan","banyak hiasan kata","hanya mengulang kalimat guru"],kunci:0 },
 { soal:"Menilai poster karyamu: kamu akan mencantumkan nama kegiatan dan alasannya. Hal itu berguna agar …", pilihan:["pembaca mengerti alasan di balik pilihanmu","poster terlihat penuh coretan","tempat gambar tidak kosong","tidak perlu menjelaskan apa-apa"],kunci:0 },
 { soal:"Jika semua orang menjaga kebersihan, penilaian terhadap lingkungan sekolahmu adalah …", pilihan:["kelas dan halaman akan nyaman serta bebas kuman","akan banyak timbunan sampah","halaman akan bau","semua akan mudah sakit"],kunci:0 },
-{ soal:"Rekomendasimu untuk menjaga kesehatan gigi dan mulut dari materi adalah …", pilihan:["rajin 
-// ==========================================================================
-// SOAL BAHASA INDONESIA KELAS III - BAB 2 "Yuk, Berpendapat!"
-// Format: { soal, pilihan:[4], kunci } -- kunci:0 = jawaban benar di posisi A
-// Jawaban benar selalu di indeks 0. Aplikasi yang mengacak posisi.
-// Level tersedia: C1, C2, C3, C4, C5
-// ==========================================================================
-const soalBahasaIndoBab2 = {
+  ],
 
   C1: [
     { soal: "Judul Bab 2 pada buku “Bahasa Indonesia: Kawan Seiring” adalah …", pilihan: ["Yuk, Berpendapat!", "Kawan Seiring", "Aku Suka Membaca", "Petualangan Kata"], kunci: 0 },
