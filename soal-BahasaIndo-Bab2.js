@@ -81,7 +81,7 @@ const soalBahasaIndoBab2 = {
   ]
 ,
 C3: [
-{ soal:"Lengkapilah kalimat pendapat berikut dengan tanda baca yang benar: “Menurut saya, membaca buku itu menyenangkan __”", pilihan:["titik (.)","tanda tanya (?)","koma (,)"],"tanda seru (!)"] ],kunci:0 },
+{ soal:"Lengkapilah kalimat pendapat berikut dengan tanda baca yang benar: “Menurut saya, membaca buku itu menyenangkan __”", pilihan:["titik (.)","tanda tanya (?)","koma (,)","tanda seru (!)"],kunci:0 },
 { soal:"Kalimat yang tepat untuk menanyakan pendapat kepada teman dalam diskusi adalah …", pilihan:["“Bagaimana pendapatmu tentang membawa bekal?”","“Kau pasti tidak tahu!”","“Dengarkan pendapatku saja!”","“Tidak usah ikut bicara!”"],kunci:0 },
 { soal:"Susunlah kalimat rumpang berikut yang benar: “Saya suka ___ karena dapat melatih ___ saya.”", pilihan:["menggambar; kreativitas","tidur; kesabaran","makan; kemarahan","berteriak; kekuatan"],kunci:0 },
 { soal:"Pada aktivitas “setuju atau tidak”, jika kamu setuju dengan pernyataan guru, kamu …", pilihan:["berdiri dan siap memberi alasan","tetap duduk saja","diam saja tanpa alasan","berlari keluar kelas"],kunci:0 },
