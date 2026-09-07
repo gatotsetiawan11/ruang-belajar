@@ -1,9 +1,3 @@
-// ==========================================================================
-// SOAL BAHASA INDONESIA KELAS III - BAB 2 "Yuk, Berpendapat!"
-// Bagian: C1 (42) + C2 (34) = 76 soal
-// Sumber: Buku Siswa "Bahasa Indonesia: Kawan Seiring" (Kemendikdasmen, 2025)
-// Format: { soal, pilihan:[4], kunci } -- kunci:0 = jawaban benar di posisi A
-// ==========================================================================
 const soalBahasaIndoBab2 = {
   C1: [
 { soal:"Judul Bab 2 pada buku “Bahasa Indonesia: Kawan Seiring” adalah …", pilihan:["Yuk, Berpendapat!","Kawan Seiring","Aku Suka Membaca","Petualangan Kata"], kunci:0 },
