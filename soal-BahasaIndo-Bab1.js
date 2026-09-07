@@ -1,10 +1,3 @@
-
-// ==========================================================================
-// SOAL BAHASA INDONESIA KELAS III - BAB 1 "Kawan Seiring"
-// Format: { soal, pilihan:[4], kunci } -- kunci:0 = jawaban benar di posisi A
-// Jawaban benar selalu di indeks 0. Aplikasi yang mengacak posisi.
-// Level tersedia: C1, C2, C3, C4, C5
-// ==========================================================================
 const soalBahasaIndoBab1 = {
 
   C1: [
