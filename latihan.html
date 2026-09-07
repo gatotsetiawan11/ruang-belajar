@@ -1,4 +1,3 @@
-
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -98,6 +97,11 @@
         </div>
         <div class="footer" id="footerInfo">📖 Bank Soal</div>
     </div>
+
+    <!-- ============ BANK SOAL BAHASA INDONESIA (Bab 1 & 2) DIMUAT  ============ -->
+    <script src="soal-BahasaIndo-Bab1.js"></script>
+    <script src="soal-BahasaIndo-Bab2.js"></script>
+
     <script>
     "use strict";
     function ambilParam(n){var p=new URLSearchParams(window.location.search);return p.get(n);}
@@ -109,20 +113,24 @@
     var namaUser=(currentUser&&currentUser.nama)?currentUser.nama:'';
     var isDev=currentUser&&(currentUser.developer===true||currentUser.isAdmin===true);
     document.getElementById('userInfo').innerHTML='👤 <b>'+namaUser+'</b>'+(isDev?' <span style="color:#a78bfa;font-size:11px;">(Admin)</span>':'')+' <a href="#" class="btn-logout" onclick="keluar(event)">Keluar</a>';
+
     function kodeMapel(m){if(m.indexOf('inggris')!==-1)return 'INGGRIS';if(m.indexOf('indonesia')!==-1||m.indexOf('bindo')!==-1||m.indexOf('bahasa')!==-1)return 'BINDO';if(m.indexOf('ipas')!==-1)return 'IPAS';return '';}
     var KODE=kodeMapel(PARAM_MAPEL);
-    // ---- nama global bank (kompatibel const) ----
-    function ambilBank(g){
-        if(g==='bankSoalIPASBab1')return(typeof bankSoalIPASBab1!=='undefined')?bankSoalIPASBab1:null;
-        if(g==='bankSoalIPASBab2')return(typeof bankSoalIPASBab2!=='undefined')?bankSoalIPASBab2:null;
-        if(g==='bankSoalBICh1MySelf')return(typeof bankSoalBICh1MySelf!=='undefined')?bankSoalBICh1MySelf:null;
-        if(g==='soalBahasaIndoBab1')return(typeof soalBahasaIndoBab1!=='undefined')?soalBahasaIndoBab1:null;
-        if(g==='soalBahasaIndoBab2')return(typeof soalBahasaIndoBab2!=='undefined')?soBahasaIndoBab2:null;
-        return null;}
-    function ambilBankFix(g){ // alias safe utk typing typo di atas
-        if(g==='soalBahasaIndoBab2')return(typeof soalBahasaIndoBab2!=='undefined')?soalBahasaIndoBab2:null;
-        return ambilBank(g);}
+
+    // ================== PEMETAAN BANK ==================
+    // Semua bank global yang mungkin dipakai. Ambil langsung dari objek global.
+    var globalBank={
+        'bankSoalIPASBab1':function(){return(typeof bankSoalIPASBab1!=='undefined')?bankSoalIPASBab1:null;},
+        'bankSoalIPASBab2':function(){return(typeof bankSoalIPASBab2!=='undefined')?bankSoalIPASBab2:null;},
+        'bankSoalBICh1MySelf':function(){return(typeof bankSoalBICh1MySelf!=='undefined')?bankSoalBICh1MySelf:null;},
+        'soalBahasaIndoBab1':function(){return(typeof soalBahasaIndoBab1!=='undefined')?soalBahasaIndoBab1:null;},
+        'soalBahasaIndoBab2':function(){return(typeof soalBahasaIndoBab2!=='undefined')?soalBahasaIndoBab2:null;}
+    };
+    function ambilBankFix(g){if(g&&globalBank[g]){return globalBank[g]();}return null;}
+
+    // BAB BELUM PUNYA FILE SOAL (terkunci). Daftarkan di sini agar KONF dibuat beda.
     var KONF=null;
+
     if(KODE==='IPAS'){
         if(PARAM_BAB===1)KONF={judul:'✏️ Latihan Soal IPAS',sub:'Bab 1: Keajaiban Tubuhku - Kelas 3',foot:'📖 Bank Soal IPAS Kelas 3 • Bab 1',src:'soal-IPAS-Bab1.js',glob:'bankSoalIPASBab1'};
         if(PARAM_BAB===2)KONF={judul:'✏️ Latihan Soal IPAS',sub:'Bab 2: Dahulu, Kini, dan Nanti - Kelas 3',foot:'📖 Bank Soal IPAS Kelas 3 • Bab 2',src:'soal-IPAS-Bab2.js',glob:'bankSoalIPASBab2'};
@@ -131,16 +139,31 @@
     }else if(KODE==='BINDO'){
         if(PARAM_BAB===1)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 1: Kawan Seiring - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 1: Kawan Seiring',src:'soal-BahasaIndo-Bab1.js',glob:'soalBahasaIndoBab1'};
         if(PARAM_BAB===2)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 2: Yuk, Berpendapat! - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 2: Yuk, Berpendapat!',src:'soal-BahasaIndo-Bab2.js',glob:'soalBahasaIndoBab2'};
+        // Bab 3 & Bab 4 belum punya bank soal => diferensiasi (terkunci)
+        if(PARAM_BAB===3)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 3: Pribadi yang Hebat - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 3: Pribadi yang Hebat',terkunci:true};
+        if(PARAM_BAB===4)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 4: Menyelamatkan Lingkungan - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 4: Menyelamatkan Lingkungan',terkunci:true};
     }
-    var footEl=document.getElementById('footerInfo');
-    if(!KONF){
-        document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fca5a5;">🚧 Belum Tersedia</h2><p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">Mapel/Bab tsb belum didukung.<br>Tersedia: <b>IPAS Bab 1 & 2</b>, <b>Bahasa Inggris Chapter 1</b>, <b>Bahasa Indonesia BAB 1 & 2</b>.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
-        document.getElementById('questionArea').style.display='none';document.getElementById('resultArea').style.display='none';throw new Error('unsupported');}
-    document.getElementById('judulMapel').textContent=KONF.judul;
-    document.getElementById('subJudul').textContent=KONF.sub;
-    document.getElementById('footerInfo').textContent=KONF.foot;
-    document.title='Latihan '+KODE+' Bab '+PARAM_BAB;
-    // ===== level/progress =====
+
+    // ===== Header =====
+    document.getElementById('judulMapel').textContent=KONF?KONF.judul:'🚧 Latihan Soal';
+    document.getElementById('subJudul').textContent=KONF?KONF.sub:'Mapel/Bab belum didukung';
+    if(KONF){document.getElementById('footerInfo').textContent=KONF.foot;document.title='Latihan '+KODE+' Bab '+PARAM_BAB;}
+
+    // ===== Jika BAB TERKUNCI (belum ada bank) =====
+    if(KONF&&KONF.terkunci){
+        document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;padding:15px 10px;">'
+            +'<h2 style="color:#fca5a5;">🔒 Soal Belum Tersedia</h2>'
+            +'<p style="color:#e2e8f0;line-height:1.7;margin-top:12px;">Bank soal untuk <b>'+KONF.sub+'</b><br>belum diunggah / sedang disiapkan.</p>'
+            +'<p style="color:#8b5cf6;margin-top:8px;font-weight:bold;">🚧 Segera Hadir</p>'
+            +'<div class="level-select" style="margin-top:14px;"><h2 style="font-size:16px;color:#c7d2fe;">Sementara, coba Bab yang sudah tersedia:</h2><br>'
+            +'<a href="latihan.html?mapel=BINDO&bab=1" class="btn-kembali">Bab 1 • Kawan Seiring</a><br>'
+            +'<a href="latihan.html?mapel=BINDO&bab=2" class="btn-kembali" style="margin-top:9px;">Bab 2 • Yuk, Berpendapat!</a>'
+            +'</div><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+        // sembunyikan area lain
+        var q=document.getElementById('questionArea'),r=document.getElementById('resultArea');
+        if(q)q.style.display='none';if(r)r.style.display='none';
+    }
+    // ===== ALUR NORMAL (Bab dengan bank) =====
     var urutanLevel=['C1','C2','C3','C4','C5'],NILAI_MIN_LULUS=70,LEVEL_TERSEDIA_SISWA=2;
     var labelLevel={C1:'Mengingat',C2:'Memahami',C3:'Mengaplikasi',C4:'Menganalisis',C5:'Mengevaluasi'};
     var PROGRES_KEY='levelLulus_'+KODE+'_'+userId;
@@ -150,12 +173,32 @@
     function bisaBuka(level){if(isDev)return true;var i=urutanLevel.indexOf(level);if(i>=LEVEL_TERSEDIA_SISWA)return false;if(i<=0)return true;return sudahLulus(urutanLevel[i-1]);}
     function cs(level){return !isDev&&urutanLevel.indexOf(level)>=LEVEL_TERSEDIA_SISWA;}
     var bankLevel=null,soalLatihan=[],nomor=0,jawabanUser=[],skor=0,detik=0,timerInterval=null,currentLevel=null;
+
+    if(!(KONF&&KONF.terkunci)){
+        // hanya jalankan alur latihan bila ada konfigurasi & bukan terkunci
+        if(KONF){(function muat(){var footEl=document.getElementById('footerInfo');
+            if(!KONF){ // mapel tidak dikenali sama sekali
+                document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fca5a5;">🚧 Belum Tersedia</h2><p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">Mapel/Bab tsb belum didukung.<br>Tersedia: <b>IPAS Bab 1 & 2</b>, <b>Bahasa Inggris Chapter 1</b>, <b>Bahasa Indonesia BAB 1 & 2</b>.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+                var qq=document.getElementById('questionArea'),rr=document.getElementById('resultArea');if(qq)qq.style.display='none';if(rr)rr.style.display='none';throw new Error('unsupported');}
+            var sudah=ambilBankFix(KONF.glob);
+            if(sudah){bankLevel=sudah;renderLevel();return;}
+            var s=document.createElement('script');s.src=KONF.src;
+            s.onload=function(){bankLevel=ambilBankFix(KONF.glob);if(!bankLevel){document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ Bank Soal Kosong</h2><p style="color:#e2e8f0;margin-top:10px;">Variabel <b>'+KONF.glob+'</b> tidak ditemukan setelah memuat '+KONF.src+'.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';return;}renderLevel();};
+            s.onerror=function(){document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ File bank soal tidak ditemukan</h2><p style="color:#e2e8f0;margin-top:10px;">File <b>'+KONF.src+'</b> belum diunggah/ditemukan.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+                var q2=document.getElementById('questionArea'),r2=document.getElementById('resultArea');if(q2)q2.style.display='none';if(r2)r2.style.display='none';};
+            document.head.appendChild(s);})();}
+    }
+
+    // ===== KOMON LATIHAN =====
     function shuffle(a){var arr=a.slice();for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}return arr;}
     function fmt(d){var m=Math.floor(d/60),s=d%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
     function siapkanAcak(soalAsli){var pasang=soalAsli.pilihan.map(function(t,i){return{t:t,i:i};});var ac=shuffle(pasang);var pl=ac.map(function(x){return x.t;});var kb=-1;for(var k=0;k<ac.length;k++){if(ac[k].i===soalAsli.kunci){kb=k;break;}}if(kb<0)kb=0;return{soal:soalAsli.soal,pilihan:pl,kunci:kb};}
     function renderLevel(){var box=document.getElementById('levelButtons');box.innerHTML='';if(!bankLevel)return;urutanLevel.forEach(function(level){var jml=(bankLevel[level]||[]).length;var buka=bisaBuka(level),lulus=sudahLulus(level),coming=cs(level);var ikon='',kelas='';if(lulus){ikon=' ✅';kelas=' lulus';}else if(coming){ikon=' 🔒';kelas=' segera';}else if(buka){ikon=' ▶️';}else{ikon=' 🔒';kelas=' terkunci';}var b=document.createElement('button');b.className='level-btn'+kelas;b.textContent=level+' - '+labelLevel[level]+' ('+jml+')'+ikon;if(coming){b.onclick=(function(lv){return function(){alert('🚧 Level '+lv+' ('+labelLevel[lv]+') akan segera dibuka. Sabar ya 😊');};})(level);}else if(buka){b.onclick=(function(lv,el){return function(){pilihLevel(lv,el);};})(level,b);}else{b.onclick=(function(lv){return function(){alert('🔒 Level '+lv+' terkunci!\nLuluskan level sebelumnya dulu.');};})(level);}box.appendChild(b);});}
     function pilihLevel(level,el){if(!bisaBuka(level))return;currentLevel=level;document.querySelectorAll('.level-btn').forEach(function(x){x.classList.remove('active');});el.classList.add('active');var total=(bankLevel[level]||[]).length;document.getElementById('infoTersedia').innerHTML='📚 Level <b>'+level+' ('+labelLevel[level]+')</b>: tersedia <b>'+total+' soal</b>. Selesaikan 10 soal, raih nilai ≥ '+NILAI_MIN_LULUS+' utk buka level berikutnya.';document.getElementById('btnMulai').disabled=false;}
+    // opsional global agar kompatibel
+    window.pilihLevel=pilihLevel;window.renderLevel=renderLevel;
     function mulai(){if(!currentLevel){alert('Pilih level dulu!');return;}var bankLv=bankLevel[currentLevel]||[];if(bankLv.length===0){alert('Bank kosong');return;}soalLatihan=shuffle(bankLv).slice(0,10).map(siapkanAcak);nomor=0;jawabanUser=[];skor=0;detik=0;if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(function(){detik++;document.getElementById('timer').textContent=fmt(detik);},1000);document.getElementById('levelSelectCard').style.display='none';document.getElementById('questionArea').classList.add('show');document.getElementById('resultArea').classList.remove('show');tampil();}
+    window.mulaiLatihan=mulai;
     function tampil(){var soal=soalLatihan[nomor],total=soalLatihan.length;document.getElementById('progressBar').style.width=((nomor/total)*100)+'%';document.getElementById('skorLive').textContent=skor;var huruf=['A','B','C','D','E'];var h='<div class="question-card"><span class="q-number">Soal '+(nomor+1)+' / '+total+'</span><h3>'+soal.soal+'</h3><div id="optionsList">';soal.pilihan.forEach(function(pil,i){h+='<button class="option-btn" onclick="pilihJawaban('+i+')"><span class="option-letter">'+huruf[i]+'.</span> '+pil+'</button>';});h+='</div></div>';document.getElementById('questionContainer').innerHTML=h;var bs=document.getElementById('btnSelesai');bs.innerHTML='✅ Selesai & Lihat Hasil';bs.onclick=function(){selesai();};}
     window.pilihJawaban=function(idx){var soal=soalLatihan[nomor];var all=document.querySelectorAll('.option-btn');var benar=(idx===soal.kunci);if(benar)skor++;jawabanUser.push({soal:soal.soal,pilihan:soal.pilihan,pilihanUser:idx,kunci:soal.kunci,benar:benar});all.forEach(function(btn,i){btn.disabled=true;if(i===soal.kunci)btn.classList.add('correct');if(i===idx&&idx!==soal.kunci)btn.classList.add('wrong');});document.getElementById('skorLive').textContent=skor;var bs=document.getElementById('btnSelesai');if(nomor<soalLatihan.length-1){bs.innerHTML='➡️ Soal Berikutnya';bs.onclick=function(){nomor++;tampil();};}else{bs.innerHTML='✅ Selesai & Lihat Hasil';bs.onclick=function(){selesai();};}};
     function selesai(){clearInterval(timerInterval);while(jawabanUser.length<soalLatihan.length){var s=soalLatihan[jawabanUser.length];jawabanUser.push({soal:s.soal,pilihan:s.pilihan,pilihanUser:-1,kunci:s.kunci,benar:false});}document.getElementById('questionArea').classList.remove('show');document.getElementById('resultArea').classList.add('show');var benar=jawabanUser.filter(function(j){return j.benar;}).length,total=soalLatihan.length;document.getElementById('scoreAkhir').textContent=benar+'/'+total;var pct=(benar/total)*100,lulus=(pct>=NILAI_MIN_LULUS);try{var k='riwayatLatihan_'+userId,rv=[];try{rv=JSON.parse(localStorage.getItem(k))||[];}catch(e){}var nw=new Date();function dua(x){return(x<10?'0':'')+x;}var stamp=nw.getFullYear()+'-'+dua(nw.getMonth()+1)+'-'+dua(nw.getDate())+' '+dua(nw.getHours())+':'+dua(nw.getMinutes());rv.push({tanggal:stamp,mapel:KODE,bab:PARAM_BAB,level:currentLevel,benar:benar,total:total,nilai:Math.round(pct),lulus:lulus});if(rv.length>200)rv=rv.slice(-200);localStorage.setItem(k,JSON.stringify(rv));}catch(e){}
@@ -164,13 +207,13 @@
         if(lulus){if(adaLanjut){msg+='\n✅ Lulus! Level '+lvNext+' ('+labelLevel[lvNext]+') terbuka.';notif('🎉 Level '+currentLevel+' lulus!\nLevel '+lvNext+' ('+labelLevel[lvNext]+') terbuka!');}else if(!isDev){msg+='\n🏅 Kamu menyelesaikan semua level yang tersedia saat ini!\n🚧 Level lanjutan segera hadir. Terus berlatih ya!';notif('🎉 Level '+currentLevel+' lulus! Semua level tersedia selesai.');}else if(currentLevel==='C5'){msg+='\n🏁 Hebat! Kamu menuntaskan semua level.';notif('🏆 Semua level selesai!');}}
         document.getElementById('resultMsg').textContent=msg;var badge=document.getElementById('levelBadge');badge.textContent=bText+' • Level '+currentLevel;badge.style.background=bColor;review();renderLevel();}
     function review(){var L=document.getElementById('reviewList'),huruf=['A','B','C','D','E'];var h='<h3 style="margin:15px 0;">📋 Pembahasan:</h3>';jawabanUser.forEach(function(j,i){h+='<div class="review-item"><div class="r-question">'+(i+1)+'. '+j.soal+'</div>';j.pilihan.forEach(function(pil,idx){var st='';if(idx===j.kunci)st='border-left:4px solid #22c55e;padding-left:8px;';if(idx===j.pilihanUser&&!j.benar)st='border-left:4px solid #ef4444;padding-left:8px;';var mark=(idx===j.kunci)?' ✔':((idx===j.pilihanUser&&!j.benar)?' ✘':'');h+='<div class="r-answer" style="'+st+'">'+huruf[idx]+'. '+pil+mark+'</div>';});if(!j.benar)h+='<div class="kunci">💡 Jawaban benar: <b>'+huruf[j.kunci]+'. '+j.pilihan[j.kunci]+'</b></div>';h+='</div>';});L.innerHTML=h;}
-    function ulangiLatihan(){document.getElementById('resultArea').classList.remove('show');document.getElementById('levelSelectCard').style.display='block';resetQ();renderLevel();}
-    function resetQ(){nomor=0;jawabanUser=[];skor=0;detik=0;if(timerInterval)clearInterval(timerInterval);document.getElementById('timer').textContent='00:00';document.getElementById('skorLive').textContent='0';document.getElementById('btnMulai').disabled=true;document.querySelectorAll('.level-btn').forEach(function(b){b.classList.remove('active');});currentLevel=null;document.getElementById('infoTersedia').innerHTML='📚 Silakan pilih level.';document.getElementById('questionArea').classList.remove('show');}
+    function ulangiLatihan(){var it=document.getElementById('resultArea');if(it)it.classList.remove('show');var sl=document.getElementById('levelSelectCard');if(sl)sl.style.display='block';resetQ();renderLevel();}
+    window.ulangiLatihan=ulangiLatihan;
+    function resetQ(){nomor=0;jawabanUser=[];skor=0;detik=0;if(timerInterval)clearInterval(timerInterval);var t=document.getElementById('timer');if(t)t.textContent='00:00';var s=document.getElementById('skorLive');if(s)s.textContent='0';var bm=document.getElementById('btnMulai');if(bm)bm.disabled=true;document.querySelectorAll('.level-btn').forEach(function(b){b.classList.remove('active');});currentLevel=null;var it=document.getElementById('infoTersedia');if(it)it.innerHTML='📚 Silakan pilih level.';var qa=document.getElementById('questionArea');if(qa)qa.classList.remove('show');}
     function notif(m){var el=document.getElementById('notifOpen');el.textContent=m;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},4500);}
     function keluar(e){if(e)e.preventDefault();localStorage.removeItem('user');window.location.href='auth.html';}
-    window.keluar=keluar;window.renderLevelButtons=renderLevel;window.mulaiLatihan=mulai;window.ulangiLatihan=ulangiLatihan;
+    window.keluar=keluar;window.renderLevelButtons=renderLevel;
     document.getElementById('btnMulai').addEventListener('click',function(){if(currentLevel)mulai();else alert('Pilih level dulu!');});
-    (function muat(){function ambil(g){return ambilBankFix(g);}var sudah=ambil(KONF.glob);if(sudah){bankLevel=sudah;renderLevel();return;}var s=document.createElement('script');s.src=KONF.src;s.onload=function(){bankLevel=ambil(KONF.glob);if(!bankLevel){document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ Bank Soal Kosong</h2><p style="color:#e2e8f0;margin-top:10px;">Variabel <b>'+KONF.glob+'</b> tidak ditemukan setelah memuat '+KONF.src+'.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';return;}renderLevel();};s.onerror=function(){document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ File bank soal tidak ditemukan</h2><p style="color:#e2e8f0;margin-top:10px;">File <b>'+KONF.src+'</b> belum diunggah/ditemukan.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';document.getElementById('questionArea').style.display='none';document.getElementById('resultArea').style.display='none';};document.head.appendChild(s);})();
     </script>
 </body>
 </html>
