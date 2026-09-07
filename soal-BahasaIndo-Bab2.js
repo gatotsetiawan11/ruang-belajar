@@ -86,13 +86,7 @@ const soalBahasaIndoBab2 = {
 { soal:"Jika kita tidak setuju dengan pendapat teman, sikap terbaik adalah …", pilihan:["menyampaikan pendapat kita dengan sopan","langsung memarahi teman","mengabaikan semua orang","pura-pura setuju dengan terpaksa"], kunci:0 }
   ]
 ,
-
-// ==========================================================================
-// SOAL BAHASA INDONESIA KELAS III - BAB 2 "Yuk, Berpendapat!"
-// Bagian: C3 (28) + C4 (22) + C5 (18) = 68 soal
-// Format: { soal, pilihan:[4], kunci } -- kunci:0 = jawaban benar di posisi A
-// ==========================================================================
-  C3: [
+C3: [
 { soal:"Lengkapilah kalimat pendapat berikut dengan tanda baca yang benar: “Menurut saya, membaca buku itu menyenangkan __”", pilihan:["titik (.)","tanda tanya (?)","koma (,)"],"tanda seru (!)"] ],kunci:0 },
 { soal:"Kalimat yang tepat untuk menanyakan pendapat kepada teman dalam diskusi adalah …", pilihan:["“Bagaimana pendapatmu tentang membawa bekal?”","“Kau pasti tidak tahu!”","“Dengarkan pendapatku saja!”","“Tidak usah ikut bicara!”"],kunci:0 },
 { soal:"Susunlah kalimat rumpang berikut yang benar: “Saya suka ___ karena dapat melatih ___ saya.”", pilihan:["menggambar; kreativitas","tidur; kesabaran","makan; kemarahan","berteriak; kekuatan"],kunci:0 },
