@@ -98,7 +98,7 @@
         <div class="footer" id="footerInfo">📖 Bank Soal</div>
     </div>
 
-    <!-- ============ BANK SOAL BAHASA INDONESIA (Bab 1 & 2) DIMUAT  ============ -->
+    <!-- ============ BANK SOAL (dideklarasikan utk yg tersedia) ============ -->
     <script src="soal-BahasaIndo-Bab1.js"></script>
     <script src="soal-BahasaIndo-Bab2.js"></script>
 
@@ -114,21 +114,30 @@
     var isDev=currentUser&&(currentUser.developer===true||currentUser.isAdmin===true);
     document.getElementById('userInfo').innerHTML='👤 <b>'+namaUser+'</b>'+(isDev?' <span style="color:#a78bfa;font-size:11px;">(Admin)</span>':'')+' <a href="#" class="btn-logout" onclick="keluar(event)">Keluar</a>';
 
-    function kodeMapel(m){if(m.indexOf('inggris')!==-1)return 'INGGRIS';if(m.indexOf('indonesia')!==-1||m.indexOf('bindo')!==-1||m.indexOf('bahasa')!==-1)return 'BINDO';if(m.indexOf('ipas')!==-1)return 'IPAS';return '';}
+    // ================== KODE MAPEL (TELAH DITAMBAH MATEMATIKA) ==================
+    function kodeMapel(m){
+        if(m.indexOf('matematika')!==-1||m.indexOf('mtk')!==-1)return 'MTK';
+        if(m.indexOf('inggris')!==-1)return 'INGGRIS';
+        if(m.indexOf('indonesia')!==-1||m.indexOf('bindo')!==-1||m.indexOf('bahasa')!==-1)return 'BINDO';
+        if(m.indexOf('ipas')!==-1)return 'IPAS';
+        if(m.indexOf('pancasila')!==-1)return 'PANCASILA';
+        return '';
+    }
     var KODE=kodeMapel(PARAM_MAPEL);
 
     // ================== PEMETAAN BANK ==================
-    // Semua bank global yang mungkin dipakai. Ambil langsung dari objek global.
     var globalBank={
         'bankSoalIPASBab1':function(){return(typeof bankSoalIPASBab1!=='undefined')?bankSoalIPASBab1:null;},
         'bankSoalIPASBab2':function(){return(typeof bankSoalIPASBab2!=='undefined')?bankSoalIPASBab2:null;},
         'bankSoalBICh1MySelf':function(){return(typeof bankSoalBICh1MySelf!=='undefined')?bankSoalBICh1MySelf:null;},
         'soalBahasaIndoBab1':function(){return(typeof soalBahasaIndoBab1!=='undefined')?soalBahasaIndoBab1:null;},
-        'soalBahasaIndoBab2':function(){return(typeof soalBahasaIndoBab2!=='undefined')?soalBahasaIndoBab2:null;}
+        'soalBahasaIndoBab2':function(){return(typeof soalBahasaIndoBab2!=='undefined')?soalBahasaIndoBab2:null;},
+        // MATEMATIKA
+        'soalMatematikaBab1':function(){return(typeof soalMatematikaBab1!=='undefined')?soalMatematikaBab1:null;},
+        'soalMatematikaBab2':function(){return(typeof soalMatematikaBab2!=='undefined')?soalMatematikaBab2:null;}
     };
     function ambilBankFix(g){if(g&&globalBank[g]){return globalBank[g]();}return null;}
 
-    // BAB BELUM PUNYA FILE SOAL (terkunci). Daftarkan di sini agar KONF dibuat beda.
     var KONF=null;
 
     if(KODE==='IPAS'){
@@ -139,9 +148,15 @@
     }else if(KODE==='BINDO'){
         if(PARAM_BAB===1)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 1: Kawan Seiring - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 1: Kawan Seiring',src:'soal-BahasaIndo-Bab1.js',glob:'soalBahasaIndoBab1'};
         if(PARAM_BAB===2)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 2: Yuk, Berpendapat! - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 2: Yuk, Berpendapat!',src:'soal-BahasaIndo-Bab2.js',glob:'soalBahasaIndoBab2'};
-        // Bab 3 & Bab 4 belum punya bank soal => diferensiasi (terkunci)
         if(PARAM_BAB===3)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 3: Pribadi yang Hebat - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 3: Pribadi yang Hebat',terkunci:true};
         if(PARAM_BAB===4)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 4: Menyelamatkan Lingkungan - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 4: Menyelamatkan Lingkungan',terkunci:true};
+    }else if(KODE==='MTK'){
+        if(PARAM_BAB===1)KONF={judul:'➕ Latihan Soal Matematika',sub:'Bab 1: Bilangan Cacah sampai 1.000 - Kelas 3',foot:'📖 Bank Soal Matematika Kelas 3 • Bab 1: Bilangan Cacah sampai 1.000',src:'soal-Mat-Bab1.js',glob:'soalMatematikaBab1'};
+        if(PARAM_BAB===2)KONF={judul:'➕ Latihan Soal Matematika',sub:'Bab 2: Kalimat Matematika - Kelas 3',foot:'📖 Bank Soal Matematika Kelas 3 • Bab 2: Kalimat Matematika',src:'soal-Mat-Bab2.js',glob:'soalMatematikaBab2'};
+        // Belum ada file soal => tampilkan "Segera Hadir" (supaya tidak error)
+        if(PARAM_BAB===3)KONF={judul:'➕ Matematika',sub:'Bab 3: Pengukuran Panjang dan Berat - Kelas 3',foot:'📖 Bank Soal Matematika • Bab 3 (segera hadir)',terkunci:true};
+        if(PARAM_BAB===4)KONF={judul:'➕ Matematika',sub:'Bab 4: Unsur-Unsur Bangun Datar - Kelas 3',foot:'📖 Bank Soal Matematika • Bab 4 (segera hadir)',terkunci:true};
+        if(PARAM_BAB===5)KONF={judul:'➕ Matematika',sub:'Bab 5: Penyajian Data dalam Tabel - Kelas 3',foot:'📖 Bank Soal Matematika • Bab 5 (segera hadir)',terkunci:true};
     }
 
     // ===== Header =====
@@ -156,10 +171,9 @@
             +'<p style="color:#e2e8f0;line-height:1.7;margin-top:12px;">Bank soal untuk <b>'+KONF.sub+'</b><br>belum diunggah / sedang disiapkan.</p>'
             +'<p style="color:#8b5cf6;margin-top:8px;font-weight:bold;">🚧 Segera Hadir</p>'
             +'<div class="level-select" style="margin-top:14px;"><h2 style="font-size:16px;color:#c7d2fe;">Sementara, coba Bab yang sudah tersedia:</h2><br>'
-            +'<a href="latihan.html?mapel=BINDO&bab=1" class="btn-kembali">Bab 1 • Kawan Seiring</a><br>'
-            +'<a href="latihan.html?mapel=BINDO&bab=2" class="btn-kembali" style="margin-top:9px;">Bab 2 • Yuk, Berpendapat!</a>'
+            +'<a href="latihan.html?mapel=Matematika&bab=1" class="btn-kembali">➕ Bab 1 • Bilangan Cacah sampai 1.000</a><br>'
+            +'<a href="latihan.html?mapel=Matematika&bab=2" class="btn-kembali" style="margin-top:9px;">➕ Bab 2 • Kalimat Matematika</a>'
             +'</div><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
-        // sembunyikan area lain
         var q=document.getElementById('questionArea'),r=document.getElementById('resultArea');
         if(q)q.style.display='none';if(r)r.style.display='none';
     }
@@ -175,11 +189,12 @@
     var bankLevel=null,soalLatihan=[],nomor=0,jawabanUser=[],skor=0,detik=0,timerInterval=null,currentLevel=null;
 
     if(!(KONF&&KONF.terkunci)){
-        // hanya jalankan alur latihan bila ada konfigurasi & bukan terkunci
-        if(KONF){(function muat(){var footEl=document.getElementById('footerInfo');
-            if(!KONF){ // mapel tidak dikenali sama sekali
-                document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fca5a5;">🚧 Belum Tersedia</h2><p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">Mapel/Bab tsb belum didukung.<br>Tersedia: <b>IPAS Bab 1 & 2</b>, <b>Bahasa Inggris Chapter 1</b>, <b>Bahasa Indonesia BAB 1 & 2</b>.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+        if(KONF){(function muat(){
+            var footEl=document.getElementById('footerInfo');
+            if(!KONF){
+                document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fca5a5;">🚧 Belum Tersedia</h2><p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">Mapel/Bab tsb belum didukung.<br>Tersedia: <b>IPAS Bab 1 & 2</b>, <b>Bahasa Inggris Chapter 1</b>, <b>Bahasa Indonesia BAB 1 & 2</b>, <b>Matematika Bab 1 & 2</b>.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
                 var qq=document.getElementById('questionArea'),rr=document.getElementById('resultArea');if(qq)qq.style.display='none';if(rr)rr.style.display='none';throw new Error('unsupported');}
+            // Coba ambil global dulu (apakah sudah ada dari tag <script> statis)
             var sudah=ambilBankFix(KONF.glob);
             if(sudah){bankLevel=sudah;renderLevel();return;}
             var s=document.createElement('script');s.src=KONF.src;
@@ -195,7 +210,6 @@
     function siapkanAcak(soalAsli){var pasang=soalAsli.pilihan.map(function(t,i){return{t:t,i:i};});var ac=shuffle(pasang);var pl=ac.map(function(x){return x.t;});var kb=-1;for(var k=0;k<ac.length;k++){if(ac[k].i===soalAsli.kunci){kb=k;break;}}if(kb<0)kb=0;return{soal:soalAsli.soal,pilihan:pl,kunci:kb};}
     function renderLevel(){var box=document.getElementById('levelButtons');box.innerHTML='';if(!bankLevel)return;urutanLevel.forEach(function(level){var jml=(bankLevel[level]||[]).length;var buka=bisaBuka(level),lulus=sudahLulus(level),coming=cs(level);var ikon='',kelas='';if(lulus){ikon=' ✅';kelas=' lulus';}else if(coming){ikon=' 🔒';kelas=' segera';}else if(buka){ikon=' ▶️';}else{ikon=' 🔒';kelas=' terkunci';}var b=document.createElement('button');b.className='level-btn'+kelas;b.textContent=level+' - '+labelLevel[level]+' ('+jml+')'+ikon;if(coming){b.onclick=(function(lv){return function(){alert('🚧 Level '+lv+' ('+labelLevel[lv]+') akan segera dibuka. Sabar ya 😊');};})(level);}else if(buka){b.onclick=(function(lv,el){return function(){pilihLevel(lv,el);};})(level,b);}else{b.onclick=(function(lv){return function(){alert('🔒 Level '+lv+' terkunci!\nLuluskan level sebelumnya dulu.');};})(level);}box.appendChild(b);});}
     function pilihLevel(level,el){if(!bisaBuka(level))return;currentLevel=level;document.querySelectorAll('.level-btn').forEach(function(x){x.classList.remove('active');});el.classList.add('active');var total=(bankLevel[level]||[]).length;document.getElementById('infoTersedia').innerHTML='📚 Level <b>'+level+' ('+labelLevel[level]+')</b>: tersedia <b>'+total+' soal</b>. Selesaikan 10 soal, raih nilai ≥ '+NILAI_MIN_LULUS+' utk buka level berikutnya.';document.getElementById('btnMulai').disabled=false;}
-    // opsional global agar kompatibel
     window.pilihLevel=pilihLevel;window.renderLevel=renderLevel;
     function mulai(){if(!currentLevel){alert('Pilih level dulu!');return;}var bankLv=bankLevel[currentLevel]||[];if(bankLv.length===0){alert('Bank kosong');return;}soalLatihan=shuffle(bankLv).slice(0,10).map(siapkanAcak);nomor=0;jawabanUser=[];skor=0;detik=0;if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(function(){detik++;document.getElementById('timer').textContent=fmt(detik);},1000);document.getElementById('levelSelectCard').style.display='none';document.getElementById('questionArea').classList.add('show');document.getElementById('resultArea').classList.remove('show');tampil();}
     window.mulaiLatihan=mulai;
@@ -215,5 +229,8 @@
     window.keluar=keluar;window.renderLevelButtons=renderLevel;
     document.getElementById('btnMulai').addEventListener('click',function(){if(currentLevel)mulai();else alert('Pilih level dulu!');});
     </script>
+    <!-- ============ BANK SOAL MATEMATIKA (Bab 1 & 2) DIMUAT ============ -->
+    <script src="soal-Mat-Bab1.js"></script>
+    <script src="soal-Mat-Bab2.js"></script>
 </body>
 </html>
