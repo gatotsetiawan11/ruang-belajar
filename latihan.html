@@ -1,153 +1,68 @@
+
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Latihan Soal</title>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,sans-serif; }
-        body {
-            background: radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);
-            min-height:100vh; color:#e2e8f0;
-        }
-        .header {
-            background: linear-gradient(135deg, rgba(102,126,234,0.35), rgba(118,75,162,0.35));
-            color:white; padding:18px 20px; text-align:center;
-            border-bottom:1px solid rgba(148,163,184,0.2);
-        }
-        .header h1 { font-size:22px; }
-        .user-info {
-            color:#c7d2fe; font-size:13px; margin-top:8px;
-            background: rgba(15,23,42,0.4); display:inline-block;
-            padding:6px 14px; border-radius:20px;
-            border:1px solid rgba(99,102,241,0.4);
-        }
-        .user-info .btn-logout {
-            margin-left:10px; background:#ef4444; color:#fff; border:none;
-            border-radius:15px; padding:3px 12px; cursor:pointer; font-size:12px;
-            text-decoration:none;
-        }
-        .user-info .btn-logout:hover { background:#dc2626; }
-        .container { max-width:800px; margin:25px auto; padding:0 15px; }
-        .card {
-            background: rgba(30,41,59,0.75); backdrop-filter:blur(12px);
-            border:1px solid rgba(148,163,184,0.22); border-radius:18px;
-            padding:25px; box-shadow:0 10px 30px rgba(0,0,0,0.45); margin-bottom:20px;
-        }
-        .level-select { text-align:center; margin-bottom:20px; }
-        .level-select h2 { color:#e0e7ff; margin-bottom:15px; font-size:22px; }
-        .level-btn {
-            display:inline-block; padding:12px 22px; margin:5px;
-            background: rgba(51,65,85,0.5); color:#c7d2fe;
-            border:2px solid rgba(129,140,248,0.5); border-radius:25px;
-            font-weight:bold; cursor:pointer; transition:all 0.3s ease; font-size:15px;
-        }
-        .level-btn:hover { background:#6366f1; color:#fff; border-color:#6366f1; }
-        .level-btn.active {
-            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff;
-            border-color:#6366f1; box-shadow:0 4px 15px rgba(99,102,241,0.4);
-        }
-        .level-btn.terkunci {
-            background: rgba(30,41,59,0.4); color:#64748b;
-            border-color:#475569; cursor:not-allowed; opacity:0.55;
-        }
-        .level-btn.terkunci:hover { background:rgba(30,41,59,0.4); color:#64748b; border-color:#475569; }
-        .level-btn.lulus {
-            background: rgba(34,197,94,0.15); color:#86efac; border-color:#22c55e;
-        }
-        .level-btn.segera {
-            background: rgba(251,191,36,0.1); color:#fcd34d;
-            border-color:#f59e0b; border-style: dashed; cursor:not-allowed;
-        }
-        .level-btn.segera:hover { background:rgba(251,191,36,0.1); color:#fcd34d; }
-        .info-bank {
-            background: rgba(15,23,42,0.4); border-left:4px solid #8b5cf6;
-            padding:10px 15px; border-radius:8px; margin-bottom:20px;
-            color:#cbd5e1; font-size:14px;
-        }
-        .btn-mulai {
-            display:block; width:100%;
-            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff;
-            padding:15px; border:none; border-radius:12px; font-size:18px;
-            font-weight:bold; cursor:pointer; transition:all 0.3s; margin-top:15px;
-        }
-        .btn-mulai:hover { transform:translateY(-2px); }
-        .btn-mulai:disabled { background:#334155; cursor:not-allowed; transform:none; opacity:0.5; }
-        .question-area { display:none; }
-        .question-area.show { display:block; }
-        .top-bar {
-            display:flex; justify-content:space-between; align-items:center;
-            margin-bottom:20px; flex-wrap:wrap; gap:10px;
-        }
-        .progress { background:#1e293b; border-radius:20px; height:12px;
-            flex-grow:1; margin:0 15px; min-width:120px; overflow:hidden; }
-        .progress-bar { height:100%; background:linear-gradient(90deg,#6366f1,#8b5cf6);
-            border-radius:20px; transition:width 0.5s ease; width:10%; }
-        .score-display, .timer-display {
-            background:rgba(51,65,85,0.6); padding:8px 15px; border-radius:20px;
-            font-weight:bold; color:#c7d2fe; font-size:14px;
-            border:1px solid rgba(129,140,248,0.3);
-        }
-        .question-card { margin:20px 0; }
-        .question-card .q-number {
-            display:inline-block; background:linear-gradient(135deg,#6366f1,#8b5cf6);
-            color:#fff; padding:6px 16px; border-radius:20px; font-size:15px;
-            margin-bottom:12px; font-weight:700;
-        }
-        .question-card h3 { color:#f1f5f9; font-size:24px; line-height:1.6;
-            margin-bottom:22px; font-weight:600; white-space:pre-line; }
-        .option-btn {
-            display:block; width:100%; text-align:left; padding:15px 20px;
-            border:2px solid #3b4a63; border-radius:12px; background:rgba(15,23,42,0.4);
-            color:#e2e8f0; margin-bottom:10px; cursor:pointer; font-size:17px;
-            line-height:1.5; transition:all 0.2s ease;
-        }
-        .option-btn:hover { border-color:#818cf8; background:rgba(51,65,85,0.6); }
-        .option-btn.correct { border-color:#22c55e; background:rgba(34,197,94,0.15); color:#bbf7d0; }
-        .option-btn.wrong { border-color:#ef4444; background:rgba(239,68,68,0.15); color:#fecaca; }
-        .option-btn:disabled { cursor:not-allowed; }
-        .option-letter { font-weight:bold; color:#a5b4fc; margin-right:10px; }
-        .result-area { display:none; text-align:center; padding:25px 0; }
-        .result-area.show { display:block; }
-        .result-area h2 { color:#e0e7ff; }
-        .result-score { font-size:48px; font-weight:bold; margin:12px 0; color:#a78bfa; }
-        .result-msg { font-size:19px; color:#e2e8f0; margin-bottom:8px; white-space:pre-line; }
-        .result-level { font-size:15px; color:#fff; padding:8px 20px; display:inline-block;
-            border-radius:20px; margin-top:8px; font-weight:bold; }
-        .review-list { text-align:left; margin-top:22px; }
-        .review-list h3 { color:#e0e7ff; }
-        .review-item { background:rgba(15,23,42,0.5); border:1px solid #334155;
-            border-radius:10px; padding:15px; margin-bottom:15px; }
-        .review-item .r-question { font-weight:bold; color:#f1f5f9; margin-bottom:10px; font-size:16px; white-space:pre-line; }
-        .review-item .r-answer { font-size:15px; margin:5px 0; color:#cbd5e1; }
-        .kunci { background:rgba(34,197,94,0.1); border-left:4px solid #22c55e;
-            padding:10px 15px; border-radius:8px; font-size:14px; margin-top:5px; color:#bbf7d0; }
-        .btn-kembali {
-            background:rgba(51,65,85,0.5); color:#c7d2fe; padding:11px 24px;
-            border:2px solid #4f46e5; border-radius:25px; text-decoration:none;
-            font-weight:bold; margin-top:18px; display:inline-block; transition:all 0.3s;
-        }
-        .btn-kembali:hover { background:#6366f1; color:#fff; }
-        .btn-selesai {
-            background:#22c55e; color:#fff; padding:12px 25px; border:none;
-            border-radius:25px; font-weight:bold; font-size:16px; cursor:pointer;
-            margin-top:10px; transition:all 0.3s;
-        }
-        .btn-selesai:hover { background:#16a34a; }
-        .footer { text-align:center; padding:20px; color:#64748b; font-size:12px; }
-        .notif-open {
-            position:fixed; top:20px; left:50%; transform:translateX(-50%);
-            background:#065f46; color:#d1fae5; padding:14px 22px; border-radius:12px;
-            border:1px solid #34d399; box-shadow:0 10px 30px rgba(0,0,0,0.3);
-            z-index:999; font-weight:bold; font-size:15px; max-width:90%;
-            text-align:center; opacity:0; pointer-events:none; transition:opacity 0.3s;
-        }
-        .notif-open.show { opacity:1; }
-        @media (max-width:600px) {
-            .container { margin:12px auto; }
-            .level-btn { padding:9px 14px; font-size:13px; }
-            .question-card h3 { font-size:20px; }
-            .option-btn { font-size:15px; }
-        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif;}
+        body{background:radial-gradient(ellipse at bottom,#1b2735 0%,#090a0f 100%);min-height:100vh;color:#e2e8f0;}
+        .header{background:linear-gradient(135deg,rgba(102,126,234,0.35),rgba(118,75,162,0.35));color:white;padding:18px 20px;text-align:center;border-bottom:1px solid rgba(148,163,184,0.2);}
+        .header h1{font-size:22px;}
+        .user-info{color:#c7d2fe;font-size:13px;margin-top:8px;background:rgba(15,23,42,0.4);display:inline-block;padding:6px 14px;border-radius:20px;border:1px solid rgba(99,102,241,0.4);}
+        .user-info .btn-logout{margin-left:10px;background:#ef4444;color:#fff;border:none;border-radius:15px;padding:3px 12px;cursor:pointer;font-size:12px;text-decoration:none;}
+        .user-info .btn-logout:hover{background:#dc2626;}
+        .container{max-width:800px;margin:25px auto;padding:0 15px;}
+        .card{background:rgba(30,41,59,0.75);backdrop-filter:blur(12px);border:1px solid rgba(148,163,184,0.22);border-radius:18px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,0.45);margin-bottom:20px;}
+        .level-select{text-align:center;margin-bottom:20px;}
+        .level-select h2{color:#e0e7ff;margin-bottom:15px;font-size:22px;}
+        .level-btn{display:inline-block;padding:12px 22px;margin:5px;background:rgba(51,65,85,0.5);color:#c7d2fe;border:2px solid rgba(129,140,248,0.5);border-radius:25px;font-weight:bold;cursor:pointer;transition:all 0.3s ease;font-size:15px;}
+        .level-btn:hover{background:#6366f1;color:#fff;border-color:#6366f1;}
+        .level-btn.active{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-color:#6366f1;box-shadow:0 4px 15px rgba(99,102,241,0.4);}
+        .level-btn.terkunci{background:rgba(30,41,59,0.4);color:#64748b;border-color:#475569;cursor:not-allowed;opacity:0.55;}
+        .level-btn.terkunci:hover{background:rgba(30,41,59,0.4);color:#64748b;border-color:#475569;}
+        .level-btn.lulus{background:rgba(34,197,94,0.15);color:#86efac;border-color:#22c55e;}
+        .level-btn.segera{background:rgba(251,191,36,0.1);color:#fcd34d;border-color:#f59e0b;border-style:dashed;cursor:not-allowed;}
+        .level-btn.segera:hover{background:rgba(251,191,36,0.1);color:#fcd34d;}
+        .info-bank{background:rgba(15,23,42,0.4);border-left:4px solid #8b5cf6;padding:10px 15px;border-radius:8px;margin-bottom:20px;color:#cbd5e1;font-size:14px;}
+        .btn-mulai{display:block;width:100%;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:15px;border:none;border-radius:12px;font-size:18px;font-weight:bold;cursor:pointer;transition:all 0.3s;margin-top:15px;}
+        .btn-mulai:hover{transform:translateY(-2px);}
+        .btn-mulai:disabled{background:#334155;cursor:not-allowed;transform:none;opacity:0.5;}
+        .question-area{display:none;}
+        .question-area.show{display:block;}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;}
+        .progress{background:#1e293b;border-radius:20px;height:12px;flex-grow:1;margin:0 15px;min-width:120px;overflow:hidden;}
+        .progress-bar{height:100%;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:20px;transition:width 0.5s ease;width:10%;}
+        .score-display,.timer-display{background:rgba(51,65,85,0.6);padding:8px 15px;border-radius:20px;font-weight:bold;color:#c7d2fe;font-size:14px;border:1px solid rgba(129,140,248,0.3);}
+        .question-card{margin:20px 0;}
+        .question-card .q-number{display:inline-block;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:6px 16px;border-radius:20px;font-size:15px;margin-bottom:12px;font-weight:700;}
+        .question-card h3{color:#f1f5f9;font-size:24px;line-height:1.6;margin-bottom:22px;font-weight:600;white-space:pre-line;}
+        .option-btn{display:block;width:100%;text-align:left;padding:15px 20px;border:2px solid #3b4a63;border-radius:12px;background:rgba(15,23,42,0.4);color:#e2e8f0;margin-bottom:10px;cursor:pointer;font-size:17px;line-height:1.5;transition:all 0.2s ease;}
+        .option-btn:hover{border-color:#818cf8;background:rgba(51,65,85,0.6);}
+        .option-btn.correct{border-color:#22c55e;background:rgba(34,197,94,0.15);color:#bbf7d0;}
+        .option-btn.wrong{border-color:#ef4444;background:rgba(239,68,68,0.15);color:#fecaca;}
+        .option-btn:disabled{cursor:not-allowed;}
+        .option-letter{font-weight:bold;color:#a5b4fc;margin-right:10px;}
+        .result-area{display:none;text-align:center;padding:25px 0;}
+        .result-area.show{display:block;}
+        .result-area h2{color:#e0e7ff;}
+        .result-score{font-size:48px;font-weight:bold;margin:12px 0;color:#a78bfa;}
+        .result-msg{font-size:19px;color:#e2e8f0;margin-bottom:8px;white-space:pre-line;}
+        .result-level{font-size:15px;color:#fff;padding:8px 20px;display:inline-block;border-radius:20px;margin-top:8px;font-weight:bold;}
+        .review-list{text-align:left;margin-top:22px;}
+        .review-list h3{color:#e0e7ff;}
+        .review-item{background:rgba(15,23,42,0.5);border:1px solid #334155;border-radius:10px;padding:15px;margin-bottom:15px;}
+        .review-item .r-question{font-weight:bold;color:#f1f5f9;margin-bottom:10px;font-size:16px;white-space:pre-line;}
+        .review-item .r-answer{font-size:15px;margin:5px 0;color:#cbd5e1;}
+        .kunci{background:rgba(34,197,94,0.1);border-left:4px solid #22c55e;padding:10px 15px;border-radius:8px;font-size:14px;margin-top:5px;color:#bbf7d0;}
+        .btn-kembali{background:rgba(51,65,85,0.5);color:#c7d2fe;padding:11px 24px;border:2px solid #4f46e5;border-radius:25px;text-decoration:none;font-weight:bold;margin-top:18px;display:inline-block;transition:all 0.3s;}
+        .btn-kembali:hover{background:#6366f1;color:#fff;}
+        .btn-selesai{background:#22c55e;color:#fff;padding:12px 25px;border:none;border-radius:25px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px;transition:all 0.3s;}
+        .btn-selesai:hover{background:#16a34a;}
+        .footer{text-align:center;padding:20px;color:#64748b;font-size:12px;}
+        .notif-open{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#065f46;color:#d1fae5;padding:14px 22px;border-radius:12px;border:1px solid #34d399;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:999;font-weight:bold;font-size:15px;max-width:90%;text-align:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+        .notif-open.show{opacity:1;}
+        @media (max-width:600px){.container{margin:12px auto;}.level-btn{padding:9px 14px;font-size:13px;}.question-card h3{font-size:20px;}.option-btn{font-size:15px;}}
     </style>
 </head>
 <body>
@@ -159,10 +74,7 @@
     </div>
     <div class="container">
         <div class="card" id="levelSelectCard">
-            <div class="level-select">
-                <h2>📊 Pilih Level Soal</h2>
-                <div id="levelButtons"></div>
-            </div>
+            <div class="level-select"><h2>📊 Pilih Level Soal</h2><div id="levelButtons"></div></div>
             <div id="infoTersedia" class="info-bank">📚 Silakan pilih level untuk melihat jumlah soal yang tersedia.</div>
             <button class="btn-mulai" id="btnMulai" disabled>▶️ Mulai Latihan (10 Soal)</button>
         </div>
@@ -186,274 +98,79 @@
         </div>
         <div class="footer" id="footerInfo">📖 Bank Soal</div>
     </div>
-
     <script>
     "use strict";
-
-    // ============ 1. URL & Login ============
-    function ambilParam(n){ var p=new URLSearchParams(window.location.search); return p.get(n); }
-    var PARAM_MAPEL = (ambilParam('mapel') || 'IPAS').trim().toLowerCase();
-    var PARAM_BAB   = parseInt(ambilParam('bab'), 10) || 1;
-
-    var currentUser=null;
-    try{ currentUser=JSON.parse(localStorage.getItem('user')); }catch(e){ currentUser=null; }
-    if(!currentUser || !currentUser.id){ alert('Anda harus masuk terlebih dahulu!'); window.location.href='auth.html'; }
+    function ambilParam(n){var p=new URLSearchParams(window.location.search);return p.get(n);}
+    var PARAM_MAPEL=(ambilParam('mapel')||'IPAS').trim().toLowerCase();
+    var PARAM_BAB=parseInt(ambilParam('bab'),10)||1;
+    var currentUser=null;try{currentUser=JSON.parse(localStorage.getItem('user'));}catch(e){currentUser=null;}
+    if(!currentUser||!currentUser.id){alert('Anda harus masuk terlebih dahulu!');window.location.href='auth.html';}
     var userId=(currentUser&&currentUser.id)?currentUser.id:'guest';
     var namaUser=(currentUser&&currentUser.nama)?currentUser.nama:'';
-    var isDev = currentUser && (currentUser.developer===true || currentUser.isAdmin===true);
-    document.getElementById('userInfo').innerHTML =
-        '👤 <b>'+namaUser+'</b>'+(isDev?' <span style="color:#a78bfa;font-size:11px;">(Admin)</span>':'')+
-        ' <a href="#" class="btn-logout" onclick="keluar(event)">Keluar</a>';
-
-    // Normalisasi mapel
-    function kodeMapel(m){
-        if(m.indexOf('inggris')!==-1) return 'INGGRIS';
-        if(m.indexOf('ipas')!==-1)   return 'IPAS';
-        return '';
-    }
+    var isDev=currentUser&&(currentUser.developer===true||currentUser.isAdmin===true);
+    document.getElementById('userInfo').innerHTML='👤 <b>'+namaUser+'</b>'+(isDev?' <span style="color:#a78bfa;font-size:11px;">(Admin)</span>':'')+' <a href="#" class="btn-logout" onclick="keluar(event)">Keluar</a>';
+    function kodeMapel(m){if(m.indexOf('inggris')!==-1)return 'INGGRIS';if(m.indexOf('indonesia')!==-1||m.indexOf('bindo')!==-1||m.indexOf('bahasa')!==-1)return 'BINDO';if(m.indexOf('ipas')!==-1)return 'IPAS';return '';}
     var KODE=kodeMapel(PARAM_MAPEL);
-
-    // ============ 2. Konfigurasi per mapel/bab ============
-    // Struktur: file(nama+global), label bab utk judul.
-    var KONF = null;
-    function ambilBank(glob){ // peta nama global (kompatibel dgn const)
-        if(glob==='bankSoalIPASBab1')    return (typeof bankSoalIPASBab1    !=='undefined')?bankSoalIPASBab1:null;
-        if(glob==='bankSoalIPASBab2')    return (typeof bankSoalIPASBab2    !=='undefined')?bankSoalIPASBab2:null;
-        if(glob==='bankSoalBICh1MySelf') return (typeof bankSoalBICh1MySelf !=='undefined')?bankSoalBICh1MySelf:null;
-        return null;
-    }
+    // ---- nama global bank (kompatibel const) ----
+    function ambilBank(g){
+        if(g==='bankSoalIPASBab1')return(typeof bankSoalIPASBab1!=='undefined')?bankSoalIPASBab1:null;
+        if(g==='bankSoalIPASBab2')return(typeof bankSoalIPASBab2!=='undefined')?bankSoalIPASBab2:null;
+        if(g==='bankSoalBICh1MySelf')return(typeof bankSoalBICh1MySelf!=='undefined')?bankSoalBICh1MySelf:null;
+        if(g==='soalBahasaIndoBab1')return(typeof soalBahasaIndoBab1!=='undefined')?soalBahasaIndoBab1:null;
+        if(g==='soalBahasaIndoBab2')return(typeof soalBahasaIndoBab2!=='undefined')?soBahasaIndoBab2:null;
+        return null;}
+    function ambilBankFix(g){ // alias safe utk typing typo di atas
+        if(g==='soalBahasaIndoBab2')return(typeof soalBahasaIndoBab2!=='undefined')?soalBahasaIndoBab2:null;
+        return ambilBank(g);}
+    var KONF=null;
     if(KODE==='IPAS'){
-        if(PARAM_BAB===1) KONF={judul:'✏️ Latihan Soal IPAS', sub:'Bab 1: Keajaiban Tubuhku - Kelas 3', foot:'📖 Bank Soal IPAS Kelas 3 • Bab 1', src:'soal-IPAS-Bab1.js', glob:'bankSoalIPASBab1'};
-        if(PARAM_BAB===2) KONF={judul:'✏️ Latihan Soal IPAS', sub:'Bab 2: Dahulu, Kini, dan Nanti - Kelas 3', foot:'📖 Bank Soal IPAS Kelas 3 • Bab 2', src:'soal-IPAS-Bab2.js', glob:'bankSoalIPASBab2'};
-    } else if(KODE==='INGGRIS'){
-        if(PARAM_BAB===1) KONF={judul:'✏️ Latihan Soal Bahasa Inggris', sub:'Chapter 1: My Self - Kelas 3', foot:'📖 Bank Soal Bahasa Inggris • Chapter 1: My Self', src:'soal-BI-Ch1-MySelf.js', glob:'bankSoalBICh1MySelf'};
+        if(PARAM_BAB===1)KONF={judul:'✏️ Latihan Soal IPAS',sub:'Bab 1: Keajaiban Tubuhku - Kelas 3',foot:'📖 Bank Soal IPAS Kelas 3 • Bab 1',src:'soal-IPAS-Bab1.js',glob:'bankSoalIPASBab1'};
+        if(PARAM_BAB===2)KONF={judul:'✏️ Latihan Soal IPAS',sub:'Bab 2: Dahulu, Kini, dan Nanti - Kelas 3',foot:'📖 Bank Soal IPAS Kelas 3 • Bab 2',src:'soal-IPAS-Bab2.js',glob:'bankSoalIPASBab2'};
+    }else if(KODE==='INGGRIS'){
+        if(PARAM_BAB===1)KONF={judul:'✏️ Latihan Soal Bahasa Inggris',sub:'Chapter 1: My Self - Kelas 3',foot:'📖 Bank Soal Bahasa Inggris • Chapter 1: My Self',src:'soal-BI-Ch1-MySelf.js',glob:'bankSoalBICh1MySelf'};
+    }else if(KODE==='BINDO'){
+        if(PARAM_BAB===1)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 1: Kawan Seiring - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 1: Kawan Seiring',src:'soal-BahasaIndo-Bab1.js',glob:'soalBahasaIndoBab1'};
+        if(PARAM_BAB===2)KONF={judul:'🔤 Latihan Soal Bahasa Indonesia',sub:'BAB 2: Yuk, Berpendapat! - Kelas 3',foot:'📖 Bank Soal Bahasa Indonesia • BAB 2: Yuk, Berpendapat!',src:'soal-BahasaIndo-Bab2.js',glob:'soalBahasaIndoBab2'};
     }
-
     var footEl=document.getElementById('footerInfo');
     if(!KONF){
-        document.getElementById('levelSelectCard').innerHTML =
-            '<div style="text-align:center;"><h2 style="color:#fca5a5;">🚧 Belum Tersedia</h2>'+
-            '<p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">Mapel/Bab tsb belum didukung.<br>Tersedia: <b>IPAS Bab 1 & 2</b>, <b>Bahasa Inggris Chapter 1</b>.</p><br>'+
-            '<a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
-        document.getElementById('questionArea').style.display='none';
-        document.getElementById('resultArea').style.display='none';
-        throw new Error('unsupported');
-    }
-
+        document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fca5a5;">🚧 Belum Tersedia</h2><p style="color:#e2e8f0;line-height:1.6;margin-top:10px;">Mapel/Bab tsb belum didukung.<br>Tersedia: <b>IPAS Bab 1 & 2</b>, <b>Bahasa Inggris Chapter 1</b>, <b>Bahasa Indonesia BAB 1 & 2</b>.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
+        document.getElementById('questionArea').style.display='none';document.getElementById('resultArea').style.display='none';throw new Error('unsupported');}
     document.getElementById('judulMapel').textContent=KONF.judul;
     document.getElementById('subJudul').textContent=KONF.sub;
     document.getElementById('footerInfo').textContent=KONF.foot;
     document.title='Latihan '+KODE+' Bab '+PARAM_BAB;
-
-    // ============ 3. Level & progress (aturan = PILIHAN A) ============
-    var urutanLevel=['C1','C2','C3','C4','C5'];
-    var NILAI_MIN_LULUS=70;
-    var LEVEL_TERSEDIA_SISWA=2; // siswa: C1-C2; C3-C5 coming soon
+    // ===== level/progress =====
+    var urutanLevel=['C1','C2','C3','C4','C5'],NILAI_MIN_LULUS=70,LEVEL_TERSEDIA_SISWA=2;
     var labelLevel={C1:'Mengingat',C2:'Memahami',C3:'Mengaplikasi',C4:'Menganalisis',C5:'Mengevaluasi'};
     var PROGRES_KEY='levelLulus_'+KODE+'_'+userId;
-
-    function bacaLulus(){ try{ return JSON.parse(localStorage.getItem(PROGRES_KEY))||{}; }catch(e){ return {}; } }
-    function sudahLulus(level){ return bacaLulus()[level]===true; }
-    function simpanLulus(level){ var st=bacaLulus(); st[level]=true; localStorage.setItem(PROGRES_KEY,JSON.stringify(st)); }
-
-    function bisaBuka(level){
-        if(isDev) return true;
-        var i=urutanLevel.indexOf(level);
-        if(i>=LEVEL_TERSEDIA_SISWA) return false;
-        if(i<=0) return true;
-        return sudahLulus(urutanLevel[i-1]);
-    }
-    function cs(level){ return !isDev && urutanLevel.indexOf(level)>=LEVEL_TERSEDIA_SISWA; }
-
-    // ============ 4. State & util ============
-    var bankLevel=null, soalLatihan=[], nomor=0, jawabanUser=[], skor=0, detik=0, timerInterval=null, currentLevel=null;
-
-    function shuffle(a){ var arr=a.slice(); for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;} return arr; }
-    function fmt(d){ var m=Math.floor(d/60),s=d%60; return (m<10?'0':'')+m+':'+(s<10?'0':'')+s; }
-
-    // ============ 5. ACak OPSI JAWABAN (SEMUA mapel) ============
-    function siapkanAcak(soalAsli){
-        var pasang=soalAsli.pilihan.map(function(t,i){ return {t:t,i:i}; });
-        var ac=shuffle(pasang);
-        var pilihanBaru=ac.map(function(x){ return x.t; });
-        var kunciBaru=-1;
-        for(var k=0;k<ac.length;k++){ if(ac[k].i===soalAsli.kunci){ kunciBaru=k; break; } }
-        if(kunciBaru<0) kunciBaru=0;
-        return { soal:soalAsli.soal, pilihan:pilihanBaru, kunci:kunciBaru };
-    }
-
-    // ============ 6. Render level ============
-    function renderLevel(){
-        var box=document.getElementById('levelButtons'); box.innerHTML='';
-        if(!bankLevel) return;
-        urutanLevel.forEach(function(level){
-            var jml=(bankLevel[level]||[]).length;
-            var buka=bisaBuka(level), lulus=sudahLulus(level), coming=cs(level);
-            var ikon='',kelas='';
-            if(lulus){ ikon=' ✅'; kelas=' lulus'; }
-            else if(coming){ ikon=' 🔒'; kelas=' segera'; }
-            else if(buka){ ikon=' ▶️'; }
-            else { ikon=' 🔒'; kelas=' terkunci'; }
-            var b=document.createElement('button');
-            b.className='level-btn'+kelas;
-            b.textContent=level+' - '+labelLevel[level]+' ('+jml+')'+ikon;
-            if(coming){ b.onclick=(function(lv){return function(){alert('🚧 Level '+lv+' ('+labelLevel[lv]+') akan segera dibuka. Sabar ya 😊');};})(level); }
-            else if(buka){ b.onclick=(function(lv,el){return function(){pilihLevel(lv,el);};})(level,b); }
-            else { b.onclick=(function(lv){return function(){alert('🔒 Level '+lv+' terkunci!\nLuluskan level sebelumnya dulu.');};})(level); }
-            box.appendChild(b);
-        });
-    }
-    function pilihLevel(level,el){
-        if(!bisaBuka(level)) return;
-        currentLevel=level;
-        document.querySelectorAll('.level-btn').forEach(function(x){x.classList.remove('active');});
-        el.classList.add('active');
-        var total=(bankLevel[level]||[]).length;
-        document.getElementById('infoTersedia').innerHTML=
-            '📚 Level <b>'+level+' ('+labelLevel[level]+')</b>: tersedia <b>'+total+' soal</b>. '+
-            'Selesaikan 10 soal, raih nilai ≥ '+NILAI_MIN_LULUS+' untuk buka level berikutnya.';
-        document.getElementById('btnMulai').disabled=false;
-    }
-
-    // ============ 7. Mulai & tampil ============
-    function mulai(){
-        if(!currentLevel){alert('Pilih level dulu!');return;}
-        var bankLv=bankLevel[currentLevel]||[];
-        if(bankLv.length===0){alert('Bank kosong');return;}
-        soalLatihan=shuffle(bankLv).slice(0,10).map(siapkanAcak); // diacak + opsi diacak
-        nomor=0; jawabanUser=[]; skor=0; detik=0;
-        if(timerInterval) clearInterval(timerInterval);
-        timerInterval=setInterval(function(){detik++;document.getElementById('timer').textContent=fmt(detik);},1000);
-        document.getElementById('levelSelectCard').style.display='none';
-        document.getElementById('questionArea').classList.add('show');
-        document.getElementById('resultArea').classList.remove('show');
-        tampil();
-    }
-    function tampil(){
-        var soal=soalLatihan[nomor], total=soalLatihan.length;
-        document.getElementById('progressBar').style.width=((nomor/total)*100)+'%';
-        document.getElementById('skorLive').textContent=skor;
-        var huruf=['A','B','C','D','E'];
-        var h='<div class="question-card"><span class="q-number">Soal '+(nomor+1)+' / '+total+'</span>'+
-              '<h3>'+soal.soal+'</h3><div id="optionsList">';
-        soal.pilihan.forEach(function(pil,i){
-            h+='<button class="option-btn" onclick="pilihJawaban('+i+')"><span class="option-letter">'+huruf[i]+'.</span> '+pil+'</button>';
-        });
-        h+='</div></div>';
-        document.getElementById('questionContainer').innerHTML=h;
-        var bs=document.getElementById('btnSelesai');
-        bs.innerHTML='✅ Selesai & Lihat Hasil';
-        bs.onclick=function(){selesai();};
-    }
-    // ============ 8. Jawab ============
-    window.pilihJawaban=function(idx){
-        var soal=soalLatihan[nomor];
-        var all=document.querySelectorAll('.option-btn');
-        var benar=(idx===soal.kunci);
-        if(benar) skor++;
-        jawabanUser.push({soal:soal.soal,pilihan:soal.pilihan,pilihanUser:idx,kunci:soal.kunci,benar:benar});
-        all.forEach(function(btn,i){ btn.disabled=true; if(i===soal.kunci)btn.classList.add('correct'); if(i===idx&&idx!==soal.kunci)btn.classList.add('wrong'); });
-        document.getElementById('skorLive').textContent=skor;
-        var bs=document.getElementById('btnSelesai');
-        if(nomor<soalLatihan.length-1){ bs.innerHTML='➡️ Soal Berikutnya'; bs.onclick=function(){nomor++;tampil();}; }
-        else { bs.innerHTML='✅ Selesai & Lihat Hasil'; bs.onclick=function(){selesai();}; }
-    };
-    // ============ 9. Selesai ============
-    function selesai(){
-        clearInterval(timerInterval);
-        while(jawabanUser.length<soalLatihan.length){ var s=soalLatihan[jawabanUser.length]; jawabanUser.push({soal:s.soal,pilihan:s.pilihan,pilihanUser:-1,kunci:s.kunci,benar:false}); }
-        document.getElementById('questionArea').classList.remove('show');
-        document.getElementById('resultArea').classList.add('show');
-        var benar=jawabanUser.filter(function(j){return j.benar;}).length, total=soalLatihan.length;
-        document.getElementById('scoreAkhir').textContent=benar+'/'+total;
-        var pct=(benar/total)*100, lulus=(pct>=NILAI_MIN_LULUS);
-        // riwayat
-        try{
-            var k='riwayatLatihan_'+userId, rv=[]; try{rv=JSON.parse(localStorage.getItem(k))||[];}catch(e){}
-            var nw=new Date(); function dua(x){return (x<10?'0':'')+x;}
-            var stamp=nw.getFullYear()+'-'+dua(nw.getMonth()+1)+'-'+dua(nw.getDate())+' '+dua(nw.getHours())+':'+dua(nw.getMinutes());
-            rv.push({tanggal:stamp,mapel:KODE,bab:PARAM_BAB,level:currentLevel,benar:benar,total:total,nilai:Math.round(pct),lulus:lulus});
-            if(rv.length>200)rv=rv.slice(-200); localStorage.setItem(k,JSON.stringify(rv));
-        }catch(e){}
-        // pesan & level
-        var msg,bText,bColor;
-        if(pct>=90){msg='🌟 Luar biasa! Kamu sangat paham!';bText='🏅 SANGAT BAIK';bColor='#f59e0b';}
-        else if(pct>=75){msg='👍 Bagus sekali!';bText='🎖️ BAGUS';bColor='#22c55e';}
-        else if(pct>=60){msg='😊 Cukup baik.';bText='📈 CUKUP';bColor='#3b82f6';}
-        else if(pct>=40){msg='💪 Ayo coba lagi!';bText='📚 PERLU BELAJAR';bColor='#f97316';}
-        else {msg='📖 Baca lagi materinya ya!';bText='💡 MULAI ULANG';bColor='#ef4444';}
-        var adaLanjut=false,lvNext=null;
-        if(lulus){
-            simpanLulus(currentLevel);
-            var ci=urutanLevel.indexOf(currentLevel);
-            var batas=isDev?urutanLevel.length:LEVEL_TERSEDIA_SISWA;
-            if(ci>=0&&ci+1<batas){adaLanjut=true;lvNext=urutanLevel[ci+1];}
-        }
-        if(lulus){
-            if(adaLanjut){msg+='\n✅ Lulus! Level '+lvNext+' ('+labelLevel[lvNext]+') terbuka.';notif('🎉 Level '+currentLevel+' lulus!\nLevel '+lvNext+' ('+labelLevel[lvNext]+') terbuka!');}
-            else if(!isDev){msg+='\n🏅 Kamu menyelesaikan semua level yang tersedia saat ini!\n🚧 Level lanjutan segera hadir. Terus berlatih ya!';notif('🎉 Level '+currentLevel+' lulus! Semua level tersedia selesai.');}
-            else if(currentLevel==='C5'){msg+='\n🏁 Hebat! Kamu menuntaskan semua level.';notif('🏆 Semua level selesai!');}
-        }
-        document.getElementById('resultMsg').textContent=msg;
-        var badge=document.getElementById('levelBadge');
-        badge.textContent=bText+' • Level '+currentLevel; badge.style.background=bColor;
-        review(); renderLevel();
-    }
-    function review(){
-        var L=document.getElementById('reviewList'),huruf=['A','B','C','D','E'];
-        var h='<h3 style="margin:15px 0;">📋 Pembahasan:</h3>';
-        jawabanUser.forEach(function(j,i){
-            h+='<div class="review-item"><div class="r-question">'+(i+1)+'. '+j.soal+'</div>';
-            j.pilihan.forEach(function(pil,idx){
-                var st='';
-                if(idx===j.kunci)st='border-left:4px solid #22c55e;padding-left:8px;';
-                if(idx===j.pilihanUser&&!j.benar)st='border-left:4px solid #ef4444;padding-left:8px;';
-                var mark=(idx===j.kunci)?' ✔':((idx===j.pilihanUser&&!j.benar)?' ✘':'');
-                h+='<div class="r-answer" style="'+st+'">'+huruf[idx]+'. '+pil+mark+'</div>';
-            });
-            if(!j.benar)h+='<div class="kunci">💡 Jawaban benar: <b>'+huruf[j.kunci]+'. '+j.pilihan[j.kunci]+'</b></div>';
-            h+='</div>';
-        });
-        L.innerHTML=h;
-    }
-    function ulangiLatihan(){ document.getElementById('resultArea').classList.remove('show'); document.getElementById('levelSelectCard').style.display='block'; resetQ(); renderLevel(); }
-    function resetQ(){ nomor=0;jawabanUser=[];skor=0;detik=0; if(timerInterval)clearInterval(timerInterval);
-        document.getElementById('timer').textContent='00:00';document.getElementById('skorLive').textContent='0';
-        document.getElementById('btnMulai').disabled=true;document.querySelectorAll('.level-btn').forEach(function(b){b.classList.remove('active');});
-        currentLevel=null;document.getElementById('infoTersedia').innerHTML='📚 Silakan pilih level.';
-        document.getElementById('questionArea').classList.remove('show'); }
+    function bacaLulus(){try{return JSON.parse(localStorage.getItem(PROGRES_KEY))||{};}catch(e){return {};}}
+    function sudahLulus(level){return bacaLulus()[level]===true;}
+    function simpanLulus(level){var st=bacaLulus();st[level]=true;localStorage.setItem(PROGRES_KEY,JSON.stringify(st));}
+    function bisaBuka(level){if(isDev)return true;var i=urutanLevel.indexOf(level);if(i>=LEVEL_TERSEDIA_SISWA)return false;if(i<=0)return true;return sudahLulus(urutanLevel[i-1]);}
+    function cs(level){return !isDev&&urutanLevel.indexOf(level)>=LEVEL_TERSEDIA_SISWA;}
+    var bankLevel=null,soalLatihan=[],nomor=0,jawabanUser=[],skor=0,detik=0,timerInterval=null,currentLevel=null;
+    function shuffle(a){var arr=a.slice();for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}return arr;}
+    function fmt(d){var m=Math.floor(d/60),s=d%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+    function siapkanAcak(soalAsli){var pasang=soalAsli.pilihan.map(function(t,i){return{t:t,i:i};});var ac=shuffle(pasang);var pl=ac.map(function(x){return x.t;});var kb=-1;for(var k=0;k<ac.length;k++){if(ac[k].i===soalAsli.kunci){kb=k;break;}}if(kb<0)kb=0;return{soal:soalAsli.soal,pilihan:pl,kunci:kb};}
+    function renderLevel(){var box=document.getElementById('levelButtons');box.innerHTML='';if(!bankLevel)return;urutanLevel.forEach(function(level){var jml=(bankLevel[level]||[]).length;var buka=bisaBuka(level),lulus=sudahLulus(level),coming=cs(level);var ikon='',kelas='';if(lulus){ikon=' ✅';kelas=' lulus';}else if(coming){ikon=' 🔒';kelas=' segera';}else if(buka){ikon=' ▶️';}else{ikon=' 🔒';kelas=' terkunci';}var b=document.createElement('button');b.className='level-btn'+kelas;b.textContent=level+' - '+labelLevel[level]+' ('+jml+')'+ikon;if(coming){b.onclick=(function(lv){return function(){alert('🚧 Level '+lv+' ('+labelLevel[lv]+') akan segera dibuka. Sabar ya 😊');};})(level);}else if(buka){b.onclick=(function(lv,el){return function(){pilihLevel(lv,el);};})(level,b);}else{b.onclick=(function(lv){return function(){alert('🔒 Level '+lv+' terkunci!\nLuluskan level sebelumnya dulu.');};})(level);}box.appendChild(b);});}
+    function pilihLevel(level,el){if(!bisaBuka(level))return;currentLevel=level;document.querySelectorAll('.level-btn').forEach(function(x){x.classList.remove('active');});el.classList.add('active');var total=(bankLevel[level]||[]).length;document.getElementById('infoTersedia').innerHTML='📚 Level <b>'+level+' ('+labelLevel[level]+')</b>: tersedia <b>'+total+' soal</b>. Selesaikan 10 soal, raih nilai ≥ '+NILAI_MIN_LULUS+' utk buka level berikutnya.';document.getElementById('btnMulai').disabled=false;}
+    function mulai(){if(!currentLevel){alert('Pilih level dulu!');return;}var bankLv=bankLevel[currentLevel]||[];if(bankLv.length===0){alert('Bank kosong');return;}soalLatihan=shuffle(bankLv).slice(0,10).map(siapkanAcak);nomor=0;jawabanUser=[];skor=0;detik=0;if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(function(){detik++;document.getElementById('timer').textContent=fmt(detik);},1000);document.getElementById('levelSelectCard').style.display='none';document.getElementById('questionArea').classList.add('show');document.getElementById('resultArea').classList.remove('show');tampil();}
+    function tampil(){var soal=soalLatihan[nomor],total=soalLatihan.length;document.getElementById('progressBar').style.width=((nomor/total)*100)+'%';document.getElementById('skorLive').textContent=skor;var huruf=['A','B','C','D','E'];var h='<div class="question-card"><span class="q-number">Soal '+(nomor+1)+' / '+total+'</span><h3>'+soal.soal+'</h3><div id="optionsList">';soal.pilihan.forEach(function(pil,i){h+='<button class="option-btn" onclick="pilihJawaban('+i+')"><span class="option-letter">'+huruf[i]+'.</span> '+pil+'</button>';});h+='</div></div>';document.getElementById('questionContainer').innerHTML=h;var bs=document.getElementById('btnSelesai');bs.innerHTML='✅ Selesai & Lihat Hasil';bs.onclick=function(){selesai();};}
+    window.pilihJawaban=function(idx){var soal=soalLatihan[nomor];var all=document.querySelectorAll('.option-btn');var benar=(idx===soal.kunci);if(benar)skor++;jawabanUser.push({soal:soal.soal,pilihan:soal.pilihan,pilihanUser:idx,kunci:soal.kunci,benar:benar});all.forEach(function(btn,i){btn.disabled=true;if(i===soal.kunci)btn.classList.add('correct');if(i===idx&&idx!==soal.kunci)btn.classList.add('wrong');});document.getElementById('skorLive').textContent=skor;var bs=document.getElementById('btnSelesai');if(nomor<soalLatihan.length-1){bs.innerHTML='➡️ Soal Berikutnya';bs.onclick=function(){nomor++;tampil();};}else{bs.innerHTML='✅ Selesai & Lihat Hasil';bs.onclick=function(){selesai();};}};
+    function selesai(){clearInterval(timerInterval);while(jawabanUser.length<soalLatihan.length){var s=soalLatihan[jawabanUser.length];jawabanUser.push({soal:s.soal,pilihan:s.pilihan,pilihanUser:-1,kunci:s.kunci,benar:false});}document.getElementById('questionArea').classList.remove('show');document.getElementById('resultArea').classList.add('show');var benar=jawabanUser.filter(function(j){return j.benar;}).length,total=soalLatihan.length;document.getElementById('scoreAkhir').textContent=benar+'/'+total;var pct=(benar/total)*100,lulus=(pct>=NILAI_MIN_LULUS);try{var k='riwayatLatihan_'+userId,rv=[];try{rv=JSON.parse(localStorage.getItem(k))||[];}catch(e){}var nw=new Date();function dua(x){return(x<10?'0':'')+x;}var stamp=nw.getFullYear()+'-'+dua(nw.getMonth()+1)+'-'+dua(nw.getDate())+' '+dua(nw.getHours())+':'+dua(nw.getMinutes());rv.push({tanggal:stamp,mapel:KODE,bab:PARAM_BAB,level:currentLevel,benar:benar,total:total,nilai:Math.round(pct),lulus:lulus});if(rv.length>200)rv=rv.slice(-200);localStorage.setItem(k,JSON.stringify(rv));}catch(e){}
+        var msg,bText,bColor;if(pct>=90){msg='🌟 Luar biasa! Kamu sangat paham!';bText='🏅 SANGAT BAIK';bColor='#f59e0b';}else if(pct>=75){msg='👍 Bagus sekali!';bText='🎖️ BAGUS';bColor='#22c55e';}else if(pct>=60){msg='😊 Cukup baik.';bText='📈 CUKUP';bColor='#3b82f6';}else if(pct>=40){msg='💪 Ayo coba lagi!';bText='📚 PERLU BELAJAR';bColor='#f97316';}else{msg='📖 Baca lagi materinya ya!';bText='💡 MULAI ULANG';bColor='#ef4444';}
+        var adaLanjut=false,lvNext=null;if(lulus){simpanLulus(currentLevel);var ci=urutanLevel.indexOf(currentLevel);var batas=isDev?urutanLevel.length:LEVEL_TERSEDIA_SISWA;if(ci>=0&&ci+1<batas){adaLanjut=true;lvNext=urutanLevel[ci+1];}}
+        if(lulus){if(adaLanjut){msg+='\n✅ Lulus! Level '+lvNext+' ('+labelLevel[lvNext]+') terbuka.';notif('🎉 Level '+currentLevel+' lulus!\nLevel '+lvNext+' ('+labelLevel[lvNext]+') terbuka!');}else if(!isDev){msg+='\n🏅 Kamu menyelesaikan semua level yang tersedia saat ini!\n🚧 Level lanjutan segera hadir. Terus berlatih ya!';notif('🎉 Level '+currentLevel+' lulus! Semua level tersedia selesai.');}else if(currentLevel==='C5'){msg+='\n🏁 Hebat! Kamu menuntaskan semua level.';notif('🏆 Semua level selesai!');}}
+        document.getElementById('resultMsg').textContent=msg;var badge=document.getElementById('levelBadge');badge.textContent=bText+' • Level '+currentLevel;badge.style.background=bColor;review();renderLevel();}
+    function review(){var L=document.getElementById('reviewList'),huruf=['A','B','C','D','E'];var h='<h3 style="margin:15px 0;">📋 Pembahasan:</h3>';jawabanUser.forEach(function(j,i){h+='<div class="review-item"><div class="r-question">'+(i+1)+'. '+j.soal+'</div>';j.pilihan.forEach(function(pil,idx){var st='';if(idx===j.kunci)st='border-left:4px solid #22c55e;padding-left:8px;';if(idx===j.pilihanUser&&!j.benar)st='border-left:4px solid #ef4444;padding-left:8px;';var mark=(idx===j.kunci)?' ✔':((idx===j.pilihanUser&&!j.benar)?' ✘':'');h+='<div class="r-answer" style="'+st+'">'+huruf[idx]+'. '+pil+mark+'</div>';});if(!j.benar)h+='<div class="kunci">💡 Jawaban benar: <b>'+huruf[j.kunci]+'. '+j.pilihan[j.kunci]+'</b></div>';h+='</div>';});L.innerHTML=h;}
+    function ulangiLatihan(){document.getElementById('resultArea').classList.remove('show');document.getElementById('levelSelectCard').style.display='block';resetQ();renderLevel();}
+    function resetQ(){nomor=0;jawabanUser=[];skor=0;detik=0;if(timerInterval)clearInterval(timerInterval);document.getElementById('timer').textContent='00:00';document.getElementById('skorLive').textContent='0';document.getElementById('btnMulai').disabled=true;document.querySelectorAll('.level-btn').forEach(function(b){b.classList.remove('active');});currentLevel=null;document.getElementById('infoTersedia').innerHTML='📚 Silakan pilih level.';document.getElementById('questionArea').classList.remove('show');}
     function notif(m){var el=document.getElementById('notifOpen');el.textContent=m;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},4500);}
     function keluar(e){if(e)e.preventDefault();localStorage.removeItem('user');window.location.href='auth.html';}
     window.keluar=keluar;window.renderLevelButtons=renderLevel;window.mulaiLatihan=mulai;window.ulangiLatihan=ulangiLatihan;
-    document.getElementById('btnMulai').addEventListener('click',function(){ if(currentLevel)mulai(); else alert('Pilih level dulu!'); });
-
-    // ============ 10. Muat bank soal KONST (via tag skrip) ============
-    (function muat(){
-        // jika sudah tersedia (misal IPAS IPAS yang dipakai file tetap lain), langsung ambil
-        var sudah=ambilBank(KONF.glob);
-        if(sudah){ bankLevel=sudah; renderLevel(); return; }
-        var s=document.createElement('script');
-        s.src=KONF.src;
-        s.onload=function(){
-            bankLevel=ambilBank(KONF.glob);
-            if(!bankLevel){
-                document.getElementById('levelSelectCard').innerHTML=
-                    '<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ Bank Soal Kosong</h2>'+
-                    '<p style="color:#e2e8f0;margin-top:10px;">Variabel <b>'+KONF.glob+'</b> tidak ditemukan setelah memuat '+KONF.src+'.</p><br>'+
-                    '<a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
-                return;
-            }
-            renderLevel();
-        };
-        s.onerror=function(){
-            document.getElementById('levelSelectCard').innerHTML=
-                '<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ File bank soal tidak ditemukan</h2>'+
-                '<p style="color:#e2e8f0;margin-top:10px;">File <b>'+KONF.src+'</b> belum diunggah/ditemukan.</p><br>'+
-                '<a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';
-            document.getElementById('questionArea').style.display='none';document.getElementById('resultArea').style.display='none';
-        };
-        document.head.appendChild(s);
-    })();
+    document.getElementById('btnMulai').addEventListener('click',function(){if(currentLevel)mulai();else alert('Pilih level dulu!');});
+    (function muat(){function ambil(g){return ambilBankFix(g);}var sudah=ambil(KONF.glob);if(sudah){bankLevel=sudah;renderLevel();return;}var s=document.createElement('script');s.src=KONF.src;s.onload=function(){bankLevel=ambil(KONF.glob);if(!bankLevel){document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ Bank Soal Kosong</h2><p style="color:#e2e8f0;margin-top:10px;">Variabel <b>'+KONF.glob+'</b> tidak ditemukan setelah memuat '+KONF.src+'.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';return;}renderLevel();};s.onerror=function(){document.getElementById('levelSelectCard').innerHTML='<div style="text-align:center;"><h2 style="color:#fbbf24;">⚠️ File bank soal tidak ditemukan</h2><p style="color:#e2e8f0;margin-top:10px;">File <b>'+KONF.src+'</b> belum diunggah/ditemukan.</p><br><a href="dashboard.html" class="btn-kembali">← Kembali ke Dashboard</a></div>';document.getElementById('questionArea').style.display='none';document.getElementById('resultArea').style.display='none';};document.head.appendChild(s);})();
     </script>
 </body>
 </html>
