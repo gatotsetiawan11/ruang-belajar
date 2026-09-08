@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,11 +7,7 @@
   <title>Pilih Mapel - Kelas 3</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
@@ -28,113 +25,33 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(10, 10, 30, 0.55); /* gelap transparan */
+      background: rgba(10, 10, 30, 0.55);
       z-index: -1;
     }
 
     /* ===== ANIMASI BINTANG ===== */
-    .stars {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      background: transparent;
-    }
+    .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; background: transparent; }
+    .star { position: absolute; width: 3px; height: 3px; background: white; border-radius: 50%; opacity: 0.5; animation: twinkle 3s infinite ease-in-out; }
+    @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.9; } }
 
-    .star {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.5;
-      animation: twinkle 3s infinite ease-in-out;
-    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; position: relative; z-index: 1; }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.9; }
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Navigasi layar */
     .screen { display: none; }
     .screen.active { display: block; }
 
-    header {
-      text-align: center;
-      margin-bottom: 0.6rem;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    }
+    header { text-align: center; margin-bottom: 0.6rem; color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
     header h1 { font-size: 1.8rem; font-weight: 800; }
     header p { margin-top: 0.3rem; opacity: 0.8; color: #e0e0ff; }
 
-    /* ===== TOPBAR LOGIN + LOGOUT ===== */
-    .topbar-user {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 1.2rem;
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
-      padding: 0.65rem 1rem;
-    }
+    .topbar-user { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.2rem; background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 0.65rem 1rem; }
     .user-who { font-size: 0.95rem; color: #e0e0ff; font-weight: 600; }
-    .user-who .tag-admin {
-      display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.4px;
-      background: linear-gradient(135deg,#8b5cf6,#6366f1);
-      color:#fff; padding: 2px 10px; border-radius: 20px; margin-left: 8px; vertical-align: middle;
-    }
-    .btn-logout {
-      background: transparent;
-      border: 1px solid rgba(248,113,113,0.6);
-      color: #fca5a5;
-      padding: 0.45rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.85rem;
-      transition: 0.2s;
-    }
+    .user-who .tag-admin { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.4px; background: linear-gradient(135deg,#8b5cf6,#6366f1); color:#fff; padding: 2px 10px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
+    .btn-logout { background: transparent; border: 1px solid rgba(248,113,113,0.6); color: #fca5a5; padding: 0.45rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 0.85rem; transition: 0.2s; }
     .btn-logout:hover { background: rgba(239,68,68,0.2); }
 
-    /* Grid mapel - 5 kolom = 1 baris */
-    .grid-mapel {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1rem;
-    }
-
-    .card-mapel {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      padding: 1.5rem 0.8rem;
-      text-align: center;
-      cursor: pointer;
-      border-top: 5px solid #c7d2fe;
-      transition: 0.2s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-    .card-mapel:hover {
-      transform: translateY(-4px) scale(1.02);
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
+    .grid-mapel { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+    .card-mapel { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 1.5rem 0.8rem; text-align: center; cursor: pointer; border-top: 5px solid #c7d2fe; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .card-mapel:hover { transform: translateY(-4px) scale(1.02); background: rgba(255, 255, 255, 0.2); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
     .card-mapel .emoji { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
     .card-mapel .name { font-weight: 700; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
 
@@ -143,155 +60,102 @@
     .c-bindo { border-top-color: #34d399; }
     .c-ipas { border-top-color: #fbbf24; }
     .c-bing { border-top-color: #a78bfa; }
-
-    /* ✅ Kartu admin (khusus terlihat untuk developer)
-       Gaya beda warna agar menonjol tapi tetap satu baris dgn mapel */
-    .card-admin {
-      border-top-color: #e879f9;
-      background: linear-gradient(140deg, rgba(168,85,247,0.25), rgba(99,102,241,0.25));
-    }
+    .card-admin { border-top-color: #e879f9; background: linear-gradient(140deg, rgba(168,85,247,0.25), rgba(99,102,241,0.25)); }
     .card-admin:hover { background: linear-gradient(140deg, rgba(168,85,247,0.4), rgba(99,102,241,0.4)); }
 
-    /* ===== GRID FITUR ADMIN (muncul setelah klik kartu admin) ===== */
-    .admin-panel {
-      display: none;
-      margin-top: 1.6rem;
-      padding: 1.4rem;
-      background: rgba(15, 15, 35, 0.4);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(167, 139, 250, 0.4);
-      border-radius: 18px;
-    }
+    .admin-panel { display: none; margin-top: 1.6rem; padding: 1.4rem; background: rgba(15, 15, 35, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(167, 139, 250, 0.4); border-radius: 18px; }
     .admin-panel.active { display: block; }
     .admin-panel .admin-title { text-align: center; margin-bottom: 1rem; }
     .admin-panel .admin-title h3 { color:#fff; font-weight: 800; font-size: 1.3rem; }
     .admin-panel .admin-title p { color:#c4b5fd; font-size: 0.85rem; margin-top: 3px; }
-    .admin-close {
-      float: right; background: transparent; border:1px solid #475569;
-      color:#cbd5e1; border-radius: 20px; padding:4px 12px; font-weight:700; cursor:pointer;
-    }
+    .admin-close { float: right; background: transparent; border:1px solid #475569; color:#cbd5e1; border-radius: 20px; padding:4px 12px; font-weight:700; cursor:pointer; }
     .admin-close:hover{ background:#334155; }
-    .admin-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 0.8rem;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .admin-feat {
-      background: linear-gradient(140deg, rgba(124,58,237,0.2), rgba(59,130,246,0.2));
-      border: 1px solid rgba(167,139,250,0.5);
-      border-radius: 14px;
-      padding: 1.6rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+    .admin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 0.8rem; max-width: 760px; margin-left: auto; margin-right: auto; }
+    .admin-feat { background: linear-gradient(140deg, rgba(124,58,237,0.2), rgba(59,130,246,0.2)); border: 1px solid rgba(167,139,250,0.5); border-radius: 14px; padding: 1.6rem 1rem; text-align: center; cursor: pointer; transition: 0.2s; }
     .admin-feat:hover { transform: translateY(-3px); background: linear-gradient(140deg, rgba(124,58,237,0.38), rgba(59,130,246,0.38)); }
     .admin-feat .icon { font-size: 2rem; display:block; margin-bottom: 0.4rem; }
     .admin-feat .ftitle { font-weight: 800; color:#fff; font-size: 1.05rem; }
     .admin-feat .fdesc { color:#ddd6fe; font-size: 0.82rem; margin-top: 0.4rem; line-height:1.4; }
 
-    .btn-back {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #fff;
-      padding: 0.5rem 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.2s;
-    }
+    .btn-back { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.3); color: #fff; padding: 0.5rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; text-decoration: none; border:none; margin-right:8px; }
     .btn-back:hover { background: rgba(255, 255, 255, 0.35); }
 
     .topbar { margin-bottom: 1.2rem; }
-
     .screen-header { text-align: center; margin-bottom: 1.8rem; }
-    .screen-header h2 {
-      font-size: 1.5rem;
-      color: #ffffff;
-      font-weight: 800;
-      text-shadow: 0 0 15px rgba(147, 197, 253, 0.6);
-    }
+    .screen-header h2 { font-size: 1.5rem; color: #ffffff; font-weight: 800; text-shadow: 0 0 15px rgba(147, 197, 253, 0.6); }
     .screen-header p { font-size: 0.9rem; opacity: 0.8; color: #dbeafe; }
 
-    .grid-bab {
-      display: grid;
-      grid-template-columns: 1fr;
-      max-width: 680px;
-      margin: 0 auto;
-      gap: 0.7rem;
-    }
-
-    .card-bab {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 14px;
-      padding: 0.9rem 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      cursor: pointer;
-      border-left: 6px solid #93c5fd;
-      transition: 0.15s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-
-      width: 480px;
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .card-bab:hover {
-      background: rgba(147, 197, 253, 0.25);
-      border-left-color: #60a5fa;
-      transform: translateX(5px);
-    }
-
-    .bab-num {
-      background: rgba(96, 165, 250, 0.3);
-      backdrop-filter: blur(2px);
-      border: 1px solid rgba(147, 197, 253, 0.5);
-      color: #fff;
-      font-weight: 700;
-      padding: 0.3rem 0.7rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      min-width: 60px;
-      text-align: center;
-    }
-
+    .grid-bab { display: grid; grid-template-columns: 1fr; max-width: 680px; margin: 0 auto; gap: 0.7rem; }
+    .card-bab { background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 0.9rem 1.1rem; display: flex; align-items: center; gap: 0.9rem; cursor: pointer; border-left: 6px solid #93c5fd; transition: 0.15s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 480px; max-width: 100%; margin-left: auto; margin-right: auto; }
+    .card-bab:hover { background: rgba(147, 197, 253, 0.25); border-left-color: #60a5fa; transform: translateX(5px); }
+    .bab-num { background: rgba(96, 165, 250, 0.3); backdrop-filter: blur(2px); border: 1px solid rgba(147, 197, 253, 0.5); color: #fff; font-weight: 700; padding: 0.3rem 0.7rem; border-radius: 8px; font-size: 0.8rem; min-width: 60px; text-align: center; }
     .bab-title { font-weight: 600; color: #eef2ff; }
-
-    .card-bab.locked {
-      opacity: 0.6;
-      cursor: not-allowed;
-      border-left-color: #475569 !important;
-      background: rgba(100, 116, 139, 0.15);
-      filter: grayscale(0.5);
-      transform: none !important;
-      box-shadow: none;
-    }
-    .card-bab.locked:hover {
-      background: rgba(100, 116, 139, 0.15);
-      transform: none;
-    }
+    .card-bab.locked { opacity: 0.6; cursor: not-allowed; border-left-color: #475569 !important; background: rgba(100, 116, 139, 0.15); filter: grayscale(0.5); transform: none !important; box-shadow: none; }
+    .card-bab.locked:hover { background: rgba(100, 116, 139, 0.15); transform: none; }
     .card-bab.locked .bab-title { color: #94a3b8; }
-    .card-bab .lock-note {
-      margin-left: auto;
-      font-size: 0.8rem;
-      color: #fca5a5;
-      white-space: nowrap;
-      font-weight: 600;
-    }
+    .card-bab .lock-note { margin-left: auto; font-size: 0.8rem; color: #fca5a5; white-space: nowrap; font-weight: 600; }
     .card-bab .lock-ico { margin-left: auto; font-size: 1rem; }
+
+    /* =========================================================
+       GAYA KHUSUS PANEL ADMIN INTERNAL (Kelola & Laporan)
+       ========================================================= */
+    .admin-panel-scroll {
+      background: rgba(15,15,35,0.45);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(167,139,250,0.4);
+      border-radius: 18px;
+      padding: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .admin-panel-scroll h2 { text-align:center; font-weight:800; margin-bottom:4px; color:#fff; }
+    .admin-panel-scroll .subtitle { text-align:center; color:#c4b5fd; font-size:.9rem; margin-bottom:1.3rem; }
+    .aform { background: rgba(20,25,50,0.5); border:1px solid #3b4a63; border-radius: 14px; padding: 1rem 1.1rem; margin-bottom: 1.2rem; }
+    .aform h4 { color:#e0e7ff; margin-bottom:.8rem; font-size:1rem; }
+    .aform .row { display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; }
+    .field { display:flex; flex-direction:column; gap:5px; margin-right:6px; }
+    .field label { font-size:.75rem; color:#a5b4fc; font-weight:700; }
+    .ainput { background: rgba(10,15,32,0.7); border:1px solid #475569; color:#e2e8f0; padding:.55rem .8rem; border-radius:8px; font-size:.95rem; outline:none; }
+    .ainput:focus { border-color:#a78bfa; }
+    .abtn { background: linear-gradient(135deg,#8b5cf6,#6366f1); color:#fff; border:none; padding:.55rem 1.05rem; border-radius: 8px; cursor:pointer; font-weight:700; font-size:.88rem; transition:.2s; }
+    .abtn:hover { filter:brightness(1.15); }
+    .abtn.green { background: linear-gradient(135deg,#10b981,#059669); }
+    .abtn.red { background: linear-gradient(135deg,#ef4444,#dc2626); }
+    .abtn.ghost { background: rgba(15,23,42,0.5); border:1px solid #6366f1; }
+    .admin-table { width:100%; border-collapse: collapse; font-size:.9rem; background:rgba(15,23,42,0.35); border-radius:10px; overflow:hidden; }
+    .admin-table th,.admin-table td { border:1px solid rgba(148,163,184,0.2); padding:.55rem .7rem; text-align:left; }
+    .admin-table th { background: rgba(99,102,241,0.22); color:#e0e7ff; font-size:.82rem; }
+    .admin-table tr:nth-child(even) { background: rgba(30,41,59,0.25); }
+    .badge-admin { background: rgba(168,85,247,0.2); color:#e9d5ff; border:1px solid #a78bfa; font-size:.65rem; padding:1px 8px; border-radius:12px; }
+    .msg-admin { margin-top:8px; font-size:.85rem; min-height: 16px; font-weight:600; }
+    .msg-ok { color:#4ade80; }
+    .msg-err { color:#f87171; }
+    .empty { color:#94a3b8; text-align:center; padding:1.4rem; font-size:.9rem; }
+    .laporan-toolbar { margin-bottom:1rem; }
+    .laporan-toolbar label { font-size:.85rem; color:#c4b5fd; margin-right:8px; font-weight:700; }
+    .laporan-toolbar select { font-size:.95rem; }
+    .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:14px 0; }
+    .stat-box { background: rgba(20,25,55,0.6); border:1px solid rgba(99,102,241,0.4); border-radius:14px; padding:.9rem; text-align:center; }
+    .stat-box .num { font-size:1.9rem; font-weight:800; color:#a78bfa; }
+    .stat-box .lab { font-size:.75rem; color:#c4b5fd; margin-top:4px; font-weight:600; text-transform: uppercase; letter-spacing:.4px; }
+    .mapel-progress { margin: 12px 0; }
+    .mp-title { font-size:.85rem; color:#e0e7ff; font-weight:800; margin:10px 0 4px; }
+    .chip { display:inline-block; font-size:.72rem; padding:2px 10px; border-radius:12px; font-weight:700; margin:2px 4px 0 0; }
+    .chip.ok { background:rgba(34,197,94,.18); color:#86efac; border:1px solid #22c55e; }
+    .chip.no { background:rgba(71,85,105,.25); color:#94a3b8; border:1px solid #475569; }
+    .tb-row-empty { text-align:center; color:#94a3b8; padding:.8rem; }
+    .table-wrap { overflow-x:auto; }
+    .hidden { display:none !important; }
+
+    /* Tabs kecil utk sesuaikan jika ingin */
+    .mini-tabs { display:flex; gap:8px; justify-content:center; margin-bottom:1.2rem; flex-wrap:wrap; }
+    .mini-tab { background:rgba(20,25,55,0.5); border:1px solid #4f46e5; color:#c7d2fe; padding:.45rem 1.1rem; border-radius:22px; font-weight:700; font-size:.85rem; cursor:pointer; }
+    .mini-tab.active { background:linear-gradient(135deg,#8b5cf6,#6366f1); color:#fff; }
 
     @media (max-width: 700px) {
       .grid-mapel { grid-template-columns: repeat(2, 1fr); }
       .admin-grid { grid-template-columns: 1fr; }
+      .admin-panel-scroll { padding:1rem; }
     }
     @media (max-width: 500px) {
       .card-bab { flex-wrap: wrap; gap: 0.5rem; }
@@ -312,7 +176,7 @@
       <button class="btn-logout" onclick="keluar()">🚪 Keluar</button>
     </div>
 
-    <!-- ===== LAYAR 1 : DAFTAR MAPEL & KARTU ADMIN ===== -->
+    <!-- ===== LAYAR 1 : DAFTAR MAPEL ===== -->
     <div id="screen-mapel" class="screen active">
       <header>
         <h1>🚀 Pilih Mata Pelajaran</h1>
@@ -320,31 +184,25 @@
       </header>
 
       <div class="grid-mapel" id="gridMapel">
-        <!-- Kartu mapel standar -->
         <div class="card-mapel c-pancasila" onclick="bukaDaftarBabPancasila()">
-          <span class="emoji">🦅</span>
-          <div class="name">Pancasila</div>
+          <span class="emoji">🦅</span><div class="name">Pancasila</div>
         </div>
         <div class="card-mapel c-matematika" onclick="bukaDaftarBabMatematika()">
-          <span class="emoji">➕</span>
-          <div class="name">Matematika</div>
+          <span class="emoji">➕</span><div class="name">Matematika</div>
         </div>
         <div class="card-mapel c-bindo" onclick="bukaDaftarBabBindo()">
-          <span class="emoji">📖</span>
-          <div class="name">Bahasa Indonesia</div>
+          <span class="emoji">📖</span><div class="name">Bahasa Indonesia</div>
         </div>
         <div class="card-mapel c-ipas" onclick="bukaDaftarBabIPAS()">
-          <span class="emoji">🔬</span>
-          <div class="name">IPAS</div>
+          <span class="emoji">🔬</span><div class="name">IPAS</div>
         </div>
         <div class="card-mapel c-bing" onclick="bukaDaftarBabBing()">
-          <span class="emoji">🌍</span>
-          <div class="name">Bahasa Inggris</div>
+          <span class="emoji">🌍</span><div class="name">Bahasa Inggris</div>
         </div>
-        <!-- 👑 Kartu Admin - dibangkitkan lewat JS bila user = developer -->
+        <!-- 👑 Kartu Admin disisipkan lewat JS bila user = developer -->
       </div>
 
-      <!-- Panel 2 fitur admin (muncul saat klik kartu Admin) -->
+      <!-- Panel ringkas 2 fitur admin (dropdown singkat saat klik kartu Admin) -->
       <div class="admin-panel" id="adminPanel">
         <div class="admin-title">
           <button class="admin-close" onclick="tutupAdminPanel()">✖ Tutup</button>
@@ -352,12 +210,12 @@
           <p>Pilih salah satu fitur pengelolaan di bawah.</p>
         </div>
         <div class="admin-grid">
-          <div class="admin-feat" onclick="goAdmin('kelola')">
+          <div class="admin-feat" onclick="bukaKelola()">
             <span class="icon">👥</span>
             <div class="ftitle">Kelola Akun Siswa</div>
             <div class="fdesc">Tambah, hapus akun siswa, dan ubah PIN.</div>
           </div>
-          <div class="admin-feat" onclick="goAdmin('laporan')">
+          <div class="admin-feat" onclick="bukaLaporan()">
             <span class="icon">📊</span>
             <div class="ftitle">Laporan Perkembangan</div>
             <div class="fdesc">Lihat perkembangan belajar tiap siswa.</div>
@@ -366,13 +224,9 @@
       </div>
     </div>
 
-    <!-- ===== LAYAR DAFTAR BAB (tetap seperti di file Anda) ===== -->
-
-    <!-- IPAS -->
+    <!-- ===== LAYAR DAFTAR BAB (tetap sama) ===== -->
     <div id="screen-bab-ipas" class="screen">
-      <div class="topbar">
-        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button>
-      </div>
+      <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
       <div class="screen-header"><h2>🔬 IPAS</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
       <div class="grid grid-bab-ipas">
         <div class="card-bab" onclick="pilihBab(1)"><span class="bab-num">Bab 1</span><span class="bab-title">Keajaiban Tubuhku</span></div>
@@ -389,7 +243,6 @@
       </div>
     </div>
 
-    <!-- PANCASILA -->
     <div id="screen-bab-pancasila" class="screen">
       <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
       <div class="screen-header"><h2>🦅 Pancasila</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
@@ -401,7 +254,6 @@
       </div>
     </div>
 
-    <!-- MATEMATIKA -->
     <div id="screen-bab-matematika" class="screen">
       <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
       <div class="screen-header"><h2>➕ Matematika</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
@@ -414,7 +266,6 @@
       </div>
     </div>
 
-    <!-- BAHASA INDONESIA -->
     <div id="screen-bab-bindo" class="screen">
       <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
       <div class="screen-header"><h2>📖 Bahasa Indonesia</h2><p>Pilih bab yang ingin kamu pelajari.</p></div>
@@ -426,7 +277,6 @@
       </div>
     </div>
 
-    <!-- BAHASA INGGRIS -->
     <div id="screen-bab-bing" class="screen">
       <div class="topbar"><button class="btn-back" onclick="kembaliKeMapel()">&#8592; Kembali ke Mapel</button></div>
       <div class="screen-header"><h2>🌍 Bahasa Inggris</h2><p>Pilih chapter yang ingin kamu pelajari.</p></div>
@@ -437,6 +287,63 @@
         <div class="card-bab" onclick="pilihBabBing(4)"><span class="bab-num">Ch 4</span><span class="bab-title">My School</span></div>
         <div class="card-bab" onclick="pilihBabBing(5)"><span class="bab-num">Ch 5</span><span class="bab-title">My Classroom</span></div>
         <div class="card-bab" onclick="pilihBabBing(6)"><span class="bab-num">Ch 6</span><span class="bab-title">My Teacher</span></div>
+      </div>
+    </div>
+
+    <!-- ===== LAYAR BARU 1 : KELOLA AKUN SISWA ===== -->
+    <div id="screen-kelola" class="screen">
+      <div class="topbar">
+        <button class="btn-back" onclick="kembaliKePanelAdmin()">&#8592; Kembali ke Panel Admin</button>
+        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Mapel</button>
+      </div>
+      <div class="screen-header"><h2>👥 Kelola Akun Siswa</h2><p>Tambah akun baru, ubah PIN, atau hapus akun siswa.</p></div>
+
+      <div class="admin-panel-scroll">
+        <!-- Form Tambah -->
+        <div class="aform">
+          <h4>➕ Tambah Akun Siswa</h4>
+          <div class="row">
+            <div class="field">
+              <label>Nama Lengkap</label>
+              <input type="text" id="namaBaruInput" class="ainput" style="width:230px;" maxlength="50" placeholder="cth: Bima Saputra">
+            </div>
+            <div class="field">
+              <label>PIN (6 digit)</label>
+              <input type="password" id="pinBaruInput" class="ainput" style="width:150px;" maxlength="6" inputmode="numeric" placeholder="••••••">
+            </div>
+            <button class="abtn green" onclick="tambahAkunSiswa()">➕ Simpan Akun</button>
+          </div>
+          <div class="msg-admin" id="msgTambah"></div>
+        </div>
+
+        <!-- Daftar Siswa -->
+        <h4 style="color:#e0e7ff;margin:.4rem 0 .5rem;">📋 Daftar Akun Siswa</h4>
+        <div class="table-wrap">
+          <table class="admin-table" id="tabelSiswa">
+            <thead><tr><th style="width:40px;">No</th><th>Nama</th><th>ID</th><th style="width:190px;">Aksi</th></tr></thead>
+            <tbody id="tbodySiswa"><tr><td colspan="4" class="tb-row-empty">Memuat...</td></tr></tbody>
+          </table>
+        </div>
+        <div class="msg-admin" id="msgKelola"></div>
+      </div>
+    </div>
+
+    <!-- ===== LAYAR BARU 2 : LAPORAN PERKEMBANGAN ===== -->
+    <div id="screen-laporan" class="screen">
+      <div class="topbar">
+        <button class="btn-back" onclick="kembaliKePanelAdmin()">&#8592; Kembali ke Panel Admin</button>
+        <button class="btn-back" onclick="kembaliKeMapel()">&#8592; Mapel</button>
+      </div>
+      <div class="screen-header"><h2>📊 Laporan Perkembangan</h2><p>Pantau level tuntas &amp; riwayat latihan siswa.</p></div>
+
+      <div class="admin-panel-scroll">
+        <div class="laporan-toolbar">
+          <label for="pilihSiswaLaporan">👤 Pilih Siswa:</label>
+          <select id="pilihSiswaLaporan" class="ainput" style="min-width:220px;" onchange="renderLaporan()">
+            <option value="">(memilih...)</option>
+          </select>
+        </div>
+        <div id="isiLaporan"><div class="empty">Pilih siswa di atas untuk melihat laporan perkembangannya.</div></div>
       </div>
     </div>
 
@@ -453,187 +360,285 @@
 
     function isLoginValid() { return currentUser && currentUser.id; }
     function isDev() { return currentUser && (currentUser.developer === true || currentUser.isAdmin === true); }
+    function bacaPengguna() { try { return JSON.parse(localStorage.getItem('user')); } catch (e) { return null; } }
 
-    // Kalau belum login, lempar ke halaman auth
     if (!isLoginValid()) { location.href = 'auth.html'; }
 
-    function keluar() {
-      localStorage.removeItem('user');
-      location.href = 'auth.html';
-    }
+    function keluar() { localStorage.removeItem('user'); location.href = 'auth.html'; }
 
     // ============================================
-    // 1. AMBIL GAMBAR LUAR ANGKASA DARI NASA
+    // 1. AMBIL GAMBAR NASA
     // ============================================
     function ambilGambarNASA() {
       document.body.style.backgroundImage = "url('https://images-assets.nasa.gov/image/PIA23418/PIA23418~orig.jpg')";
-
       fetch('https://api.nasa.gov/planetary/apod?api_key=5KVkZFoh9UxMmhBjhthSfGpP86jaO7xJFu1LcbKB&thumbs=true')
-        .then(function (res) {
-          if (!res.ok) throw new Error('Gagal ambil APOD');
-          return res.json();
-        })
+        .then(function (res) { if (!res.ok) throw new Error('x'); return res.json(); })
         .then(function (data) {
           var imgUrl = data.url && data.url.includes('youtube') ? data.thumbnail_url : data.url;
-          if (imgUrl && imgUrl.indexOf('http') === 0) {
-            var preload = new Image();
-            preload.onload = function () { document.body.style.backgroundImage = "url('" + imgUrl + "')"; };
-            preload.src = imgUrl;
-          }
+          if (imgUrl && imgUrl.indexOf('http') === 0) { var p = new Image(); p.onload = function(){ document.body.style.backgroundImage="url('"+imgUrl+"')"; }; p.src = imgUrl; }
         })
-        .catch(function () { console.log('Fallback ke gambar galaksi NASA'); });
+        .catch(function () {});
     }
 
-    // ============================================
-    // 2. BUAT BINTANG BERKELAP-KELIP
-    // ============================================
     function buatBintang() {
-      var starContainer = document.getElementById('starfield');
-      starContainer.innerHTML = '';
-      for (var i = 0; i < 80; i++) {
-        var star = document.createElement('div');
-        star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.width = (Math.random() * 2 + 1) + 'px';
-        star.style.height = star.style.width;
-        star.style.animationDelay = (Math.random() * 3) + 's';
-        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        starContainer.appendChild(star);
-      }
+      var sc = document.getElementById('starfield'); sc.innerHTML = '';
+      for (var i = 0; i < 80; i++) { var s = document.createElement('div'); s.className='star';
+        s.style.left = Math.random()*100+'%'; s.style.top = Math.random()*100+'%';
+        s.style.width = (Math.random()*2+1)+'px'; s.style.height = s.style.width;
+        s.style.animationDelay = Math.random()*3+'s'; s.style.animationDuration = (Math.random()*2+2)+'s'; sc.appendChild(s); }
     }
 
     // ============================================
-    // 3. TAMPILKAN NAMA USER DI TOPBAR + KARTU ADMIN
+    // 3. TOPBAR + KARTU ADMIN
     // ============================================
     function aturTopDanKartuAdmin() {
       var disp = document.getElementById('userDisplay');
-
       if (isDev()) {
-        // Admin: tampilkan sapaan dengan tag Admin + sediakan kartu Admin
-        disp.innerHTML = '👑 Halo, <b>' + (currentUser.nama || 'Admin') + '</b>' +
-                         '<span class="tag-admin">ADMIN</span>';
+        disp.innerHTML = '👑 Halo, <b>' + (currentUser.nama || 'Admin') + '</b><span class="tag-admin">ADMIN</span>';
         tambahKartuAdmin();
-        document.getElementById('sapaanHeader').textContent =
-          'Halo, ' + (currentUser.nama || 'Admin') + '! Dashboard sama seperti siswa. Gunakan kartu 👑 Admin untuk mengelola.';
+        document.getElementById('sapaanHeader').textContent = 'Halo, ' + (currentUser.nama || 'Admin') + '! Dashboard sama seperti siswa. Gunakan kartu 👑 Admin untuk mengelola.';
       } else {
         disp.innerHTML = '👤 Halo, <b>' + (currentUser.nama || '') + '</b>';
-        document.getElementById('sapaanHeader').textContent =
-          'Halo! Pilih mapel yang ingin kamu pelajari hari ini.';
+        document.getElementById('sapaanHeader').textContent = 'Halo! Pilih mapel yang ingin kamu pelajari hari ini.';
       }
     }
 
-    // Sisipkan kartu Admin sebagai elemen ke-6 di grid mapel
     function tambahKartuAdmin() {
-      var grid = document.getElementById('gridMapel');
-      if (!grid) return;
-
-      var card = document.createElement('div');
-      card.className = 'card-mapel card-admin';
+      var grid = document.getElementById('gridMapel'); if (!grid) return;
+      var card = document.createElement('div'); card.className = 'card-mapel card-admin';
       card.onclick = function () { bukaAdminPanel(); };
       card.innerHTML = '<span class="emoji">👑</span><div class="name">Admin</div>';
       grid.appendChild(card);
     }
 
-    // Tampilkan / sembunyikan panel 2 fitur admin
-    function bukaAdminPanel() {
-      document.getElementById('adminPanel').classList.add('active');
-    }
-    function tutupAdminPanel() {
-      document.getElementById('adminPanel').classList.remove('active');
-    }
+    function bukaAdminPanel() { document.getElementById('adminPanel').classList.add('active'); }
+    function tutupAdminPanel() { document.getElementById('adminPanel').classList.remove('active'); }
 
-    // Arahkan ke halaman admin.html dengan tab tertentu
-    function goAdmin(tab) {
-      window.location.href = 'admin.html?tab=' + tab;
-    }
-
-    // ============================================
-    // 4. LOGIKA GEMBOK BAB 2 IPAS
-    //    (developer SELALU dianggap terbuka agar bisa testing)
-    // ============================================
-    function ambilStatusLulusBab1(userId) {
-      try { return JSON.parse(localStorage.getItem('levelLulus_IPAS_' + userId)) || {}; }
-      catch (e) { return {}; }
-    }
-
-    function cekBab2Terbuka() {
-      // Developer/Admin selalu bisa membuka Bab 2 (untuk keperluan testing)
-      if (isDev()) return true;
-
-      var user = bacaPengguna();
-      if (!user || !user.id) return false;
-      var st = ambilStatusLulusBab1(user.id);
-      return (st.C3 === true);
-    }
-
-    function bacaPengguna() {
-      try { return JSON.parse(localStorage.getItem('user')); }
-      catch (e) { return null; }
-    }
-
-    function aturStatusBab2() {
-      var card = document.getElementById('ipasBab2Card');
-      var note = document.getElementById('ipasBab2Note');
-      if (!card) return;
-
-      if (cekBab2Terbuka()) {
-        card.classList.remove('locked');
-        card.style.cursor = 'pointer';
-        card.onclick = function () { pilihBab(2); };
-        if (note) note.style.display = 'none';
-      } else {
-        card.classList.add('locked');
-        card.style.cursor = 'not-allowed';
-        card.onclick = function () {
-          alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
-        };
-        if (note) note.style.display = '';
-      }
-    }
-
-    function cobaMasukBab2() {
-      if (cekBab2Terbuka()) {
-        pilihBab(2);
-      } else {
-        alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.');
-      }
-    }
-
-    // ============================================
-    // 5. JALANKAN SAAT HALAMAN DIMUAT
-    // ============================================
-    document.addEventListener('DOMContentLoaded', function () {
-      if (!isLoginValid()) return; // sudah redirect di atas
-
-      ambilGambarNASA();
-      buatBintang();
-      aturTopDanKartuAdmin();
-      aturStatusBab2();
-    });
-
-    // ============================================
-    // 6. NAVIGASI LAYAR
-    // ============================================
+    // ===== NAVIGASI LAYAR =====
     function gantiScreen(id) {
       document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
-      document.getElementById(id).classList.add('active');
+      var el = document.getElementById(id); if (el) el.classList.add('active');
+      window.scrollTo(0, 0);
     }
+    function kembaliKeMapel() { tutupAdminPanel(); gantiScreen('screen-mapel'); }
 
-    function bukaDaftarBabIPAS()     { gantiScreen('screen-bab-ipas'); }
-    function bukaDaftarBabPancasila(){ gantiScreen('screen-bab-pancasila'); }
-    function bukaDaftarBabMatematika(){ gantiScreen('screen-bab-matematika'); }
-    function bukaDaftarBabBindo()    { gantiScreen('screen-bab-bindo'); }
-    function bukaDaftarBabBing()     { gantiScreen('screen-bab-bing'); }
+    // Kembali dari layar kelola/laporan ke panel ringkas admin di layar mapel
+    function kembaliKePanelAdmin() { tutupAdminPanel(); gantiScreen('screen-mapel'); }
 
-    function kembaliKeMapel() { gantiScreen('screen-mapel'); }
+    // Buka daftar bab
+    function bukaDaftarBabIPAS()      { tutupAdminPanel(); gantiScreen('screen-bab-ipas'); }
+    function bukaDaftarBabPancasila() { tutupAdminPanel(); gantiScreen('screen-bab-pancasila'); }
+    function bukaDaftarBabMatematika(){ tutupAdminPanel(); gantiScreen('screen-bab-matematika'); }
+    function bukaDaftarBabBindo()     { tutupAdminPanel(); gantiScreen('screen-bab-bindo'); }
+    function bukaDaftarBabBing()      { tutupAdminPanel(); gantiScreen('screen-bab-bing'); }
 
     function pilihBab(babNo) { window.location.href = 'latihan.html?mapel=IPAS&bab=' + babNo; }
-    function pilihBabPancasila(babNo)   { window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo; }
-    function pilihBabMatematika(babNo)  { window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo; }
-    function pilihBabBindo(babNo)       { window.location.href = 'latihan.html?mapel=BINDO&bab=' + babNo; }
-    function pilihBabBing(babNo) { window.location.href = 'latihan.html?mapel=INGGRIS&bab=' + babNo; }
-  </script>
+    function pilihBabPancasila(babNo)  { window.location.href = 'latihan.html?mapel=Pancasila&bab=' + babNo; }
+    function pilihBabMatematika(babNo) { window.location.href = 'latihan.html?mapel=Matematika&bab=' + babNo; }
+    function pilihBabBindo(babNo)      { window.location.href = 'latihan.html?mapel=BINDO&bab=' + babNo; }
+    function pilihBabBing(babNo)       { window.location.href = 'latihan.html?mapel=INGGRIS&bab=' + babNo; }
 
-<script>window.__CF$cv$params={r:'a376352c8afe744b',t:'MTc4ODc4OTI5MA==',u:'01a07c2678267df08f625962db72f088',ut:'EBC0Lnc0X2YUTbX.KM.2NyAVNAcLCitOSjZpAaRcCWs-1788789291-1.2.1.1-s8MI9.ZZw_kqc569CixT_OoCgvSkzBIQCLkN4A7IfHsYryaN.C2TjLR8gFgdcp4G_HJgql.2SJtpxCxyK9e_GZdFeVpqk5gLcHtT.zeszAk',i:60};(function(){if(!document.body)return;var s=document.createElement('script');s.src='/cdn-cgi/challenge-platform/scripts/precursor/main.js';document.head.appendChild(s);})();</script></body>
+    // ============================================
+    // 4. GEMBOK IPAS BAB 2 (tetap)
+    // ============================================
+    function ambilStatusLulusBab1(userId) { try { return JSON.parse(localStorage.getItem('levelLulus_IPAS_' + userId)) || {}; } catch (e) { return {}; } }
+    function cekBab2Terbuka() { if (isDev()) return true; var u = bacaPengguna(); if (!u || !u.id) return false; return ambilStatusLulusBab1(u.id).C3 === true; }
+    function aturStatusBab2() {
+      var card = document.getElementById('ipasBab2Card'); var note = document.getElementById('ipasBab2Note'); if (!card) return;
+      if (cekBab2Terbuka()) { card.classList.remove('locked'); card.style.cursor='pointer'; card.onclick=function(){pilihBab(2);}; if(note) note.style.display='none'; }
+      else { card.classList.add('locked'); card.style.cursor='not-allowed'; card.onclick=function(){ cobaMasukBab2(); }; if(note) note.style.display=''; }
+    }
+    function cobaMasukBab2() {
+      if (cekBab2Terbuka()) { pilihBab(2); }
+      else { alert('🔒 Bab 2 (IPAS) masih terkunci!\nSelesaikan Bab 1 minimal Level C3 untuk membukanya.'); }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!isLoginValid()) return;
+      ambilGambarNASA(); buatBintang(); aturTopDanKartuAdmin(); aturStatusBab2();
+    });
+
+    // ================================================================
+    // ============  FITUR ADMIN TERINTEGRASI (NO admin.html) ============
+    // ================================================================
+
+    // ---- UTILITAS ADMIN ----
+    function adalahAdminSistem(u) {
+      // 'ADMIN' adalah akun developer dari auth.html; sembarang id yang ditandai dev/admin.
+      return u && (u.id === 'ADMIN' || u.developer === true || u.isAdmin === true);
+    }
+    function daftarSiswa() { try { return JSON.parse(localStorage.getItem('pengguna')) || []; } catch (e) { return []; } }
+    function simpanDaftarSiswa(arr) { localStorage.setItem('pengguna', JSON.stringify(arr)); }
+    async function hashPin(pin) { const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin)); return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
+    function normalisasiNama(nama) { return nama.toLowerCase().split(/\s+/).filter(k=>k.length).map(k=>k.charAt(0).toUpperCase()+k.slice(1)).join(' '); }
+    var KODE_MAPEL_LABEL = { IPAS:'IPAS', INGGRIS:'Bahasa Inggris', BINDO:'Bahasa Indonesia', MTK:'Matematika', PANCASILA:'Pancasila' };
+
+    // Buka salah satu fitur admin (dipanggil tombol di panel ringkas)
+    function goAdmin(tab) {   // ← dipertahankan nama, tapi TIDAK pindah halaman
+      if (tab === 'kelola') bukaKelola();
+      else if (tab === 'laporan') bukaLaporan();
+    }
+    function bukaKelola() {
+      if (!isDev()) { alert('Anda bukan Admin.'); kembaliKeMapel(); return; }
+      tutupAdminPanel();
+      gantiScreen('screen-kelola');
+      renderTabelSiswa();
+    }
+    function bukaLaporan() {
+      if (!isDev()) { alert('Anda bukan Admin.'); kembaliKeMapel(); return; }
+      tutupAdminPanel();
+      gantiScreen('screen-laporan');
+      isiPilihanSiswa();
+    }
+
+    // ================= KELOLA AKUN SISWA =================
+    // Tambah akun baru (nama + PIN)
+    async function tambahAkunSiswa() {
+      var m = document.getElementById('msgTambah'); m.className='msg-admin'; m.innerHTML='';
+      var namaEl = document.getElementById('namaBaruInput');
+      var pinEl = document.getElementById('pinBaruInput');
+      var nama = (namaEl.value || '').trim();
+      var pin = (pinEl.value || '').trim();
+      if (!nama) { m.className='msg-admin msg-err'; m.innerHTML='❌ Nama tidak boleh kosong.'; return; }
+      if (!/^\d{6}$/.test(pin)) { m.className='msg-admin msg-err'; m.innerHTML='❌ PIN harus 6 digit angka.'; return; }
+      if (nama.toLowerCase() === 'gatot setiawan') { m.className='msg-admin msg-err'; m.innerHTML='❌ Nama milik Admin, tidak bisa didaftarkan.'; return; }
+      var list = daftarSiswa();
+      if (list.some(function(u){ return u.nama.toLowerCase() === nama.toLowerCase(); })) {
+        m.className='msg-admin msg-err'; m.innerHTML='⚠️ Nama "' + normalisasiNama(nama) + '" sudah terdaftar.'; return;
+      }
+      var pinHash = await hashPin(pin);
+      list.push({ id: 'U' + Date.now(), nama: normalisasiNama(nama), pinHash: pinHash });
+      simpanDaftarSiswa(list);
+      namaEl.value=''; pinEl.value='';
+      m.className='msg-admin msg-ok'; m.innerHTML='✅ Akun siswa "' + normalisasiNama(nama) + '" berhasil ditambahkan.';
+      renderTabelSiswa();
+    }
+
+    // Pratinjau daftar + aksi per baris
+    function renderTabelSiswa() {
+      var tb = document.getElementById('tbodySiswa'); if (!tb) return;
+      var list = daftarSiswa().filter(function (u) { return !adalahAdminSistem(u); }); // siswa saja
+      if (list.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="tb-row-empty">Belum ada akun siswa.</td></tr>'; return; }
+      var h = '';
+      list.forEach(function (u, i) {
+        h += '<tr><td>' + (i+1) + '</td><td>' + u.nama + '</td>' +
+             '<td style="color:#94a3b8;font-size:.8rem;">' + u.id + '</td>' +
+             '<td><button class="abtn ghost" style="padding:.35rem .7rem;margin-right:6px;" onclick="ubahPinSiswa(\'' + u.id + '\',\'' + u.nama.replace(/'/g, "\\'") + '\')">🔑 Ubah PIN</button>' +
+             '<button class="abtn red" style="padding:.35rem .7rem;" onclick="hapusSiswa(\'' + u.id + '\',\'' + u.nama.replace(/'/g, "\\'") + '\')">🗑️ Hapus</button></td></tr>';
+      });
+      tb.innerHTML = h;
+    }
+
+    // Ubah PIN (disimpan sebagai hash agar login tetap valid)
+    async function ubahPinSiswa(id, nama) {
+      var msg = document.getElementById('msgKelola'); msg.className='msg-admin'; msg.innerHTML='';
+      var baru = prompt('🔑 Ubah PIN untuk "' + nama + '"\nMasukkan PIN baru (6 digit angka):');
+      if (baru === null) return;
+      baru = (baru || '').trim();
+      if (!/^\d{6}$/.test(baru)) { msg.className='msg-admin msg-err'; msg.innerHTML='❌ PIN baru harus 6 digit angka.'; return; }
+      var list = daftarSiswa(); var u = list.find(function (x) { return x.id === id; });
+      if (!u) { msg.className='msg-admin msg-err'; msg.innerHTML='❌ Siswa tidak ditemukan.'; return; }
+      u.pinHash = await hashPin(baru);
+      simpanDaftarSiswa(list);
+      msg.className='msg-admin msg-ok'; msg.innerHTML='✅ PIN "' + nama + '" berhasil diubah.';
+    }
+
+    function hapusSiswa(id, nama) {
+      var msg = document.getElementById('msgKelola'); msg.className='msg-admin'; msg.innerHTML='';
+      if (!confirm('Hapus akun siswa "' + nama + '"?\nProgres & riwayatnya juga akan dihapus.')) return;
+      var list = daftarSiswa().filter(function (x) { return x.id !== id; });
+      simpanDaftarSiswa(list);
+      // Bersihkan data progres & riwayat utk id itu
+      ['IPAS','INGGRIS','BINDO','MTK','PANCASILA'].forEach(function (k) {
+        try { localStorage.removeItem('levelLulus_' + k + '_' + id); } catch(e){}
+      });
+      try { localStorage.removeItem('riwayatLatihan_' + id); } catch(e){}
+      msg.className='msg-admin msg-ok'; msg.innerHTML='✅ Akun & data "' + nama + '" dihapus.';
+      renderTabelSiswa();
+    }
+
+    // ================= LAPORAN PERKEMBANGAN =================
+    function isiPilihanSiswa() {
+      var sel = document.getElementById('pilihSiswaLaporan'); if (!sel) return;
+      var list = daftarSiswa().filter(function (u) { return !adalahAdminSistem(u); });
+      var h = '<option value="">(pilih siswa...)</option>';
+      list.forEach(function (u) { h += '<option value="' + u.id + '">' + u.nama + '</option>'; });
+      sel.innerHTML = h;
+      document.getElementById('isiLaporan').innerHTML = '<div class="empty">Pilih siswa di atas untuk melihat laporan.</div>';
+    }
+
+    function bacaRiwayat(userId) { try { return JSON.parse(localStorage.getItem('riwayatLatihan_' + userId)) || []; } catch (e) { return []; } }
+    function bacaLevelLulus(userId, kode) { try { return JSON.parse(localStorage.getItem('levelLulus_' + kode + '_' + userId)) || {}; } catch(e){ return {}; } }
+
+    function renderLaporan() {
+      var sel = document.getElementById('pilihSiswaLaporan');
+      var target = document.getElementById('isiLaporan');
+      var id = sel ? sel.value : '';
+      if (!id) { target.innerHTML = '<div class="empty">Pilih siswa terlebih dahulu.</div>'; return; }
+
+      var siswa = daftarSiswa().find(function(u){ return u.id === id; });
+      if (!siswa) { target.innerHTML = '<div class="empty">Siswa tidak ditemukan.</div>'; return; }
+      var nama = siswa.nama;
+      var riwayat = bacaRiwayat(id).slice().reverse(); // terbaru dulu
+      var mapelNama = { IPAS:'IPAS', INGGRIS:'Bahasa Inggris', BINDO:'Bahasa Indonesia', MTK:'Matematika', PANCASILA:'Pancasila' };
+
+      // Statistik ringkas
+      var jmlTes = riwayat.length;
+      var lulusCount = riwayat.filter(function(r){ return r.lulus; }).length;
+      var rata = 0; riwayat.forEach(function(r){ rata += (r.nilai||0); }); if (jmlTes) rata = Math.round(rata / jmlTes);
+      var mapelDikerjakan = {};
+      riwayat.forEach(function(r){ mapelDikerjakan[r.mapel] = true; });
+
+      // ====== BAGIAN: level tuntas per mapel ======
+      var levelLabels = ['C1','C2','C3','C4','C5'];
+      var hMapelLevel = '';
+      ['IPAS','INGGRIS','BINDO','MTK','PANCASILA'].forEach(function(k){
+        var st = bacaLevelLulus(id, k);
+        var okList = levelLabels.filter(function(l){ return st[l] === true; });
+        if (okList.length === 0 && !mapelDikerjakan[k]) return; // belum pernah sentuh mapel ini
+        var chips = okList.length ? okList.map(function(l){ return '<span class="chip ok">'+l+' ✅</span>'; }).join('')
+                                  : '<span class="chip no">Belum ada yang tuntas</span>';
+        hMapelLevel += '<div class="mp-title">📘 ' + (mapelNama[k]||k) + '</div>' + chips;
+      });
+      if (!hMapelLevel) { hMapelLevel = '<div class="mp-title" style="color:#94a3b8;">Belum ada mata pelajaran yang pernah dikerjakan.</div>'; }
+
+      // ====== BAGIAN: riwayat latihan ======
+      var hRiwayat;
+      if (riwayat.length === 0) {
+        hRiwayat = '<div class="empty">Belum ada riwayat latihan untuk siswa ini.</div>';
+      } else {
+        var baris = '';
+        riwayat.slice(0, 30).forEach(function(r){
+          var m = mapelNama[r.mapel] || r.mapel;
+          var levelTxt = r.level || '-';
+          var stLulus = r.lulus
+            ? '<span style="color:#4ade80;font-weight:700;">✅ Lulus</span>'
+            : '<span style="color:#f87171;font-weight:700;">❌ Belum</span>';
+          baris += '<tr><td>'+(r.tanggal||'-')+'</td><td>'+m+'</td><td>'+(r.bab!=null?('Bab '+r.bab):'-')+'</td>'+
+                   '<td>'+levelTxt+'</td><td>'+r.benar+'/'+r.total+'</td><td>'+ (r.nilai!=null?(r.nilai+' / 100'):'-') +'</td><td>'+stLulus+'</td></tr>';
+        });
+        if (riwayat.length > 30) baris += '<tr><td colspan="7" class="tb-row-empty">… menampilkan 30 latihan terakhir dari '+riwayat.length+'.</td></tr>';
+        hRiwayat = '<div class="table-wrap"><table class="admin-table"><thead><tr>'+
+                   '<th>Tanggal</th><th>Mapel</th><th>Bab</th><th>Level</th><th>Benar</th><th>Nilai</th><th>Status</th></tr></thead>'+
+                   '<tbody>'+baris+'</tbody></table></div>';
+      }
+
+      target.innerHTML =
+        '<div style="margin-bottom:.4rem;text-align:center;"><b style="font-size:1.3rem;color:#e2e8f0;">👤 ' + nama + '</b>' +
+        '<div style="color:#a5b4fc;font-size:.8rem;">ID: ' + id + '</div></div>' +
+        '<div class="stat-grid">' +
+          '<div class="stat-box"><div class="num">'+jmlTes+'</div><div class="lab">Total Latihan</div></div>' +
+          '<div class="stat-box"><div class="num">'+lulusCount+'</div><div class="lab">Lulus</div></div>' +
+          '<div class="stat-box"><div class="num">'+(jmlTes?rata:'0')+'</div><div class="lab">Rata-rata Nilai</div></div>' +
+          '<div class="stat-box"><div class="num">'+Object.keys(mapelDikerjakan).length+'</div><div class="lab">Mapel Aktif</div></div>' +
+        '</div>' +
+
+        '<h4 style="color:#e0e7ff;margin-top:1rem;">🧩 Level yang Sudah Dituntaskan (per Mapel)</h4>' +
+        '<div class="mapel-progress">'+hMapelLevel+'</div>' +
+
+        '<h4 style="color:#e0e7ff;margin-top:1.2rem;">🗂️ Riwayat Latihan Terakhir</h4>' +
+        hRiwayat;
+    }
+  </script>
+</body>
 </html>
